@@ -1,2 +1,2 @@
-# DictatorSim
+# KingSim
 Egy ország királyaként játszhatunk.
