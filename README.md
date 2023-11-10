@@ -3,8 +3,8 @@ Egy népmesébe illő paraszt gyerekként próbálhatunk szerencsét egy mítiku
 
 ## Helyszínek-Események
 1. Ház:                         Elbúcsúzni, láda kirámolása
-2. Falu:                        Megsimogatod a szomszéd kutyáját, beszélünk a pappal
-3. Bánya:                       50/50 Beomlik a bánya || 10 perc alatt gyémánt kihívás
+2. Falu:                        Megsimogatod a szomszéd kutyáját || beszélünk a pappal
+3. Bánya:                       50/50 Beomlik a bánya || Gyémánt keresés
 4. Föld:                        Pénzért dolgozni, megetetjük az állatokat
 5. Kovács:                      Páncél || Fegyver
 6. Kerekerdő:                   Banditák jönnek (küzdesz, fizetsz pénzzel)
@@ -55,9 +55,9 @@ Klasszikus kocka játék || Black jack(ha sok az időnk)
 ### Páncélok
 1. Bőr páncél
 2. Sima páncél
-3. Varázspáncél
-4. Sima sisak
-5. Lovagi páncél
+3. Lovagi páncél
+4. Varázspáncél
+5. Sima sisak(hozzáad a páncélzathoz a páncél lecserélése nélkül)
 ### Bájitalok
 1. Gyógyító bájital
 2. Sebzésnövelő bájital
