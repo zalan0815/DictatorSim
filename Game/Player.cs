@@ -6,18 +6,17 @@ using System.Threading.Tasks;
 
 namespace Game
 {
-    class Player
+    class Player : Character
     {
         #region VARIABLES
-        private int health;
         private int money;
 
         private int defaultHealth;
         private int defaultStrength;
         private int defaultSliderSpeed;
 
-        public Sword sword;
-        public Armor armor;
+        public Sword sword = new Sword("Fa kard",10);
+        public Armor armor = new Armor("Bőr ruha", 10);
         #endregion
 
         #region FIELDS
@@ -28,34 +27,24 @@ namespace Game
                 return new Item[2] {this.sword, this.armor};
             }
         }
-
-        public int Health
-        {
-            get { return health; }
-            set 
-            {
-                if (health <= value) {
-                    health = value;
-                }
-                else
-                {
-                    health = MaxHealth;
-                }
-                
-            }
-        }
         public int Money
         {
             get { return money; }
             set { money = value; }
         }
 
-
-        public int MaxHealth
+        public override int MaxHealth
         {
             get
             { 
                 return defaultHealth + calculateStat(StatType.Health);
+            }
+        }
+        public override int Damage
+        {
+            get
+            {
+                return defaultStrength + calculateStat(StatType.Damage);
             }
         }
 
@@ -67,23 +56,19 @@ namespace Game
             }
         }
 
-        public int Damage
-        {
-            get
-            {
-                return defaultStrength + calculateStat(StatType.Damage);
-            }
-        }
+        
         #endregion
 
-        public Player(int health, int strength, int sliderSpeed, int money)
+        public Player(int health, int strength, int sliderSpeed, int money, string name = "Palko")
         {
             this.defaultHealth = health;
             this.defaultStrength = strength;
             this.defaultSliderSpeed = sliderSpeed;
 
-            this.health = health;
-            this.money = money;
+            this.Health = health;
+            this.Money = money;
+
+            this.Name = name;
         }
 
         private int calculateStat(StatType type)

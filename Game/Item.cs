@@ -17,6 +17,7 @@ namespace Game
         private int stat;
         private int price;
 
+        #region FIELDS
         public string Name
         {
             get { return name; }
@@ -37,7 +38,7 @@ namespace Game
             get { return price; }
             set { price = value; }
         }
-
+        #endregion
     }
     class Sword : Item
     {
