@@ -39,6 +39,43 @@ namespace Game
             set { price = value; }
         }
         #endregion
+
+        public void WriteItemStat(bool withItemsName = true)
+        {
+            Console.BackgroundColor = ConsoleColor.Black;
+            if (withItemsName)
+            {
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.Write($"{this.Name} (");
+            }
+            Console.ForegroundColor = ConsoleColor.White;
+            ConsoleColor color;
+            string typeText;
+            switch (type)
+            {
+                case StatType.Health:
+                    color = ConsoleColor.Green;
+                    typeText = "hp";
+                    break;
+                case StatType.Damage:
+                    color = ConsoleColor.DarkRed;
+                    typeText = "dmg";
+                    break;
+                case StatType.SliderSpeed:
+                    color = ConsoleColor.Yellow;
+                    typeText = "prec";
+                    break;
+                default:
+                    color = ConsoleColor.Magenta;
+                    typeText = "";
+                    break;
+            }
+            Console.ForegroundColor = color;
+            Console.Write($"{this.Stat} {typeText}");
+            Console.ForegroundColor = ConsoleColor.White;
+            if (withItemsName) 
+                Console.Write(")");
+        }
     }
     class Sword : Item
     {

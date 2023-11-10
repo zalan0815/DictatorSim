@@ -101,7 +101,7 @@ namespace Game
             Console.CursorTop = Console.WindowTop + Console.WindowHeight - 2;
             Console.CursorLeft = 0;
 
-            Console.ForegroundColor = ConsoleColor.Red;
+            Console.ForegroundColor = ConsoleColor.DarkRed;
             Console.Write($"{enemy.Name} ");
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("életereje:");
