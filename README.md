@@ -8,7 +8,7 @@ Egy népmesébe illő paraszt gyerekként próbálhatunk szerencsét.
 4. Föld:                        Pénzért dolgozni, megetetjük az állatokat
 5. Kovács:                      Páncél || Fegyver
 6. Kerekerdő:                   Banditák jönnek (küzdesz, fizetsz pénzzel)
-7. Tisztás:                     Lóidomítás (2 szín), gyönyörködés a tájban
+7. Tisztás:                     Szikla egy karddal(csúszka) || gyönyörködés a tájban
 8. Bokor:                       Törp küldetése: elfogad -> bájital és pénz, nem fogad el 
 9. Hókuszpók háza:              Sziamiau őrzi az ajtót (harc), Hókuszpók bent (harc)
 10. Gombafalu:                  Jutalom (ha elfogadva), mulatás (életerőtöltés)
@@ -33,3 +33,30 @@ Egy népmesébe illő paraszt gyerekként próbálhatunk szerencsét.
 29. Sárkányfészek:              Találkozunk a sárkánnyal(BOSS) 3 feje van. Megküzdünk az 1. fejével || a 2.-al || 3.-al
 30. Kacsalábon forgó kacsalábon forgó palota:  Boldogan élünk amíg meg nem halunk || Visszamegyünk kocsmázni
 --------------------------------------------------------------------------------------------------VÉGE--------------------------------------------------------------------------------------------------------------
+
+
+## Harc
+Egy csúszkával tudunk ütni. Ettől függ az ütés sebzése és hogy talált-e. A kardok növelik a sebzést illetve lassíthatják a csúszka mozgását.(könnyebb nagyot ütni)
+Védekezésnél egy megadott billentyűt kell lenyomnunk egy rövid időn belül hogy kivédjük vagy tompítsuk az ellenfél támadását.
+
+## Szerencsejáték
+Klasszikus kocka játék || Black jack(ha sok az időnk)
+
+## Tárgyak
+### Fegyverek
+1. Kés(otthon találjuk)
+2. Sima kard
+3. Hosszú(kétkezes) kard
+4. Varázskard
+5. Pokolian jó kard
+6. Lézerkard
+### Páncélok
+1. Bőr páncél
+2. Sima páncél
+3. Varázspáncél
+4. Sima sisak
+5. Lovagi páncél
+### Bájitalok
+1. Gyógyító bájital
+2. Sebzésnövelő bájital
+3. Alkohol(gyógyít)
