@@ -32,6 +32,8 @@ Egy népmesébe illő paraszt gyerekként próbálhatunk szerencsét egy mítiku
 28. Kacsalábon forgó palota:    A király elmondja, hogy tudjuk legyőzni a sárkányt. ÉS A sárkány legyőzése után megkapjuk a jutalmunkat.
 29. Sárkányfészek:              Találkozunk a sárkánnyal(BOSS) 3 feje van. Megküzdünk az 1. fejével || a 2.-al || 3.-al
 30. Kacsalábon forgó kacsalábon forgó palota:  Boldogan élünk amíg meg nem halunk || Visszamegyünk kocsmázni
+
+![térkép]("https://github.com/zalan0815/Palko/Palko.png")
 --------------------------------------------------------------------------------------------------VÉGE--------------------------------------------------------------------------------------------------------------
 
 
