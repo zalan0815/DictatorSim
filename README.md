@@ -34,7 +34,6 @@ Egy népmesébe illő paraszt gyerekként próbálhatunk szerencsét egy mítiku
 30. Kacsalábon forgó kacsalábon forgó palota:  Boldogan élünk amíg meg nem halunk || Visszamegyünk kocsmázni
 
 ![térkép](Palko.png?raw=true)
---------------------------------------------------------------------------------------------------VÉGE--------------------------------------------------------------------------------------------------------------
 
 
 ## Harc
