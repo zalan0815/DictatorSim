@@ -16,19 +16,20 @@ Egy népmesébe illő paraszt gyerekként próbálhatunk szerencsét.
 12. Boszorkányház:              Boszorkány (küzdesz, fizetsz bájitallal) 
 13. Hegység:                    Sátrat versz (alszol, gyógyulsz)
 14. Óriások barlangja:          Óriás (küzdesz, fizetsz -> nem lehet) -> Tündér segít (ha igen: beenged Tündérországba, ha nem: nem)
-15. Kutyafejű tatárok országa:  1. Elvisznek a városba
+15. Kutyafejű tatárok országa:  1. Elvisznek a városba 2. Meglátjuk a csodaszarvast(befut az erdőbe)
 16. Kutyafejű tatárok városa:   Börtön (választás: csodaszarvas (varázserővel) elejtése, hogy elengedjenek || halál)
-17. Kutyafejű tatárok erdeje:   
-18. 
-19. 
-20. 
-21. 
-22. 
-23. 
-24. 
-25. 
-26. 
-27. 
-28. 
-29. 
-30. 
+17. Kutyafejű tatárok erdeje:   Egy bokor mögött kereshetjük a szarvast || egy fa mögött kereshetjük a szarvast -> megtaláljuk le tudjuk vadászni
+18. Remete:                     Megtudjuk hogy a királyságot egy gonosz sárkány fenyegeti és a legyőzője megkapja a királylányt és a királyság felét. ÉS Elmondja hogy a királyhoz 2 úton lehet eljutni
+19. Pokol:                      Találkozunk a Hétszűnyü Kapanyányi Monyókkal. Megfejtjük a találós kérdését || Megküzdünk vele
+20. Tündérország:               (Csak ha megemntettük a tündérkirálylányt) A továbbjutáshoz segítenünk kell egy tündernek || Viccet kell mesélni a tündérkirálynak(nem sikerül -> segíteni kell)
+21. Tündérország ház1:          Itt kereshetjük a tündér elveszett zsebkendőjét. Szekrényt megnézzük || Padlást megnézzük
+22. Tündérország ház2:          Itt is kereshetjük a tündér elveszett zsebkendőjét. Pincét megnézzük || Kandallóba benézünk
+23. Tündérország ház3:          Itt is kereshetjük a tündér elveszett zsebkendőjét. Az ott lakó tündér zsebébe belenézünk || Az ágy alá benézünk
+24. Tündérkirályság:            A tündérkirály szomorú és viccet kell mesélni Vicc1 elmesélése || Vicc2 elmesélése --> röhög\nem röhög
+25. Város:                      Koldus kéreget tőlünk Adunk neki pénzt || Nem adunk neki pénzt
+26. Kocsma:                     Ihatunk(regenerál) || Szerencsejátékozás
+27. Kereskedő:                  Páncélzat vásárlása || Fegyverek vásárlása
+28. Kacsalábon forgó palota:    A király elmondja, hogy tudjuk legyőzni a sárkányt. ÉS A sárkány legyőzése után megkapjuk a jutalmunkat.
+29. Sárkányfészek:              Találkozunk a sárkánnyal(BOSS) 3 feje van. Megküzdünk az 1. fejével || a 2.-al || 3.-al
+30. Kacsalábon forgó kacsalábon forgó palota:  Boldogan élünk amíg meg nem halunk || Visszamegyünk kocsmázni
+--------------------------------------------------------------------------------------------------VÉGE--------------------------------------------------------------------------------------------------------------
