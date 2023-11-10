@@ -40,13 +40,18 @@ namespace Game
         }
         #endregion
 
-        public void WriteItemStat(bool withItemsName = true)
+        public int WriteItemStat(bool withItemsName = true, bool writeOut = true)
         {
+            int lenght = 0;
             Console.BackgroundColor = ConsoleColor.Black;
             if (withItemsName)
             {
                 Console.ForegroundColor = ConsoleColor.White;
-                Console.Write($"{this.Name} (");
+                if (writeOut)
+                {
+                    Console.Write($"{this.Name} (");
+                }
+                lenght += $"{this.Name} (".Length;
             }
             Console.ForegroundColor = ConsoleColor.White;
             ConsoleColor color;
@@ -71,10 +76,22 @@ namespace Game
                     break;
             }
             Console.ForegroundColor = color;
-            Console.Write($"{this.Stat} {typeText}");
+            if(writeOut)
+            {
+                Console.Write($"{this.Stat} {typeText}");
+            }
+            lenght += $"{this.Stat} {typeText}".Length;
             Console.ForegroundColor = ConsoleColor.White;
-            if (withItemsName) 
-                Console.Write(")");
+            if (withItemsName)
+            {
+                if(writeOut)
+                {
+                    Console.Write(")");
+                }
+                lenght += 1;
+            }
+
+            return lenght;
         }
     }
     class Sword : Item

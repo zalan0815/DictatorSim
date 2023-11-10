@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Schema;
 
 namespace Game
 {
@@ -16,6 +17,8 @@ namespace Game
         private Character[] fightOrder = new Character[2];
 
         private Random random = new Random();
+        private int xMax;
+        private int yMax;
         public FightSystem(Player player, Enemy enemy, out bool Victory)
         {
             this.player = player;
@@ -89,6 +92,7 @@ namespace Game
 
         public void writeFight()
         {
+            #region TOP-LEFT REGION
             Console.Write($"Ellenfeled: ");
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine($"{enemy.Name}\n");
@@ -105,8 +109,9 @@ namespace Game
             Console.Write($"{enemy.Name} ");
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("életereje:");
+            #endregion
 
-
+            #region ENEMY'S HEALTH
             string enemyHealthText = $"{enemy.Health} / {enemy.MaxHealth}";
             int enemyHealthSize = (int)(Console.WindowWidth * ((float)enemy.Health / enemy.MaxHealth));
             int count = 0;
@@ -131,6 +136,38 @@ namespace Game
             Console.ForegroundColor = ConsoleColor.White;
             Console.BackgroundColor = ConsoleColor.Black;
             enemy.Health -= 10;
+            #endregion
+
+            #region YOUR STATS
+            int longest = "életerőd".Length;
+            foreach (Item item in player.Items)
+            {
+                if(longest < item.WriteItemStat(true, false))
+                {
+                    longest = item.WriteItemStat(true, false);
+                }
+            }
+            longest = longest >= $"{player.Health} / {player.MaxHealth}".Length ? longest : $"{player.Health} / {player.MaxHealth}".Length;
+
+            Console.CursorLeft = Console.WindowWidth - longest - 1;
+            Console.CursorTop = 0;
+            Console.ForegroundColor = ConsoleColor.DarkGreen;
+            Console.Write("Életerőd");
+            Console.CursorLeft = Console.WindowWidth - longest - 1;
+            Console.CursorTop += 1;
+            Console.Write($"{player.Health} / {player.MaxHealth}");
+            Console.CursorTop += 1;
+            foreach (Item item in player.Items)
+            {
+                Console.CursorLeft = Console.WindowWidth - longest - 1;
+                Console.CursorTop += 1;
+                item.WriteItemStat(true);
+            }
+            #endregion
+
+            xMax = Console.WindowWidth - longest - 2;
+            yMax = Console.WindowHeight - 3;
+
             Console.CursorLeft = x;
             Console.CursorTop = y;
         }
