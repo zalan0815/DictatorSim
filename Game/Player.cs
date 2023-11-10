@@ -49,6 +49,8 @@ namespace Game
             get { return money; }
             set { money = value; }
         }
+
+
         public int MaxHealth
         {
             get
@@ -79,6 +81,8 @@ namespace Game
             this.defaultHealth = health;
             this.defaultStrength = strength;
             this.defaultSliderSpeed = sliderSpeed;
+
+            this.health = health;
             this.money = money;
         }
 
