@@ -17,6 +17,8 @@ namespace Game
         private Character[] fightOrder = new Character[2];
 
         private Random random = new Random();
+        private int x;
+        private int y;
         private int xMax;
         private int yMax;
         public FightSystem(Player player, Enemy enemy, out bool Victory)
@@ -87,6 +89,11 @@ namespace Game
 
         private void enemyAttack()
         {
+            Console.CursorLeft = random.Next(0, xMax);
+            Console.CursorTop = random.Next(y, yMax);
+            Console.BackgroundColor = ConsoleColor.Cyan;
+            Console.Write(" ");
+            Console.BackgroundColor = ConsoleColor.Black;
 
         }
 
@@ -100,8 +107,8 @@ namespace Game
             Console.Write($"{round+1}. kör ({subRound+1}. fele): ");
 
 
-            int x = Console.CursorLeft;
-            int y = Console.CursorTop;
+            x = Console.CursorLeft;
+            y = Console.CursorTop;
             Console.CursorTop = Console.WindowTop + Console.WindowHeight - 2;
             Console.CursorLeft = 0;
 
@@ -135,7 +142,6 @@ namespace Game
             
             Console.ForegroundColor = ConsoleColor.White;
             Console.BackgroundColor = ConsoleColor.Black;
-            enemy.Health -= 10;
             #endregion
 
             #region YOUR STATS
@@ -165,11 +171,14 @@ namespace Game
             }
             #endregion
 
+            enemy.Health -= 1;
+
             xMax = Console.WindowWidth - longest - 2;
             yMax = Console.WindowHeight - 3;
 
             Console.CursorLeft = x;
             Console.CursorTop = y;
+            y += 1;
         }
     }
 }
