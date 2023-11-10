@@ -33,7 +33,7 @@ Egy népmesébe illő paraszt gyerekként próbálhatunk szerencsét egy mítiku
 29. Sárkányfészek:              Találkozunk a sárkánnyal(BOSS) 3 feje van. Megküzdünk az 1. fejével || a 2.-al || 3.-al
 30. Kacsalábon forgó kacsalábon forgó palota:  Boldogan élünk amíg meg nem halunk || Visszamegyünk kocsmázni
 
-![térkép]("https://github.com/zalan0815/Palko/Palko.png")
+![térkép]("https://github.com/zalan0815/Palko/blob/master/Palko.png?raw=true")
 --------------------------------------------------------------------------------------------------VÉGE--------------------------------------------------------------------------------------------------------------
 
 
