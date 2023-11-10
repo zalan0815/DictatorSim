@@ -1,5 +1,5 @@
 # Palkó
-Egy népmesébe illő paraszt gyerekként próbálhatunk szerencsét.
+Egy népmesébe illő paraszt gyerekként próbálhatunk szerencsét egy mítikus helyen az óperenciás tengeren túlon(ahol még a kurta farkú malaac sem túr).
 
 ## Helyszínek-Események
 1. Ház:                         Elbúcsúzni, láda kirámolása
