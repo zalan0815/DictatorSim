@@ -53,9 +53,9 @@ Klasszikus kocka játék || Black jack(ha sok az időnk)
 ### Páncélok
 1. Bőr páncél
 2. Sima páncél
-3. Varázspáncél
-4. Sima sisak
-5. Lovagi páncél
+3. Lovagi páncél
+4. Varázspáncél
+5. Sima sisak(hozzáad a páncélzathoz a páncél lecserélése nélkül)
 ### Bájitalok
 1. Gyógyító bájital
 2. Sebzésnövelő bájital
