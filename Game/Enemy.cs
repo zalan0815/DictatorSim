@@ -10,8 +10,8 @@ namespace Game
     {
         public Enemy(int health, int strength, string name = "Enemy")
         {
-            this.Health = health;
             this.MaxHealth = health;
+            this.Health = health;
             this.Damage = strength;
 
             this.Name = name;

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Game
 {
-    class Character
+    abstract class Character
     {
         private string name;
         private int maxHealth;
