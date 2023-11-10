@@ -3,7 +3,7 @@ Egy népmesébe illő paraszt gyerekként próbálhatunk szerencsét egy mítiku
 
 ## Helyszínek-Események
 1. Ház:                         Elbúcsúzni, láda kirámolása
-2. Falu:                        Megsimogatod a szomszéd kutyáját, beszélünk a pappal
+2. Falu:                        Megsimogatod a szomszéd kutyáját || beszélünk a pappal
 3. Bánya:                       50/50 Beomlik a bánya || Gyémánt keresés
 4. Föld:                        Pénzért dolgozni, megetetjük az állatokat
 5. Kovács:                      Páncél || Fegyver
