@@ -17,10 +17,16 @@ namespace Game
         private Character[] fightOrder = new Character[2];
 
         private Random random = new Random();
+
         private int x;
         private int y;
         private int xMax;
         private int yMax;
+
+
+        private int spawnedEnemyId;
+        private bool lostDeffence;
+
         public FightSystem(Player player, Enemy enemy, out bool Victory)
         {
             this.player = player;
@@ -33,6 +39,15 @@ namespace Game
 
             Console.Clear();
             Victory = Fight();
+        }
+
+        struct EnemyAttack
+        {
+            public int X { get; set; }
+            public int Y { get; set; }
+            public char Char { get; set; }
+            public int Round { get; set; }
+            public bool Defeated { get; set; }
         }
 
         private bool Fight()
@@ -52,7 +67,8 @@ namespace Game
                 }
                 else { subRound++; }
 
-                Console.ReadKey(true);
+                //Console.ReadKey(true);
+                Thread.Sleep(800);
                 Console.Clear();
             }
             return enemy.Health == 0;
@@ -79,6 +95,26 @@ namespace Game
 
                 #endregion
                 enemyAttack();
+                if (lostDeffence)
+                {
+                    Console.CursorLeft = 0;
+                    Console.CursorTop = 0;
+                    Console.BackgroundColor = ConsoleColor.Black;
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.WriteLine("ELVESZTETTED A KÖRT");
+                    Console.WriteLine("ELVESZTETTED A KÖRT");
+                    Console.WriteLine("ELVESZTETTED A KÖRT");
+                    Console.WriteLine("ELVESZTETTED A KÖRT");
+                    Console.WriteLine("ELVESZTETTED A KÖRT");
+                    Console.WriteLine("ELVESZTETTED A KÖRT");
+                    Console.WriteLine("ELVESZTETTED A KÖRT");
+                    Console.WriteLine("ELVESZTETTED A KÖRT");
+                    Console.WriteLine("ELVESZTETTED A KÖRT");
+                    Console.WriteLine("ELVESZTETTED A KÖRT");
+
+                }
+                
+
             }
         }
 
@@ -89,12 +125,106 @@ namespace Game
 
         private void enemyAttack()
         {
-            Console.CursorLeft = random.Next(0, xMax);
-            Console.CursorTop = random.Next(y, yMax);
-            Console.BackgroundColor = ConsoleColor.Cyan;
-            Console.Write(" ");
-            Console.BackgroundColor = ConsoleColor.Black;
+            int enemyAttacks = 2 + round / 2;
+            int maxEnemyAttacks = 15;
 
+            spawnedEnemyId = 0;
+            lostDeffence = false;
+
+            int waitMin = 300;
+            int waitMax = 700;
+
+            EnemyAttack[] spawnList = new EnemyAttack[enemyAttacks];
+
+            #region GENERATE LOCATIONS FOR A ROUND
+            for (int i = 0; i < enemyAttacks; i++)
+            {
+                if (i >= maxEnemyAttacks)
+                {
+                    break;
+                }
+
+                int rX, rY;
+                do
+                {
+                    rX = random.Next(0, xMax);
+                    rY = random.Next(y, yMax);
+                }
+                while (isEnemyCloseToSpawn(spawnList, rX, rY));
+
+                spawnList[i] = new EnemyAttack() { X = rX, Y = rY, Char = 'a', Round = round };
+                
+            }
+            #endregion
+
+            spawnEnemyAttacks(spawnList, waitMin, waitMax);
+
+            while (spawnedEnemyId < spawnList.Length)
+            {
+                char input = Console.ReadKey(true).KeyChar;
+                bool foundChar = false;
+                for(int i = 0; i < spawnedEnemyId; i++)
+                {
+                    if (spawnList[i].Char == input)
+                    {
+                        foundChar = true;
+                        spawnList[i].Defeated = true;
+                        break;
+                    }
+                }
+                if (!foundChar)
+                {
+                    lostDeffence = true;
+                    return; //vesztett: rosszat nyomott le
+                }
+                
+            }
+        }
+
+        private bool isEnemyCloseToSpawn(EnemyAttack[] spawnLocations, int rX, int rY)
+        {
+            foreach (EnemyAttack spawnLocation in spawnLocations)
+            {
+                if (Math.Abs(spawnLocation.X - rX) < 4 && Math.Abs(spawnLocation.Y - rY) < 4)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private async Task spawnEnemyAttacks(EnemyAttack[] enemyAttacks, int waitMin, int waitMax)
+        {
+            await Task.Run(() =>
+            {
+                for (int i = 0; i < enemyAttacks.Length;i++)
+                {
+                    if (lostDeffence)
+                    {
+                        break;
+                    }
+
+                    if (round == enemyAttacks[i].Round)
+                    {
+                        Console.CursorLeft = enemyAttacks[i].X;
+                        Console.CursorTop = enemyAttacks[i].Y;
+                        Console.BackgroundColor = ConsoleColor.Cyan;
+                        Console.Write("X");
+                        Console.BackgroundColor = ConsoleColor.Black;
+                    }
+                    
+                    if (i < enemyAttacks.Length - 1)
+                    {
+                        Task.Delay(random.Next(waitMin,waitMax)).Wait();
+                        if (lostDeffence)
+                        {
+                            break;
+                        }
+                    }
+                    spawnedEnemyId = i;
+                }
+                spawnedEnemyId = enemyAttacks.Length;
+            });
         }
 
         public void writeFight()
