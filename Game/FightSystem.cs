@@ -142,6 +142,7 @@ namespace Game
 
         }
 
+        #region ENEMY_ATTACK
         private void enemyAttack(out int enemyAttacks, out int defeated)
         {
             int maxEnemyAttacks = 15;
@@ -452,4 +453,5 @@ namespace Game
             Console.WriteLine(statToWrite);
         }
     }
+    #endregion
 }
