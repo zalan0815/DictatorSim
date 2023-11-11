@@ -8,11 +8,19 @@ namespace Game
 {
     class Enemy : Character
     {
-        public Enemy(int health, int strength, string name = "Enemy")
+        private int speed;
+
+        public int Speed
+        {
+            get { return speed; }
+            set { speed = value; }
+        }
+        public Enemy(int health, int strength, int speed=2000, string name = "Enemy")
         {
             this.MaxHealth = health;
             this.Health = health;
             this.Damage = strength;
+            this.speed = speed;
 
             this.Name = name;
         }

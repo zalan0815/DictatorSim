@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http.Headers;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Schema;
+using System.Diagnostics;
+using System.Windows.Input;
 
 namespace Game
 {
@@ -30,6 +27,8 @@ namespace Game
         private char[] charsToSpawn =         { 'A', 'Q', 'W', 'E' };
         private string[] charsToSpawnSring =  { "A", "Q", "W", "E" };
 
+        private Stopwatch stopwatch;
+
         public FightSystem(Player player, Enemy enemy, out bool Victory)
         {
             this.player = player;
@@ -41,18 +40,33 @@ namespace Game
             fightOrder[r2] = enemy;
 
             Console.Clear();
+            stopwatch = new Stopwatch();
+            stopwatch.Start();
             Victory = Fight();
         }
 
         struct EnemyAttack
         {
+            public int ID { get; set; }
             public int X { get; set; }
             public int Y { get; set; }
             public char Char { get; set; }
             public int Round { get; set; }
             public bool Defeated { get; set; }
+            public long spawnTime { get; set; }
+            public int howLongTillSpawn { get; set; }
+            
+            public List<Coordinate> coordinates { get; set; } //Mellette lévő színezett mezők coordinátái, színei
         }
 
+        EnemyAttack[] spawnList;
+
+        struct Coordinate
+        {
+            public int X { get; set; }
+            public int Y { get; set; }
+            public ConsoleColor Color { get; set; }
+        }
         private bool Fight()
         {
             round = 0;
@@ -139,7 +153,7 @@ namespace Game
             int waitMin = 300;
             int waitMax = 700;
 
-            EnemyAttack[] spawnList = new EnemyAttack[enemyAttacks];
+            spawnList = new EnemyAttack[enemyAttacks];
 
             #region GENERATE LOCATIONS FOR A ROUND
             for (int i = 0; i < enemyAttacks; i++)
@@ -152,22 +166,34 @@ namespace Game
                 int rX, rY;
                 do
                 {
-                    rX = random.Next(0, xMax);
-                    rY = random.Next(y, yMax);
+                    rX = random.Next(4, xMax - 4);
+                    rY = random.Next(9, yMax - 4);
                 }
                 while (isEnemyCloseToSpawn(spawnList, rX, rY));
-
-                spawnList[i] = new EnemyAttack() { X = rX, Y = rY, Char = charsToSpawn[random.Next(0,charsToSpawn.Length)], Round = round };
+                
+                spawnList[i] = new EnemyAttack() { X = rX, Y = rY, Char = charsToSpawn[random.Next(0,charsToSpawn.Length)], Round = round, Defeated = false, ID=i};
                 
             }
-            #endregion
+            int howLongTillSpawn = 0;
+            for (int i = 0; i < spawnList.Length; i++)
+            {
+                spawnList[i].howLongTillSpawn = howLongTillSpawn;
+                spawnList[i].coordinates = generatePatternForEnemyAttack(spawnList[i].X, spawnList[i].Y);
+                spawnEnemyAttacks(i, waitMin, waitMax);
 
-            spawnEnemyAttacks(spawnList, waitMin, waitMax);
+
+                howLongTillSpawn += random.Next(waitMin, waitMax);
+            }
+            #endregion
 
             defeated = 0;
             while (spawnedEnemyId < spawnList.Length || defeated < spawnList.Length)
             {
                 string input = Console.ReadKey(true).KeyChar.ToString().ToUpper();
+                if (lostDeffence)
+                {
+                    return;
+                }
                 bool foundChar = true; // (1)
                 for(int i = 0; i < spawnedEnemyId; i++)
                 {
@@ -181,6 +207,7 @@ namespace Game
                     {
                         foundChar = true;
                         spawnList[i].Defeated = true;
+                        reColorEnemyAttacks(spawnList[i], ConsoleColor.Green, ConsoleColor.DarkGray);
                         defeated++;
                         break;
                     }
@@ -208,40 +235,112 @@ namespace Game
             return false;
         }
 
-        private async Task spawnEnemyAttacks(EnemyAttack[] enemyAttacks, int waitMin, int waitMax)
+        private async Task spawnEnemyAttacks(int id, int waitMin, int waitMax)
         {
             await Task.Run(() =>
             {
-                for (int i = 0; i < enemyAttacks.Length;i++)
+                Task.Delay(spawnList[id].howLongTillSpawn).Wait();
+                if (lostDeffence || spawnList[id].Round != round)
                 {
-                    if (lostDeffence)
-                    {
-                        break;
-                    }
+                    return;
+                }
 
-                    if (round == enemyAttacks[i].Round)
-                    {
-                        Console.CursorLeft = enemyAttacks[i].X;
-                        Console.CursorTop = enemyAttacks[i].Y;
-                        Console.BackgroundColor = ConsoleColor.Cyan;
-                        Console.ForegroundColor = ConsoleColor.Black;
-                        Console.Write(enemyAttacks[i].Char.ToString());
-                        Console.BackgroundColor = ConsoleColor.Black;
-                        Console.ForegroundColor = ConsoleColor.White;
-                    }
-                    spawnedEnemyId = i;
+                reColorEnemyAttacks(spawnList[id], ConsoleColor.Black);
 
-                    if (i < enemyAttacks.Length - 1)
+                //enemyAttack.spawnTime = stopwatch.ElapsedMilliseconds;
+                spawnedEnemyId = spawnList[id].ID+1;
+
+                int maxParts = 3;
+                for (int i = 1; i < maxParts + 1; i++)
+                {
+                    Task.Delay(enemy.Speed / maxParts).Wait();
+                    if (lostDeffence || spawnList[id].Round != round || spawnList[id].Defeated)
                     {
-                        Task.Delay(random.Next(waitMin,waitMax)).Wait();
-                        if (lostDeffence)
+                        return;
+                    }
+                    if (i < 3)
+                    {
+                        reColorEnemyAttacks(spawnList[id], i % 2 == 1 ? ConsoleColor.Yellow : ConsoleColor.Red, ConsoleColor.DarkGray);
+                    }
+                    
+
+                }
+                if(spawnList[id].Round == round && spawnList[id].Defeated == false)
+                {
+                    lostDeffence = true;
+                }
+
+            });
+        }
+
+        private void reColorEnemyAttacks(EnemyAttack enemyAttack, ConsoleColor fgcolor, ConsoleColor bgcolor)
+        {
+            foreach (Coordinate cord in enemyAttack.coordinates)
+            {
+                Console.CursorLeft = cord.X;
+                Console.CursorTop = cord.Y;
+                Console.BackgroundColor = bgcolor;
+                Console.ForegroundColor = fgcolor;
+
+                if (cord.X == enemyAttack.X && cord.Y == enemyAttack.Y)
+                {
+                    Console.Write(enemyAttack.Char.ToString());
+                }
+                else
+                {
+                    Console.Write(" ");
+                }
+            }
+        }
+
+        private void reColorEnemyAttacks(EnemyAttack enemyAttack, ConsoleColor fgcolor)
+        {
+            foreach (Coordinate cord in enemyAttack.coordinates)
+            {
+                Console.CursorLeft = cord.X;
+                Console.CursorTop = cord.Y;
+                Console.BackgroundColor = cord.Color;
+                Console.ForegroundColor = fgcolor;
+
+                if (cord.X == enemyAttack.X && cord.Y == enemyAttack.Y)
+                {
+                    Console.Write(enemyAttack.Char.ToString());
+                }
+                else
+                {
+                    Console.Write(" ");
+                }
+            }
+        }
+
+        private List<Coordinate> generatePatternForEnemyAttack(int x, int y)
+        {
+            List<Coordinate> coordinates = new List<Coordinate>();
+            for (int i = -2; i < 3; i++)
+            {
+                for (int j = -2; j < 3; j++)
+                {
+                    if ((i >= -1) && (i <= 1) && (j >= -1) && (j <= 1))
+                    {
+                        if (i == 0 && j == 0)
                         {
-                            break;
+                            coordinates.Add(new Coordinate { X = x + i, Y = y + j, Color = ConsoleColor.Gray});
+                        }
+                        else if(random.Next(0,100) < 70)
+                        {
+                            coordinates.Add(new Coordinate { X = x+i, Y = y+j, Color=ConsoleColor.Gray});
+                        }
+                    }
+                    else
+                    {
+                        if (random.Next(0, 100) < 0)
+                        {
+                            coordinates.Add(new Coordinate { X = x+i, Y = y+j, Color=ConsoleColor.Gray});
                         }
                     }
                 }
-                spawnedEnemyId = enemyAttacks.Length;
-            });
+            }
+            return coordinates;
         }
 
         public void writeFight(bool yellowHealth = false)
@@ -249,7 +348,7 @@ namespace Game
             x = Console.CursorLeft;
             y = Console.CursorTop;
             Console.CursorLeft = 0;
-            Console.CursorTop = 0;
+            Console.CursorTop = 1;
 
             #region TOP-LEFT REGION
             Console.Write($"Ellenfeled: ");
@@ -257,7 +356,9 @@ namespace Game
             Console.WriteLine($"{enemy.Name}\n");
             Console.ForegroundColor = ConsoleColor.White;
             Console.Write($"{round+1}. kör ({subRound+1}. fele): ");
+            #endregion
 
+            #region ENEMY'S HEALTH
             Console.CursorTop = Console.WindowTop + Console.WindowHeight - 2;
             Console.CursorLeft = 0;
 
@@ -265,9 +366,7 @@ namespace Game
             Console.Write($"{enemy.Name} ");
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("életereje:");
-            #endregion
 
-            #region ENEMY'S HEALTH
             string enemyHealthText = $"{enemy.Health} / {enemy.MaxHealth}";
             int enemyHealthSize = (int)(Console.WindowWidth * ((float)enemy.Health / enemy.MaxHealth));
             int count = 0;
