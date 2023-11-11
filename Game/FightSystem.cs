@@ -150,8 +150,8 @@ namespace Game
             spawnedEnemyId = 0;
             lostDeffence = false;
 
-            int waitMin = 300;
-            int waitMax = 700;
+            int waitMin = 450;
+            int waitMax = 650;
 
             spawnList = new EnemyAttack[enemyAttacks];
 
@@ -189,11 +189,16 @@ namespace Game
             defeated = 0;
             while (spawnedEnemyId < spawnList.Length || defeated < spawnList.Length)
             {
-                string input = Console.ReadKey(true).KeyChar.ToString().ToUpper();
-                if (lostDeffence)
+                while (!Console.KeyAvailable)
                 {
-                    return;
+                    Task.Delay(300);
+                    if (lostDeffence)
+                    {
+                        return;
+                    }
                 }
+                string input = Console.ReadKey(true).KeyChar.ToString().ToUpper();
+                
                 bool foundChar = true; // (1)
                 for(int i = 0; i < spawnedEnemyId; i++)
                 {
@@ -216,6 +221,10 @@ namespace Game
                 {
                     lostDeffence = true;
                     return; //vesztett: rosszat nyomott le
+                }
+                if (lostDeffence)
+                {
+                    return;
                 }
                 
             }

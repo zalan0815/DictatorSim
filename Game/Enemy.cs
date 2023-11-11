@@ -15,7 +15,7 @@ namespace Game
             get { return speed; }
             set { speed = value; }
         }
-        public Enemy(int health, int strength, int speed=2000, string name = "Enemy")
+        public Enemy(int health, int strength, int speed=2500, string name = "Enemy")
         {
             this.MaxHealth = health;
             this.Health = health;
