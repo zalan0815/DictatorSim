@@ -27,6 +27,9 @@ namespace Game
         private int spawnedEnemyId;
         private bool lostDeffence;
 
+        private char[] charsToSpawn =         { 'A', 'Q', 'W', 'E' };
+        private string[] charsToSpawnSring =  { "A", "Q", "W", "E" };
+
         public FightSystem(Player player, Enemy enemy, out bool Victory)
         {
             this.player = player;
@@ -94,26 +97,28 @@ namespace Game
                 Console.ForegroundColor = ConsoleColor.White;
 
                 #endregion
-                enemyAttack();
+                enemyAttack(out int EnemyAttacks, out int defated);
+                string textToWrite;
+                string statToWrite = $"{defated} / {EnemyAttacks}";
                 if (lostDeffence)
                 {
-                    Console.CursorLeft = 0;
-                    Console.CursorTop = 0;
-                    Console.BackgroundColor = ConsoleColor.Black;
-                    Console.ForegroundColor = ConsoleColor.White;
-                    Console.WriteLine("ELVESZTETTED A KÖRT");
-                    Console.WriteLine("ELVESZTETTED A KÖRT");
-                    Console.WriteLine("ELVESZTETTED A KÖRT");
-                    Console.WriteLine("ELVESZTETTED A KÖRT");
-                    Console.WriteLine("ELVESZTETTED A KÖRT");
-                    Console.WriteLine("ELVESZTETTED A KÖRT");
-                    Console.WriteLine("ELVESZTETTED A KÖRT");
-                    Console.WriteLine("ELVESZTETTED A KÖRT");
-                    Console.WriteLine("ELVESZTETTED A KÖRT");
-                    Console.WriteLine("ELVESZTETTED A KÖRT");
+                    textToWrite = "SIKERTELEN VÉDEKEZÉS";
+                    for (int i = 0; i < EnemyAttacks - defated; i++)
+                    {
+                        player.Health -= enemy.Damage;
+                        writeEndOfSubRound(textToWrite, statToWrite);
 
+                        writeFight(yellowHealth: i % 2 == 0);
+                        Thread.Sleep(random.Next(100,200));
+                    }
+                    
+                    
                 }
-                
+                else
+                {
+                    textToWrite = "SIKERES VÉDEKEZÉS";
+                    writeEndOfSubRound(textToWrite, statToWrite);
+                }
 
             }
         }
@@ -123,10 +128,10 @@ namespace Game
 
         }
 
-        private void enemyAttack()
+        private void enemyAttack(out int enemyAttacks, out int defeated)
         {
-            int enemyAttacks = 2 + round / 2;
             int maxEnemyAttacks = 15;
+            enemyAttacks = 2 + round / 2;
 
             spawnedEnemyId = 0;
             lostDeffence = false;
@@ -152,23 +157,31 @@ namespace Game
                 }
                 while (isEnemyCloseToSpawn(spawnList, rX, rY));
 
-                spawnList[i] = new EnemyAttack() { X = rX, Y = rY, Char = 'a', Round = round };
+                spawnList[i] = new EnemyAttack() { X = rX, Y = rY, Char = charsToSpawn[random.Next(0,charsToSpawn.Length)], Round = round };
                 
             }
             #endregion
 
             spawnEnemyAttacks(spawnList, waitMin, waitMax);
 
-            while (spawnedEnemyId < spawnList.Length)
+            defeated = 0;
+            while (spawnedEnemyId < spawnList.Length || defeated < spawnList.Length)
             {
-                char input = Console.ReadKey(true).KeyChar;
-                bool foundChar = false;
+                string input = Console.ReadKey(true).KeyChar.ToString().ToUpper();
+                bool foundChar = true; // (1)
                 for(int i = 0; i < spawnedEnemyId; i++)
                 {
-                    if (spawnList[i].Char == input)
+                    foundChar = false; // (1) => amikor nem volt még spawnolt elem, de lefutott, elvesztette az ember egyből a kört
+                    if (!charsToSpawnSring.Contains(input))
+                    {
+                        foundChar = true;
+                        break;
+                    }
+                    if (!spawnList[i].Defeated && spawnList[i].Char.ToString() == input)
                     {
                         foundChar = true;
                         spawnList[i].Defeated = true;
+                        defeated++;
                         break;
                     }
                 }
@@ -179,6 +192,8 @@ namespace Game
                 }
                 
             }
+            lostDeffence = false;
+            return;
         }
 
         private bool isEnemyCloseToSpawn(EnemyAttack[] spawnLocations, int rX, int rY)
@@ -209,10 +224,13 @@ namespace Game
                         Console.CursorLeft = enemyAttacks[i].X;
                         Console.CursorTop = enemyAttacks[i].Y;
                         Console.BackgroundColor = ConsoleColor.Cyan;
-                        Console.Write("X");
+                        Console.ForegroundColor = ConsoleColor.Black;
+                        Console.Write(enemyAttacks[i].Char.ToString());
                         Console.BackgroundColor = ConsoleColor.Black;
+                        Console.ForegroundColor = ConsoleColor.White;
                     }
-                    
+                    spawnedEnemyId = i;
+
                     if (i < enemyAttacks.Length - 1)
                     {
                         Task.Delay(random.Next(waitMin,waitMax)).Wait();
@@ -221,14 +239,18 @@ namespace Game
                             break;
                         }
                     }
-                    spawnedEnemyId = i;
                 }
                 spawnedEnemyId = enemyAttacks.Length;
             });
         }
 
-        public void writeFight()
+        public void writeFight(bool yellowHealth = false)
         {
+            x = Console.CursorLeft;
+            y = Console.CursorTop;
+            Console.CursorLeft = 0;
+            Console.CursorTop = 0;
+
             #region TOP-LEFT REGION
             Console.Write($"Ellenfeled: ");
             Console.ForegroundColor = ConsoleColor.Red;
@@ -236,9 +258,6 @@ namespace Game
             Console.ForegroundColor = ConsoleColor.White;
             Console.Write($"{round+1}. kör ({subRound+1}. fele): ");
 
-
-            x = Console.CursorLeft;
-            y = Console.CursorTop;
             Console.CursorTop = Console.WindowTop + Console.WindowHeight - 2;
             Console.CursorLeft = 0;
 
@@ -291,7 +310,10 @@ namespace Game
             Console.Write("Életerőd");
             Console.CursorLeft = Console.WindowWidth - longest - 1;
             Console.CursorTop += 1;
-            Console.Write($"{player.Health} / {player.MaxHealth}");
+            if (yellowHealth) { Console.ForegroundColor = ConsoleColor.Yellow; }
+            Console.Write($"{player.Health} ");
+            Console.ForegroundColor = ConsoleColor.DarkGreen;
+            Console.Write($"/ {player.MaxHealth}");
             Console.CursorTop += 1;
             foreach (Item item in player.Items)
             {
@@ -309,6 +331,17 @@ namespace Game
             Console.CursorLeft = x;
             Console.CursorTop = y;
             y += 1;
+        }
+        private void writeEndOfSubRound(string textToWrite, string statToWrite)
+        {
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.CursorLeft = (Console.WindowWidth - textToWrite.Length) / 2;
+            Console.CursorTop = (Console.WindowHeight / 2);
+            Console.WriteLine(textToWrite);
+
+            Console.CursorLeft = (Console.WindowWidth - statToWrite.Length) / 2;
+            Console.WriteLine(statToWrite);
         }
     }
 }
