@@ -162,16 +162,16 @@ namespace Game
 
             Console.CursorLeft = 0;
             Console.CursorTop = yTop;
-            Console.Write(new string(' ', xMax) );
+            Console.Write(new string(' ', xMax + 1) );
 
             Console.CursorLeft = 0;
             Console.CursorTop = yMax;
-            Console.Write(new string(' ', xMax) );
+            Console.Write(new string(' ', xMax + 1) );
 
-            for (int i = 0; i < yMax - yTop + 1; i++)
+            for (int j = 1; j < yMax - yTop; j++)
             {
                 Console.CursorLeft = 0;
-                Console.CursorTop = yTop + i;
+                Console.CursorTop = yTop + j;
                 Console.Write(" ");
                 Console.CursorLeft = xMax;
                 Console.Write(" ");
@@ -248,12 +248,12 @@ namespace Game
         }
         private void printAttackMap(Attack[] attackMap)
         {
-            for (int j = 0; j < yMax - yTop - 1; j++)
+            for (int j = 1; j < yMax - yTop; j++)
             {
                 for (int i = 0; i < attackMap.Length; i++)
                 {
-                    Console.CursorLeft = i + 1;
-                    Console.CursorTop = yTop + j + 1;
+                    Console.CursorLeft = 1 + i;
+                    Console.CursorTop = yTop + j;
                     Console.BackgroundColor = attackMap[i].Color;
 
                     Console.Write(" ");
