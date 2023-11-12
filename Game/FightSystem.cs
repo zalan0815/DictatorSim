@@ -29,6 +29,9 @@ namespace Game
 
         private Stopwatch stopwatch;
 
+        private int sliderPostion;
+        private int yTop = 5;
+
         public FightSystem(Player player, Enemy enemy, out bool Victory)
         {
             this.player = player;
@@ -67,6 +70,14 @@ namespace Game
             public int Y { get; set; }
             public ConsoleColor Color { get; set; }
         }
+
+        struct Attack
+        {
+            public int X { set; get; }
+            public ConsoleColor Color { get; set; }
+            public double DamageMarkiplier { get; set; }
+        }
+
         private bool Fight()
         {
             round = 0;
@@ -136,11 +147,122 @@ namespace Game
 
             }
         }
-
+        #region PLAYER_ATTACK
         private void playerAttack()
         {
+            printAttackMapBase();
+            Attack[] attackMap = generateMap();
+            printAttackMap(attackMap);
+        }
+
+        private void printAttackMapBase()
+        {
+
+            Console.BackgroundColor = ConsoleColor.White;
+
+            Console.CursorLeft = 0;
+            Console.CursorTop = yTop;
+            Console.Write(new string(' ', xMax) );
+
+            Console.CursorLeft = 0;
+            Console.CursorTop = yMax;
+            Console.Write(new string(' ', xMax) );
+
+            for (int i = 0; i < yMax - yTop + 1; i++)
+            {
+                Console.CursorLeft = 0;
+                Console.CursorTop = yTop + i;
+                Console.Write(" ");
+                Console.CursorLeft = xMax;
+                Console.Write(" ");
+            }
+
+            Console.BackgroundColor = ConsoleColor.Black;
 
         }
+
+        private Attack[] generateMap()
+        {
+            int mapSize = xMax - 1;
+            int xGreenSpot = random.Next(mapSize + 2 - player.SliderSpeed); //+1, mert excludive, +1, mert 1 az alap player stat, ez a pont a bal oldali GreenSpot helye, ehhez hozzáadva jön a (játékos statja - 1) jobb oldali
+            int xGreenSpotRight = xGreenSpot + player.SliderSpeed - 1;
+            /* MapSize (exc. GreenSpots):
+             * 25% - 0%      dmg    - DarkRed
+             * 45% - 10%-25% dmg    - Red
+             * 30% - 50%-90% dmg    - Yellow
+             
+             */
+            Attack[] attackMap = new Attack[mapSize];
+            int count = 0;
+
+
+            while (count < mapSize)
+            {
+                attackMap[count] = new Attack() { X = count };
+                if(count >= xGreenSpot && count <= xGreenSpot + player.SliderSpeed - 1)
+                {
+                    attackMap[count].Color = ConsoleColor.Green;
+                    attackMap[count].DamageMarkiplier = 1.2;
+                }
+                else
+                {
+                    double ratio = 0;
+
+                    if (count < xGreenSpot)
+                    {
+                        ratio = (double)count / xGreenSpot;
+
+                    }
+                    else
+                    {
+                        ratio = 1 - ((double)count - xGreenSpotRight) / (mapSize - 1 - xGreenSpotRight);
+
+                    }
+
+                    if (ratio < .25)
+                    {
+                        attackMap[count].Color = ConsoleColor.DarkRed;
+                        attackMap[count].DamageMarkiplier = .0;
+                    }
+                    else if (ratio < .70)
+                    {
+                        double maxDamageClosenessMarkiplier = (ratio - .25) / (.70 - .25);       //.70 => 1, .50 => 0.555, .25 => 0
+                        double minDamageClosenessMarkiplier = 1 - maxDamageClosenessMarkiplier;  //.70 => 0, .50 => 0.445, .25 => 1
+
+                        attackMap[count].Color = ConsoleColor.Red;
+                        attackMap[count].DamageMarkiplier = maxDamageClosenessMarkiplier * .25 + minDamageClosenessMarkiplier * .10; //.70 => .25, .50 => (0.555 * .25) + (0.445 * .10) = 0.138 + 0.0445 = 0.1825, .25 => .10
+                    }
+                    else
+                    {
+                        double maxDamageClosenessMarkiplier = (ratio - .70) / (1 - .70);         //1 => 1, .85 => 0.5, .70 => 0
+                        double minDamageClosenessMarkiplier = 1 - maxDamageClosenessMarkiplier;  //1 => 0, .85 => 0.5, .70 => 1
+                        attackMap[count].Color = ConsoleColor.Yellow;
+                        attackMap[count].DamageMarkiplier = maxDamageClosenessMarkiplier * .90 + minDamageClosenessMarkiplier * .50; //1 => .90, .85 => (0.5 * .90) + (0.5 * .50) = .45 + .25 = .70, .70 => .50
+                    }
+                }
+                
+
+                count++;
+            }
+            return attackMap;
+        }
+        private void printAttackMap(Attack[] attackMap)
+        {
+            for (int j = 0; j < yMax - yTop - 1; j++)
+            {
+                for (int i = 0; i < attackMap.Length; i++)
+                {
+                    Console.CursorLeft = i + 1;
+                    Console.CursorTop = yTop + j + 1;
+                    Console.BackgroundColor = attackMap[i].Color;
+
+                    Console.Write(" ");
+                }
+            }
+            Console.BackgroundColor= ConsoleColor.Black;
+        }
+
+        #endregion
 
         #region ENEMY_ATTACK
         private void enemyAttack(out int enemyAttacks, out int defeated)
