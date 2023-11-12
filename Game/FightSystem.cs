@@ -30,6 +30,8 @@ namespace Game
         private Stopwatch stopwatch;
 
         private int sliderPostion;
+        private int displayedSliderPosition;
+
         private bool sliderStopped;
         private int yTop = 5;
         private int mapSize;
@@ -122,24 +124,24 @@ namespace Game
                 Attack attack = attackMap[sliderPostion];
                 //Thread.Sleep(2000);
 
-                Console.ForegroundColor = ConsoleColor.Black;
-                Console.BackgroundColor = ConsoleColor.White;
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.BackgroundColor = ConsoleColor.Black;
                 Console.CursorLeft = 0;
                 Console.CursorTop = 5;
                 #if DEBUG
                 Console.WriteLine($"dmg {player.Damage} dmg * m{attack.DamageMarkiplier * player.Damage}");
-                Console.WriteLine($"{sliderPostion} (zöld: {xGreenSpot - sliderPostion}  ({xGreenSpot}))");
+                Console.WriteLine($"tényleges:  {sliderPostion} (zöld: {xGreenSpot - sliderPostion}  ({xGreenSpot}))");
+                Console.WriteLine($"megrajzolt: {displayedSliderPosition} (zöld: {xGreenSpot - displayedSliderPosition}  ({xGreenSpot}))");
                 #endif
                 Console.ForegroundColor = attack.Color;
                 Console.WriteLine($"Sebzésed: {(int)Math.Ceiling(attack.DamageMarkiplier * player.Damage)}");
 
-                Console.ForegroundColor = ConsoleColor.White;
-                Console.BackgroundColor = ConsoleColor.Black;
+                
                 enemy.Health -= (int)Math.Ceiling(attack.DamageMarkiplier * player.Damage);
 
                 Thread.Sleep(200);
                 writeFight();
-                Thread.Sleep(2000);
+                Console.ReadKey(true);
 
             }
             else
@@ -185,9 +187,10 @@ namespace Game
 
             moveSlider(attackMap);
 
+            displayedSliderPosition = sliderPostion;
             stopwatch = new Stopwatch();
             stopwatch.Start();
-            while (stopwatch.ElapsedMilliseconds < 500)
+            while (stopwatch.ElapsedMilliseconds < 250)
             {
                 Console.ReadKey(true);
             }
@@ -311,7 +314,7 @@ namespace Game
                 while (!sliderStopped && round == currentRound)
                 {
                     
-                    if ((sliderPostion >= mapSize - 1 && direction) || (sliderPostion + 1 <= 2 && !direction))
+                    if ((sliderPostion >= mapSize - 1 && direction) || (sliderPostion + 1 <= 1 && !direction))
                     {
                         sliderPostion += direction ? 1 : -1;
                         direction = !direction;
@@ -338,25 +341,48 @@ namespace Game
                 for (int j = 1; j < yMax - yTop; j++)
                 {
                     Console.CursorTop = yTop + j;
-                    Console.CursorLeft = sliderPostion;
+
+                    if (sliderStopped)
+                    {
+                        return;
+                    }
 
                     if (direction)
                     {
+                        Console.CursorLeft = sliderPostion;
+                        if (sliderPostion + 1 > 1)
+                        {
+                            Console.BackgroundColor = attackMap[sliderPostion - 1].Color;
 
-                        Console.BackgroundColor = attackMap[sliderPostion - 1].Color;
+                        }
+                        else
+                        {
+                            Console.BackgroundColor = ConsoleColor.White;
+                        }
                         Console.Write(" ");
-                        Console.BackgroundColor = ConsoleColor.White;
+                        Console.BackgroundColor = ConsoleColor.Black;
                         Console.Write(" ");
                     }
                     else
                     {
-                        Console.BackgroundColor = ConsoleColor.White;
+                        Console.CursorLeft = sliderPostion + 1;
+                        Console.BackgroundColor = ConsoleColor.Black;
                         Console.Write(" ");
-                        Console.BackgroundColor = attackMap[sliderPostion].Color;
+                        if (sliderPostion < mapSize - 1)
+                        {
+                            Console.BackgroundColor = attackMap[sliderPostion + 1].Color;
+                            
+                        }
+                        else
+                        {
+                            Console.BackgroundColor = ConsoleColor.White;
+                        }
+                        
                         Console.Write(" ");
                     }
 
                 }
+                displayedSliderPosition = sliderPostion;
             });
             
         }
