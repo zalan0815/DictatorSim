@@ -122,7 +122,7 @@ namespace Game
                 playerAttack(out Attack[] attackMap);
 
                 Attack attack = attackMap[sliderPostion];
-                //Thread.Sleep(2000);
+                Thread.Sleep(100);
 
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.BackgroundColor = ConsoleColor.Black;
@@ -131,7 +131,7 @@ namespace Game
                 #if DEBUG
                 Console.WriteLine($"dmg {player.Damage} dmg * m{attack.DamageMarkiplier * player.Damage}");
                 Console.WriteLine($"tényleges:  {sliderPostion} (zöld: {xGreenSpot - sliderPostion}  ({xGreenSpot}))");
-                Console.WriteLine($"megrajzolt: {displayedSliderPosition} (zöld: {xGreenSpot - displayedSliderPosition}  ({xGreenSpot}))");
+                //Console.WriteLine($"megrajzolt: {displayedSliderPosition} (zöld: {xGreenSpot - displayedSliderPosition}  ({xGreenSpot}))");
                 #endif
                 Console.ForegroundColor = attack.Color;
                 Console.WriteLine($"Sebzésed: {(int)Math.Ceiling(attack.DamageMarkiplier * player.Damage)}");
@@ -187,7 +187,7 @@ namespace Game
 
             moveSlider(attackMap);
 
-            displayedSliderPosition = sliderPostion;
+            //displayedSliderPosition = sliderPostion;
             stopwatch = new Stopwatch();
             stopwatch.Start();
             while (stopwatch.ElapsedMilliseconds < 250)
@@ -342,10 +342,10 @@ namespace Game
                 {
                     Console.CursorTop = yTop + j;
 
-                    if (sliderStopped)
+                    /*if (sliderStopped)
                     {
                         return;
-                    }
+                    }*/
 
                     if (direction)
                     {
@@ -382,7 +382,7 @@ namespace Game
                     }
 
                 }
-                displayedSliderPosition = sliderPostion;
+                //displayedSliderPosition = sliderPostion;
             });
             
         }
