@@ -12,12 +12,19 @@ namespace Game
         public static string[] randomShopTexts = { "A pultnál kérdezősködve az alábbiakat ajánlják neked: ",  "A pulthoz érve rögvest észreveszed a kiemelt tárgyakat", "A bolt üres, így hamar sorra is kerülsz.", "Elvileg ez a legjobb bolt a közelben..."};
         public static string[] randomShopConversations = { "\"Ezeket csak neked tartogattam!\"", "\"Szép napunk van nemde?\"", "\"Ha én ennyi idős lehetnék, mint te most...\"", "\"A mai első vevőm!!!\""};
 
-        private List<Item> items;
+        private List<Item> items = new List<Item>();
         public List<Item> Items { get { return items; } set { items = value; } }
 
         public Shop(List<Item> items)
         {
             this.items = items;
+        }
+        public Shop(params Item[] items)
+        {
+            foreach (Item item in items)
+            {
+                this.items.Add(item);
+            }
         }
 
         public string randomText(params string[] text)
