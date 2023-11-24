@@ -57,7 +57,6 @@ namespace Game
 
             Console.WriteLine($"{txt1}\n");
             Console.WriteLine($"{txt2}\n");
-            Console.WriteLine($"{player.Money}");
 
             for (int i = 0; i < items.Count; i++)
             {

@@ -54,6 +54,10 @@
                     longest = item.WriteItemStat(true, false);
                 }
             }
+            if(longest < player.Money.ToString().Length)
+            {
+                longest = player.Money.ToString().Length;
+            }
             longest = longest >= $"{player.Health} / {player.MaxHealth}".Length ? longest : $"{player.Health} / {player.MaxHealth}".Length;
             return longest;
         }
@@ -71,7 +75,16 @@
             Console.Write($"{player.Health} ");
             Console.ForegroundColor = ConsoleColor.DarkGreen;
             Console.Write($"/ {player.MaxHealth}");
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.CursorLeft = Console.WindowWidth - longest - 1;
             Console.CursorTop += 1;
+            Console.Write("Pénzed");
+            Console.CursorLeft = Console.WindowWidth - longest - 1;
+            Console.CursorTop += 1;
+            Console.Write(player.Money);
+
+            Console.CursorTop += 1;
+
             foreach (Item item in player.Items)
             {
                 Console.CursorLeft = Console.WindowWidth - longest - 1;
