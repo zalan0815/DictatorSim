@@ -11,7 +11,7 @@
             player = new Player(10, 10, 1, 0);
             printLenght = Console.WindowWidth - 30;
         }
-        static void SlowPrint(string text, int printLenght)
+        public static void SlowPrint(string text)
         {
             for (int i = 0; i < text.Length; i++)
             {
