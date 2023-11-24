@@ -8,8 +8,10 @@
         {
             //FightSystem f = new FightSystem(new Player(500, 10, 1, 0), new Enemy(200, 10), out bool won);
             Locations.Generate();
-            player = new Player(10, 10, 1, 0);
+            player = new Player(10, 10, 1, 180);
             printLenght = Console.WindowWidth - 30;
+            Shop shop = new Shop(new Sword("Lézerkard", 21, 60, StatType.Damage), new Armor("Netherite páncél", 42, 99, StatType.Health), new Sword("Nashor foga", 2, 123, StatType.SliderSpeed), new OtherItem("Garfield hűtőmágnes", 4, -2, StatType.Key));
+            shop.ShopMenu(ref player);
         }
         static void SlowPrint(string text)
         {

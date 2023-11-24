@@ -88,6 +88,7 @@ namespace Game
                 do
                 {
                     printShop(ref player, shopText, conversation);
+                    Program.PrintPlayerStat();
                 }
                 while (!int.TryParse(Console.ReadKey(true).KeyChar.ToString(), out input) || input < 0 || input > items.Count);
 
