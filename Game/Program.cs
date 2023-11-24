@@ -45,6 +45,13 @@
                     longest = item.WriteItemStat(true, false);
                 }
             }
+            foreach (Item item in player.Inventory)
+            {
+                if (longest < item.WriteItemStat(true, false))
+                {
+                    longest = item.WriteItemStat(true, false);
+                }
+            }
             longest = longest >= $"{player.Health} / {player.MaxHealth}".Length ? longest : $"{player.Health} / {player.MaxHealth}".Length;
             return longest;
         }
@@ -64,6 +71,12 @@
             Console.Write($"/ {player.MaxHealth}");
             Console.CursorTop += 1;
             foreach (Item item in player.Items)
+            {
+                Console.CursorLeft = Console.WindowWidth - longest - 1;
+                Console.CursorTop += 1;
+                item.WriteItemStat(true);
+            }
+            foreach (Item item in player.Inventory)
             {
                 Console.CursorLeft = Console.WindowWidth - longest - 1;
                 Console.CursorTop += 1;
