@@ -8,6 +8,134 @@ namespace Game
 {
     partial class Locations
     {
+        #region Zalan
+
+        #endregion
+
+        #region Peti
+
+        #endregion
+
+        public static int hely_1()
+        {
+            return 0;
+        }
+        public static int hely_2()
+        {
+            return 0;
+        }
+        public static int hely_3()
+        {
+            return 0;
+        }
+        public static int hely_4()
+        {
+            return 0;
+        }
+        public static int hely_5()
+        {
+            return 0;
+        }
+        public static int hely_6()
+        {
+            return 0;
+        }
+        public static int hely_7()
+        {
+            return 0;
+        }
+        public static int hely_8()
+        {
+            return 0;
+        }
+        public static int hely_9()
+        {
+            return 0;
+        }
+        public static int hely_10()
+        {
+            return 0;
+        }
+        public static int hely_11()
+        {
+            return 0;
+        }
+        public static int hely_12()
+        {
+            return 0;
+        }
+        public static int hely_13()
+        {
+            return 0;
+        }
+        public static int hely_14()
+        {
+            return 0;
+        }
+        public static int hely_15()
+        {
+            return 0;
+        }
+        public static int hely_16()
+        {
+            return 0;
+        }
+        public static int hely_17()
+        {
+            return 0;
+        }
+        public static int hely_18()
+        {
+            return 0;
+        }
+        public static int hely_19()
+        {
+            return 0;
+        }
+        public static int hely_20()
+        {
+            return 0;
+        }
+        public static int hely_21()
+        {
+            return 0;
+        }
+        public static int hely_22()
+        {
+            return 0;
+        }
+        public static int hely_23()
+        {
+            return 0;
+        }
+        public static int hely_24()
+        {
+            return 0;
+        }
+        public static int hely_25()
+        {
+            return 0;
+        }
+        public static int hely_26()
+        {
+            return 0;
+        }
+        public static int hely_27()
+        {
+            return 0;
+        }
+        public static int hely_28()
+        {
+            return 0;
+        }
+        public static int hely_29()
+        {
+            return 0;
+        }
+        public static int hely_30()
+        {
+            return 0;
+        }
 
     }
 }
