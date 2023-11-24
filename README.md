@@ -3,7 +3,7 @@ Egy népmesébe illő paraszt gyerekként próbálhatunk szerencsét egy mítiku
 
 ## Helyszínek-Események
 1. Ház:                         Elbúcsúzni, láda kirámolása
-2. Falu:                        Megsimogatod a szomszéd kutyáját || beszélünk a pappal
+2. Markotabödöge:                        Megsimogatod a szomszéd kutyáját || beszélünk a pappal
 3. Bánya:                       50/50 Beomlik a bánya || Gyémánt keresés
 4. Föld:                        Pénzért dolgozni, megetetjük az állatokat
 5. Kovács:                      Páncél || Fegyver
@@ -22,9 +22,9 @@ Egy népmesébe illő paraszt gyerekként próbálhatunk szerencsét egy mítiku
 18. Remete:                     Megtudjuk hogy a királyságot egy gonosz sárkány fenyegeti és a legyőzője megkapja a királylányt és a királyság felét. ÉS Elmondja hogy a királyhoz 2 úton lehet eljutni
 19. Pokol:                      Találkozunk a Hétszűnyü Kapanyányi Monyókkal. Megfejtjük a találós kérdését || Megküzdünk vele
 20. Tündérország:               (Csak ha megemntettük a tündérkirálylányt) A továbbjutáshoz segítenünk kell egy tündernek || Viccet kell mesélni a tündérkirálynak(nem sikerül -> segíteni kell)
-21. Tündérország ház1:          Itt kereshetjük a tündér elveszett zsebkendőjét. Szekrényt megnézzük || Padlást megnézzük
-22. Tündérország ház2:          Itt is kereshetjük a tündér elveszett zsebkendőjét. Pincét megnézzük || Kandallóba benézünk
-23. Tündérország ház3:          Itt is kereshetjük a tündér elveszett zsebkendőjét. Az ott lakó tündér zsebébe belenézünk || Az ágy alá benézünk
+21. Tündérország kék ház:          Itt kereshetjük a tündér elveszett zsebkendőjét. Szekrényt megnézzük || Padlást megnézzük
+22. Tündérország piros ház:          Itt is kereshetjük a tündér elveszett zsebkendőjét. Pincét megnézzük || Kandallóba benézünk
+23. Tündérország zöd ház:          Itt is kereshetjük a tündér elveszett zsebkendőjét. Az ott lakó tündér zsebébe belenézünk || Az ágy alá benézünk
 24. Tündérkirályság:            A tündérkirály szomorú és viccet kell mesélni Vicc1 elmesélése || Vicc2 elmesélése --> röhög\nem röhög
 25. Város:                      Koldus kéreget tőlünk Adunk neki pénzt || Nem adunk neki pénzt
 26. Kocsma:                     Ihatunk(regenerál) || Szerencsejátékozás
