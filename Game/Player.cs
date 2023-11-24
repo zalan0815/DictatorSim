@@ -10,6 +10,7 @@ namespace Game
     {
         #region VARIABLES
         private int money;
+        private List<OtherItem> inventory = new List<OtherItem>();
 
         private int defaultHealth;
         private int defaultStrength;
@@ -20,17 +21,22 @@ namespace Game
         #endregion
 
         #region FIELDS
-        public Item[] Items
+        public List<Item> Items
         {
             get 
             { 
-                return new Item[2] {this.sword, this.armor};
+                return new List<Item>() { this.sword, this.armor};
             }
         }
         public int Money
         {
             get { return money; }
             set { money = value; }
+        }
+        public List<OtherItem> Inventory
+        {
+            get { return inventory; }
+            set { inventory = value; }
         }
 
         public override int MaxHealth

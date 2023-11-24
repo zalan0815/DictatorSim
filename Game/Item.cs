@@ -72,7 +72,7 @@ namespace Game
                     break;
                 default:
                     color = ConsoleColor.Magenta;
-                    typeText = "";
+                    typeText = "key";
                     break;
             }
             Console.ForegroundColor = color;
@@ -115,6 +115,16 @@ namespace Game
             this.Type = type;
         }
 
+    }
+    class OtherItem : Item
+    {
+        public OtherItem(string name, int stat, int price = 0, StatType type = StatType.Health)
+        {
+            this.Name = name;
+            this.Stat = stat;
+            this.Price = price;
+            this.Type = type;
+        }
     }
 
 }
