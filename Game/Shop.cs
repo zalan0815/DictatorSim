@@ -21,10 +21,7 @@ namespace Game
         }
         public Shop(params Item[] items)
         {
-            foreach (Item item in items)
-            {
-                this.items.Add(item);
-            }
+            this.items = items.ToList();
         }
 
         public string randomText(params string[] text)
