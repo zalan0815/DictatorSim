@@ -16,8 +16,8 @@ namespace Game
         private int defaultStrength;
         private int defaultSliderSpeed;
 
-        public Sword sword = new Sword("Fa kard",10);
-        public Armor armor = new Armor("Bőr ruha", 10);
+        public Sword sword = new Sword("Kés",10);
+        public Armor armor = new Armor("Szakadt ruha",10);
         #endregion
 
         #region FIELDS
