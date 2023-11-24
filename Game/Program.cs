@@ -32,8 +32,8 @@
                     Console.Write(text[i]);
                     Thread.Sleep(25);
                 }
-                Console.WriteLine();
             }
+            Console.WriteLine();
         }
     }
 }
