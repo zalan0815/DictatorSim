@@ -649,33 +649,7 @@ namespace Game
             #endregion
 
             #region YOUR STATS
-            int longest = "életerőd".Length;
-            foreach (Item item in player.Items)
-            {
-                if(longest < item.WriteItemStat(true, false))
-                {
-                    longest = item.WriteItemStat(true, false);
-                }
-            }
-            longest = longest >= $"{player.Health} / {player.MaxHealth}".Length ? longest : $"{player.Health} / {player.MaxHealth}".Length;
-
-            Console.CursorLeft = Console.WindowWidth - longest - 1;
-            Console.CursorTop = 0;
-            Console.ForegroundColor = ConsoleColor.DarkGreen;
-            Console.Write("Életerőd");
-            Console.CursorLeft = Console.WindowWidth - longest - 1;
-            Console.CursorTop += 1;
-            if (yellowHealth) { Console.ForegroundColor = ConsoleColor.Yellow; }
-            Console.Write($"{player.Health} ");
-            Console.ForegroundColor = ConsoleColor.DarkGreen;
-            Console.Write($"/ {player.MaxHealth}");
-            Console.CursorTop += 1;
-            foreach (Item item in player.Items)
-            {
-                Console.CursorLeft = Console.WindowWidth - longest - 1;
-                Console.CursorTop += 1;
-                item.WriteItemStat(true);
-            }
+            int longest = Program.PrintPlayerStat(yellowHealth);
             #endregion
 
             xMax = Console.WindowWidth - longest - 2;
