@@ -19,7 +19,7 @@ namespace Game
         private int y;
         private int xMax;
         private int yMax;
-
+        private int widthSize = 2; //map bal-jobb szélének mérete
 
         private int spawnedEnemyId;
         private bool lostDeffence;
@@ -210,19 +210,19 @@ namespace Game
 
             Console.CursorLeft = 0;
             Console.CursorTop = yTop;
-            Console.Write(new string(' ', xMax + 1) );
+            Console.Write(new string(' ', xMax + widthSize) );
 
             Console.CursorLeft = 0;
             Console.CursorTop = yMax;
-            Console.Write(new string(' ', xMax + 1) );
+            Console.Write(new string(' ', xMax + widthSize) );
 
             for (int j = 1; j < yMax - yTop; j++)
             {
                 Console.CursorLeft = 0;
                 Console.CursorTop = yTop + j;
-                Console.Write(" ");
+                Console.Write(new string(' ', widthSize));
                 Console.CursorLeft = xMax;
-                Console.Write(" ");
+                Console.Write(new string(' ',widthSize));
             }
 
             Console.BackgroundColor = ConsoleColor.Black;
@@ -239,11 +239,11 @@ namespace Game
              * 30% - 50%-90% dmg    - Yellow
              
              */
-            Attack[] attackMap = new Attack[mapSize];
+            Attack[] attackMap = new Attack[mapSize - widthSize + 1];
             int count = 0;
 
 
-            while (count < mapSize)
+            while (count < mapSize - widthSize + 1)
             {
                 attackMap[count] = new Attack() { X = count, Round=round };
                 if(count >= xGreenSpot && count <= xGreenSpot + player.SliderSpeed - 1)
@@ -316,7 +316,7 @@ namespace Game
             
             for (int j = 1; j < yMax - yTop; j++)
             {
-                Console.CursorLeft = 1;
+                Console.CursorLeft = widthSize;
                 for (int i = 0; i < numOfColors.Count; i++)
                 {
                     Console.CursorTop = yTop + j;
@@ -337,11 +337,11 @@ namespace Game
 
                 int currentRound = attackMap[0].Round;
                 bool direction = false;
-                sliderPostion = random.Next(2, mapSize);
+                sliderPostion = random.Next(1 + widthSize, mapSize);
                 while (!sliderStopped && round == currentRound)
                 {
                     printTimer.Start();
-                    if ((sliderPostion >= mapSize - 1 && direction) || (sliderPostion + 1 <= 1 && !direction))
+                    if ((sliderPostion >= mapSize - 1 - widthSize + 1 && direction) || (sliderPostion + 1 <= 1 && !direction))
                     {
                         sliderPostion += direction ? 1 : -1;
                         direction = !direction;
@@ -377,7 +377,7 @@ namespace Game
                 {
                     for (int j = 1; j < yMax - yTop; j++)
                     {
-                        Console.CursorLeft = sliderPostion;
+                        Console.CursorLeft = sliderPostion + widthSize - 1;
                         Console.BackgroundColor = attackMap[sliderPostion - 1].Color;
                         Console.Write(" ");
                         Console.BackgroundColor = ConsoleColor.Black;
@@ -385,11 +385,11 @@ namespace Game
                         Console.CursorTop++;
                     }
                 }
-                else if(sliderPostion < mapSize - 1)
+                else if(sliderPostion < mapSize - 1 - widthSize + 1)
                 {
                     for (int j = 1; j < yMax - yTop; j++)
                     {
-                        Console.CursorLeft = sliderPostion + 1;
+                        Console.CursorLeft = sliderPostion + widthSize;
                         Console.BackgroundColor = ConsoleColor.Black;
                         Console.Write(" ");
                         Console.BackgroundColor = attackMap[sliderPostion + 1].Color;
@@ -666,7 +666,7 @@ namespace Game
             int longest = Program.PrintPlayerStat(yellowHealth);
             #endregion
 
-            xMax = Console.WindowWidth - longest - 2;
+            xMax = Console.WindowWidth - longest - 4;
             yMax = Console.WindowHeight - 3;
 
             Console.CursorLeft = x;
