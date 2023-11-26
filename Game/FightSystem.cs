@@ -84,6 +84,11 @@ namespace Game
 
             public int Round { get; set; }
         }
+        struct Colors
+        {
+            public int Number { get; set; }
+            public ConsoleColor Color { get; set; }
+        }
 
         private bool Fight()
         {
@@ -290,15 +295,33 @@ namespace Game
         }
         private void printAttackMap(Attack[] attackMap)
         {
+            List<int> numOfColors = new List<int>();
+            List<ConsoleColor> numOfColors_color = new List<ConsoleColor>();
+            numOfColors.Add(1);
+            numOfColors_color.Add(attackMap[0].Color);
+            for (int i = 1; i < attackMap.Length; i++)
+            {
+                if (attackMap[i-1].Color == attackMap[i].Color)
+                {
+                    numOfColors[numOfColors.Count-1] += 1;
+                }
+                else
+                {
+                    numOfColors.Add(1);
+                    numOfColors_color.Add(attackMap[i].Color);
+                }
+            }
+            
             for (int j = 1; j < yMax - yTop; j++)
             {
-                for (int i = 0; i < attackMap.Length; i++)
+                Console.CursorLeft = 1;
+                for (int i = 0; i < numOfColors.Count; i++)
                 {
-                    Console.CursorLeft = 1 + i;
                     Console.CursorTop = yTop + j;
-                    Console.BackgroundColor = attackMap[i].Color;
 
-                    Console.Write(" ");
+                    Console.BackgroundColor = numOfColors_color[i];
+
+                    Console.Write(new string(' ', numOfColors[i]));
                 }
             }
             Console.BackgroundColor= ConsoleColor.Black;
