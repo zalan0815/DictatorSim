@@ -333,7 +333,7 @@ namespace Game
             await Task.Run(async () =>
             {
                 Stopwatch printTimer = new Stopwatch();
-                int travelTime = 2000/mapSize;
+                int travelTime = 1750/mapSize;
 
                 int currentRound = attackMap[0].Round;
                 bool direction = false;
@@ -372,29 +372,29 @@ namespace Game
         {
             await Task.Run(() =>
             {
-                Console.CursorTop = yTop + 1;
                 if (direction && sliderPostion + 1 > 1)
                 {
                     for (int j = 1; j < yMax - yTop; j++)
                     {
+                        Console.CursorTop = yTop + j;
                         Console.CursorLeft = sliderPostion + widthSize - 1;
                         Console.BackgroundColor = attackMap[sliderPostion - 1].Color;
                         Console.Write(" ");
                         Console.BackgroundColor = ConsoleColor.Black;
                         Console.Write(" ");
-                        Console.CursorTop++;
+                        Console.CursorTop = yTop + j + 1;
                     }
                 }
                 else if(sliderPostion < mapSize - 1 - widthSize + 1)
                 {
                     for (int j = 1; j < yMax - yTop; j++)
                     {
+                        Console.CursorTop = yTop + j;
                         Console.CursorLeft = sliderPostion + widthSize;
                         Console.BackgroundColor = ConsoleColor.Black;
                         Console.Write(" ");
                         Console.BackgroundColor = attackMap[sliderPostion + 1].Color;
                         Console.Write(" ");
-                        Console.CursorTop++;
                     }
                 }
             });
