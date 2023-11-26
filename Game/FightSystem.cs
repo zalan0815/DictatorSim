@@ -296,9 +296,11 @@ namespace Game
         private void printAttackMap(Attack[] attackMap)
         {
             List<int> numOfColors = new List<int>();
-            List<ConsoleColor> numOfColors_color = new List<ConsoleColor>();
             numOfColors.Add(1);
+
+            List<ConsoleColor> numOfColors_color = new List<ConsoleColor>();
             numOfColors_color.Add(attackMap[0].Color);
+
             for (int i = 1; i < attackMap.Length; i++)
             {
                 if (attackMap[i-1].Color == attackMap[i].Color)
@@ -373,51 +375,31 @@ namespace Game
         {
             await Task.Run(() =>
             {
-                for (int j = 1; j < yMax - yTop; j++)
+                Console.CursorTop = yTop + 1;
+                if (direction && sliderPostion + 1 > 1)
                 {
-                    Console.CursorTop = yTop + j;
-
-                    /*if (sliderStopped)
-                    {
-                        return;
-                    }*/
-
-                    if (direction)
+                    for (int j = 1; j < yMax - yTop; j++)
                     {
                         Console.CursorLeft = sliderPostion;
-                        if (sliderPostion + 1 > 1)
-                        {
-                            Console.BackgroundColor = attackMap[sliderPostion - 1].Color;
-
-                        }
-                        else
-                        {
-                            Console.BackgroundColor = ConsoleColor.White;
-                        }
+                        Console.BackgroundColor = attackMap[sliderPostion - 1].Color;
                         Console.Write(" ");
                         Console.BackgroundColor = ConsoleColor.Black;
                         Console.Write(" ");
+                        Console.CursorTop++;
                     }
-                    else
+                }
+                else if(sliderPostion < mapSize - 1)
+                {
+                    for (int j = 1; j < yMax - yTop; j++)
                     {
                         Console.CursorLeft = sliderPostion + 1;
                         Console.BackgroundColor = ConsoleColor.Black;
                         Console.Write(" ");
-                        if (sliderPostion < mapSize - 1)
-                        {
-                            Console.BackgroundColor = attackMap[sliderPostion + 1].Color;
-                            
-                        }
-                        else
-                        {
-                            Console.BackgroundColor = ConsoleColor.White;
-                        }
-                        
+                        Console.BackgroundColor = attackMap[sliderPostion + 1].Color;
                         Console.Write(" ");
+                        Console.CursorTop++;
                     }
-
                 }
-                //displayedSliderPosition = sliderPostion;
             });
             
         }
