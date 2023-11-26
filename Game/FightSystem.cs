@@ -34,7 +34,7 @@ namespace Game
 
         private bool sliderStopped;
         private int yTop = 5;
-        private int mapSize;
+        private int mapSize { get { return xMax - 1; } }
         private int xGreenSpot;
 
         public FightSystem(Player player, Enemy enemy, out bool Victory)
@@ -226,7 +226,6 @@ namespace Game
 
         private Attack[] generateMap()
         {
-            mapSize = xMax - 1;
             xGreenSpot = random.Next(mapSize + 1 - player.SliderSpeed);
             int xGreenSpotRight = xGreenSpot + player.SliderSpeed - 1;
             /* MapSize (exc. GreenSpots):
@@ -309,6 +308,7 @@ namespace Game
             await Task.Run(async () =>
             {
                 Stopwatch printTimer = new Stopwatch();
+                int travelTime = 2000/mapSize;
 
                 int currentRound = attackMap[0].Round;
                 bool direction = false;
@@ -326,14 +326,15 @@ namespace Game
 
                     printTimer.Start();
                     await printSliderMove(direction, attackMap);
+                    printTimer.Stop();
                     //if (sliderStopped || round != currentRound)
                     //{
                     //    return;
                     //}
                     int printTime = Convert.ToInt32(printTimer.ElapsedMilliseconds);
-                    if (printTime < (2000 / mapSize))
+                    if (printTime < travelTime)
                     {
-                        Task.Delay((2000 / mapSize) - printTime).Wait();
+                        Task.Delay(travelTime - printTime).Wait();
                     }
                     else
                     {
