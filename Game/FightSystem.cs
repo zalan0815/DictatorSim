@@ -340,7 +340,7 @@ namespace Game
                 sliderPostion = random.Next(2, mapSize);
                 while (!sliderStopped && round == currentRound)
                 {
-                    
+                    printTimer.Start();
                     if ((sliderPostion >= mapSize - 1 && direction) || (sliderPostion + 1 <= 1 && !direction))
                     {
                         sliderPostion += direction ? 1 : -1;
@@ -349,13 +349,8 @@ namespace Game
                     }
                     sliderPostion += direction ? 1 : -1;
 
-                    printTimer.Start();
                     await printSliderMove(direction, attackMap);
-                    printTimer.Stop();
-                    //if (sliderStopped || round != currentRound)
-                    //{
-                    //    return;
-                    //}
+
                     int printTime = Convert.ToInt32(printTimer.ElapsedMilliseconds);
                     if (printTime < travelTime)
                     {
