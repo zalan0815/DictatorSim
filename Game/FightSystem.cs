@@ -351,6 +351,8 @@ namespace Game
 
                     await printSliderMove(direction, attackMap);
 
+                    printTimer.Stop();
+
                     int printTime = Convert.ToInt32(printTimer.ElapsedMilliseconds);
                     if (printTime < travelTime)
                     {
