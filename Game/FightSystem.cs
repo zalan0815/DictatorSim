@@ -306,8 +306,10 @@ namespace Game
         }
         private async Task moveSlider(Attack[] attackMap)
         {
-            await Task.Run(() =>
+            await Task.Run(async () =>
             {
+                Stopwatch printTimer = new Stopwatch();
+
                 int currentRound = attackMap[0].Round;
                 bool direction = false;
                 sliderPostion = random.Next(2, mapSize);
@@ -322,13 +324,22 @@ namespace Game
                     }
                     sliderPostion += direction ? 1 : -1;
 
-                    printSliderMove(direction, attackMap);
-
+                    printTimer.Start();
+                    await printSliderMove(direction, attackMap);
                     //if (sliderStopped || round != currentRound)
                     //{
                     //    return;
                     //}
-                    Task.Delay(2000 / mapSize).Wait();
+                    int printTime = Convert.ToInt32(printTimer.ElapsedMilliseconds);
+                    if (printTime < (2000 / mapSize))
+                    {
+                        Task.Delay((2000 / mapSize) - printTime).Wait();
+                    }
+                    else
+                    {
+                        Task.Delay(1).Wait();
+                    }
+                    printTimer.Reset();
                 }
             });
             

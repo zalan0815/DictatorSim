@@ -1,4 +1,6 @@
-﻿namespace Game
+﻿using System.Security.Principal;
+
+namespace Game
 {
     partial class Program
     {
@@ -7,7 +9,7 @@
         static void Main(string[] args)
         {
             Locations.Generate();
-
+            FightSystem f = new FightSystem(player, new Enemy(100, 1), out bool win);
         }
         static void SlowPrint(string text)
         {
