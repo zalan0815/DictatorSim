@@ -15,9 +15,12 @@ namespace Game
         #region Peti
         public static int hely_1()
         {
-            Program.SlowPrint("A történet a házadban veszi kezdetét, ahol egy szép napon reggel elhatározod, hogy elmész világot látni. ");
-            return Locations.Tovabb(Locations.helyek[2]);
+            Program.SlowPrint("A történet Palko házában veszi kezdetét, ahol egy szép napon reggel Palko elhatározta, hogy elmegy világot látni.");
+            Program.SlowPrint("Mit csináljon palko?");
+            int choice = Valasztas()
+            return Tovabb(helyek[2]);
         }
+
         #endregion
         public static int hely_2()
         {

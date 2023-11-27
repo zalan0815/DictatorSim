@@ -33,11 +33,6 @@
             }
             Console.WriteLine();
         }
-    }
-}
-            }
-            Console.WriteLine();
-        }
         static int getPlayerStatLength()
         {
             int longest = "életerőd".Length;
