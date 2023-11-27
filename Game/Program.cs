@@ -2,8 +2,8 @@
 {
     partial class Program
     {
-        static Player player = new Player(10, 10, 1, 180);
-        static int printLenght = Console.WindowWidth - 30;
+        public static Player player = new Player(10, 10, 1, 180);
+        public static int printLenght = Console.WindowWidth - 30;
         static void Main(string[] args)
         {
             Locations.Generate();
