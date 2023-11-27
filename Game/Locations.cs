@@ -103,6 +103,29 @@ namespace Game
             Console.Write($"mendegélt tovább {helyek[choice - 1].Name} felé.\n");
             return helyek[choice - 1].ID;
         }
+        public static int Valasztas(params string[] lehetosegek)
+        {
+            Console.WriteLine("Mit akarsz csinálni:");
+            for (int i = 1; i < lehetosegek.Length + 1; i++)
+            {
+                Console.WriteLine($"{i}. - {lehetosegek[i - 1]}");
+            }
+            int choice;
+            bool error = false;
+            while (!int.TryParse(Console.ReadKey(true).KeyChar.ToString(), out choice) || (choice < 1 || choice > lehetosegek.Length))
+            {
+                if (!error)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Ilyet nem tudsz csinálni!");
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.WriteLine("Próbáld újra!");
+                    error = true;
+                }
+            }
+            return choice - 1;
+        }
+        public static int basic()
         public static int basic(ref LocationData currentLocation)
         {
             return 0;
