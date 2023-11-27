@@ -125,7 +125,6 @@ namespace Game
             }
             return choice - 1;
         }
-        public static int basic()
         public static int basic(ref LocationData currentLocation)
         {
             return 0;
