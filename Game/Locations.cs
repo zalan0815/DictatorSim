@@ -103,16 +103,42 @@ namespace Game
             Console.Write($"mendegélt tovább {helyek[choice - 1].Name} felé.\n");
             return helyek[choice - 1].ID;
         }
-        public static int Valasztas(params string[] lehetosegek)
+        public static int Valasztas(ref LocationData currentLocation, params string[] lehetosegek)
         {
+            #region Biztosíték
+            if (lehetosegek.Length > currentLocation.ChosenOptions.Length)
+            {
+                throw new Exception("túl sok választási lehetőség");
+            }
+
+            bool foundChoosable = false;
+            for (int i = 0; i < lehetosegek.Length; i++)
+            {
+                if (!currentLocation.ChosenOptions[i])
+                {
+                    foundChoosable = true;
+                    break;
+                }
+            }
+            if (!foundChoosable)
+            {
+                return -1; //switch case default kezelje majd
+            }
+            #endregion
+
             Console.WriteLine("Mit akarsz csinálni:");
             for (int i = 1; i < lehetosegek.Length + 1; i++)
             {
+                if (currentLocation.ChosenOptions[i - 1])
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
+                }
                 Console.WriteLine($"{i}. - {lehetosegek[i - 1]}");
+                Console.ForegroundColor = ConsoleColor.White;
             }
             int choice;
             bool error = false;
-            while (!int.TryParse(Console.ReadKey(true).KeyChar.ToString(), out choice) || (choice < 1 || choice > lehetosegek.Length))
+            while (!int.TryParse(Console.ReadKey(true).KeyChar.ToString(), out choice) || (choice < 1 || choice > lehetosegek.Length || currentLocation.ChosenOptions[choice-1]))
             {
                 if (!error)
                 {
@@ -123,6 +149,7 @@ namespace Game
                     error = true;
                 }
             }
+            currentLocation.ChosenOptions[choice - 1] = true;
             return choice - 1;
         }
         public static int basic(ref LocationData currentLocation)

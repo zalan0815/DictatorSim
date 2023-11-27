@@ -9,7 +9,13 @@ namespace Game
         static void Main(string[] args)
         {
             Locations.Generate();
-            Locations.helyek[30].Run();
+            int location = 30;
+            do
+            {
+                location = Locations.helyek[location].Run();
+            }
+            while (Locations.helyek.Length > location && location > 0);
+            Console.Write("Program end");
         }
         
         public static void SlowPrint(string text)
