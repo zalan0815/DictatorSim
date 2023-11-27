@@ -9,12 +9,12 @@ namespace Game
     partial class Locations
     {
         #region Zalan
-        public static int hely_29()
+        public static int hely_29(ref LocationData currentLocation)
         {
 
             return 0;
         }
-        public static int hely_30()
+        public static int hely_30(ref LocationData currentLocation)
         {
             Program.SlowPrint("Elérkeztünk hát mesés történetünk végéhez. Palkó a Kacsalábon forgó kacsalábon forgó palotájában boldogan élt a királylánnyal míg meg nem halt.");
             Program.SlowPrint("VÉGE");
@@ -135,14 +135,6 @@ namespace Game
             return 0;
         }
         public static int hely_28(ref LocationData currentLocation)
-        {
-            return 0;
-        }
-        public static int hely_29(ref LocationData currentLocation)
-        {
-            return 0;
-        }
-        public static int hely_30(ref LocationData currentLocation)
         {
             return 0;
         }
