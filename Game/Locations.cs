@@ -8,25 +8,30 @@ namespace Game
 {
     partial class Locations
     {
-        public delegate int LocationMethod();
+        public delegate int LocationMethod(ref LocationData currentLocation);
 
         public static LocationData[] helyek;
         public struct LocationData
         {
             private static int globID = 0;
             private int id;
-            public int ID { get { return id; } }
-            public string Name { get; set; }
+            private bool[] chosenOptions;
+            private string name;
+            public readonly int ID { get { return id; } }
+            public bool[] ChosenOptions { get { return chosenOptions; } set { chosenOptions = value; } }
+            public string Name { get { return name; } set { name = value; } }
+
             public LocationMethod myMethod;
             public int Run()
             {
-                return myMethod.Invoke();
+                return myMethod.Invoke(ref this);
             }
 
             public LocationData(string name, LocationMethod method)
             {
-                id = globID++;
-                this.Name = name;
+                this.id = globID++;
+                this.name = name;
+                this.chosenOptions = new bool[6]; //maximum 6 választási lehetőség
                 this.myMethod = method;
             }
         }
@@ -98,7 +103,7 @@ namespace Game
             Console.Write($"mendegélt tovább {helyek[choice - 1].Name} felé.\n");
             return helyek[choice - 1].ID;
         }
-        public static int basic()
+        public static int basic(ref LocationData currentLocation)
         {
             return 0;
         }
