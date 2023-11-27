@@ -13,7 +13,6 @@
             Locations.helyek[30].Run();
         }
         
-        }
         public static void SlowPrint(string text)
         {
             for (int i = 0; i < text.Length; i++)
