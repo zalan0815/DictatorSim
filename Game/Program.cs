@@ -9,9 +9,6 @@ namespace Game
         static void Main(string[] args)
         {
             Locations.Generate();
-            player = new Player(10, 10, 1, 0);
-            printLenght = Console.WindowWidth - 30;
-
             Locations.helyek[30].Run();
         }
         
