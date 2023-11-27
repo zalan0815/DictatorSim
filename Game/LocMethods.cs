@@ -27,7 +27,7 @@ namespace Game
         {
             Program.SlowPrint("A történet Palko házában veszi kezdetét, ahol egy szép napon reggel Palko elhatározta, hogy elmegy világot látni.");
             Program.SlowPrint("Mit csináljon palko?");
-            int choice = Valasztas()
+            int choice = Valasztas("Sarokban lévő láda kinyitása", "Elbúcsúzás Palko édesanyjától");
             return Tovabb(helyek[2]);
         }
 
