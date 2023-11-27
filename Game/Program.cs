@@ -9,9 +9,13 @@ namespace Game
         static void Main(string[] args)
         {
             Locations.Generate();
-            FightSystem f = new FightSystem(player, new Enemy(100, 1), out bool win);
+            player = new Player(10, 10, 1, 0);
+            printLenght = Console.WindowWidth - 30;
+
+            Locations.helyek[30].Run();
         }
-        static void SlowPrint(string text)
+        
+        public static void SlowPrint(string text)
         {
             for (int i = 0; i < text.Length; i++)
             {
