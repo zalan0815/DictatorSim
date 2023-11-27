@@ -9,9 +9,15 @@ namespace Game
     partial class Locations
     {
         #region Zalan
+        public static int hely_29()
+        {
+
+            return 0;
+        }
         public static int hely_30()
         {
             Program.SlowPrint("Elérkeztünk hát mesés történetünk végéhez. Palkó a Kacsalábon forgó kacsalábon forgó palotájában boldogan élt a királylánnyal míg meg nem halt.");
+            Program.SlowPrint("VÉGE");
             return 0;
         }
         #endregion
@@ -132,10 +138,7 @@ namespace Game
         {
             return 0;
         }
-        public static int hely_29()
-        {
-            return 0;
-        }
+        
         
 
     }

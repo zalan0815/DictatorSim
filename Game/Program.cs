@@ -10,6 +10,8 @@
             Locations.Generate();
             player = new Player(10, 10, 1, 0);
             printLenght = Console.WindowWidth - 30;
+
+            Locations.helyek[30].Run();
         }
         public static void SlowPrint(string text)
         {
@@ -32,8 +34,8 @@
                     Console.Write(text[i]);
                     Thread.Sleep(25);
                 }
-                Console.WriteLine();
             }
+            Console.WriteLine();
         }
     }
 }
