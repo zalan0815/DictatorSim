@@ -16,6 +16,9 @@ namespace Game
         }
         public static int hely_30(ref LocationData currentLocation)
         {
+            Program.smith.ShopMenu(ref Program.player);
+            Program.smith.ShopMenu(ref Program.player);
+
             Program.SlowPrint("Elérkeztünk hát mesés történetünk végéhez. Palkó a Kacsalábon forgó kacsalábon forgó palotájában boldogan élt a királylánnyal míg meg nem halt.");
             Program.SlowPrint("VÉGE");
             return 0;
