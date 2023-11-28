@@ -1,4 +1,6 @@
-﻿using System.Security.Principal;
+﻿using System.Diagnostics;
+using System.Security.Principal;
+using System.Text.Json.Serialization;
 
 namespace Game
 {
@@ -6,6 +8,8 @@ namespace Game
     {
         public static Player player = new Player(10, 10, 1, 180);
         public static int printLenght = Console.WindowWidth - 30;
+        public static int printms = 100;
+
         static void Main(string[] args)
         {
             Locations.Generate();
@@ -20,27 +24,41 @@ namespace Game
         
         public static void SlowPrint(string text)
         {
-            for (int i = 0; i < text.Length; i++)
+            string[] words = text.Split(' ');
+            for (int i = 0; i < words.Length; i++)
             {
-                if (Console.CursorLeft == printLenght)
+                if(words[i].Length >= printLenght - Console.CursorLeft && !(words[i].Length >= printLenght))
                 {
-                    Console.Write(' ');
-                    while (text[i] != ' ')
-                    {
-                        i--;
-                        Console.CursorLeft -= 2;
-                        Console.Write(' ');
-                    }
-                    Console.WriteLine(text[i]);
-                    Thread.Sleep(25);
+                    Console.WriteLine();
                 }
-                else
+                if(i < words.Length - 1)
                 {
-                    Console.Write(text[i]);
-                    Thread.Sleep(25);
+                    words[i] += " ";
                 }
+                
+                SlowPrintWord(words[i]);
             }
             Console.WriteLine();
+        }
+
+        public static void SlowPrintWord(string word)
+        {
+            Stopwatch printStopWatch = new Stopwatch();
+            int cursorPostion = Console.CursorLeft;
+            for (int i = 0; i < word.Length; i++)
+            {
+                printStopWatch.Start();
+
+                if (cursorPostion >= printLenght - 1)
+                {
+                    Console.Write("-");
+                    Console.WriteLine();
+                }
+                Console.Write(word[i]);
+                cursorPostion++;
+
+                Thread.Sleep(printms > printStopWatch.ElapsedMilliseconds ? printms - (int)printStopWatch.ElapsedMilliseconds : printms);
+            }
         }
         static int getPlayerStatLength()
         {

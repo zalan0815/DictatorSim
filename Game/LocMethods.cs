@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,8 +17,11 @@ namespace Game
         }
         public static int hely_30(ref LocationData currentLocation)
         {
+            Stopwatch s = new Stopwatch();
+            s.Start();
             Program.SlowPrint("Elérkeztünk hát mesés történetünk végéhez. Palkó a Kacsalábon forgó kacsalábon forgó palotájában boldogan élt a királylánnyal míg meg nem halt.");
-            Program.SlowPrint("VÉGE");
+            //Program.SlowPrint("VÉGE");
+            Console.WriteLine(s.Elapsed);
             return 0;
         }
         #endregion
