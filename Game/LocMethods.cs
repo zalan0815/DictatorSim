@@ -14,7 +14,7 @@ namespace Game
             Program.SlowPrint("Miután Palkó felérkezett az égigérő paszuly tetejére végre megérkezett végső céljához, a SÁRKÁNYFÉSZEKHEZ.");
             Program.SlowPrint("A sárkányfészekben ült a 3 FEJŰ SÁRKÁNY.");
             Program.SlowPrint("\"Már vártalak téged, Ifjú lovag\" - Dörmögte a 3 fejű sárkány.");
-            Program.SlowPrint("A sárkány legyőzéséhez Palkónak mind a 3 fejet le kell győznie.");
+            Program.SlowPrint("A sárkány legyőzéséhez Palkónak mind a 3 fejet le kell győznie!");
 
             int choice = Valasztas("Bal fej megtámadása", "Középső fej megtámadása", "Jobb fej megtámadása");
             switch (choice)
