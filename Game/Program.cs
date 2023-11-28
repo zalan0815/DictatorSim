@@ -1,46 +1,97 @@
-﻿using System.Security.Principal;
+﻿using System.Diagnostics;
+using System.Security.Principal;
 
 namespace Game
 {
     partial class Program
     {
+        private bool printStopped;
+
         public static Player player = new Player(10, 10, 1, 180);
         public static int printLenght = Console.WindowWidth - 30;
         static void Main(string[] args)
         {
-            Locations.Generate();
-            int location = 30;
-            do
-            {
-                location = Locations.helyek[location].Run();
-            }
-            while (Locations.helyek.Length > location && location > 0);
-            Console.Write("Program end");
+            //Locations.Generate();
+            //int location = 29;
+            //do
+            //{
+            //    location = Locations.helyek[location].Run();
+            //}
+            //while (Locations.helyek.Length > location && location > 0);
+            //Console.Write("Program end");
+
+            Program program = new Program();
+            program.SlowPrint("123456789abcdefghijklmnopqrestwvxyz");
         }
         
-        public static void SlowPrint(string text)
+        public void SlowPrint(string text)
         {
-            for (int i = 0; i < text.Length; i++)
+            Stopwatch stopwatch;
+            int i = 0;
+            printStopped = false;
+
+            slowPrint2(i, text);
+
+            stopwatch = new Stopwatch();
+            stopwatch.Start();
+            while (stopwatch.ElapsedMilliseconds < 250)
             {
-                if (Console.CursorLeft == printLenght)
+                Console.ReadKey(true);
+            }
+            printStopped = true;
+
+            if (i < text.Length)
+            {
+                while (i < text.Length)
                 {
-                    Console.Write(' ');
-                    while (text[i] != ' ')
+                    if (Console.CursorLeft == printLenght)
                     {
-                        i--;
-                        Console.CursorLeft -= 2;
                         Console.Write(' ');
+                        while (text[i] != ' ')
+                        {
+                            i--;
+                            Console.CursorLeft -= 2;
+                            Console.Write(' ');
+                        }
+                        Console.WriteLine(text[i]);
                     }
-                    Console.WriteLine(text[i]);
-                    Thread.Sleep(25);
-                }
-                else
-                {
-                    Console.Write(text[i]);
-                    Thread.Sleep(25);
+                    else
+                    {
+                        Console.Write(text[i]);
+                    }
+                    i++;
                 }
             }
             Console.WriteLine();
+
+        }
+
+        private async Task slowPrint2(int i, string text)
+        {
+            await Task.Run(() =>
+            {
+                while (!printStopped && i < text.Length)
+                {
+                    if (Console.CursorLeft == printLenght)
+                    {
+                        Console.Write(' ');
+                        while (text[i] != ' ')
+                        {
+                            i--;
+                            Console.CursorLeft -= 2;
+                            Console.Write(' ');
+                        }
+                        Console.WriteLine(text[i]);
+                        Thread.Sleep(250);
+                    }
+                    else
+                    {
+                        Console.Write(text[i]);
+                        Thread.Sleep(250);
+                    }
+                    i++;
+                }
+            });
         }
         static int getPlayerStatLength()
         {
