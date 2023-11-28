@@ -32,6 +32,11 @@ namespace Game
         public void purchaseItem(ref Player player, int itemId)
         {
             Item item = items[itemId];
+            if (item.Sold)
+            {
+                return;
+            }
+
             Type itemType = item.GetType();
             if(itemType == typeof(Sword))
             {
@@ -46,7 +51,7 @@ namespace Game
                 player.Inventory.Add(item as OtherItem);
             }
             player.Money -= item.Price;
-            items.RemoveAt(itemId);
+            item.Sold = true;
         }
 
         public void printShop(ref Player player, string txt1, string txt2)
@@ -60,16 +65,21 @@ namespace Game
 
             for (int i = 0; i < items.Count; i++)
             {
-                Console.ForegroundColor = ConsoleColor.White;
+                if (items[i].Sold)
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
+                }
 
                 Console.Write($"{i + 1}, ");
-                items[i].WriteItemStat();
+                items[i].WriteItemStat(writeWithColor:!items[i].Sold);
                 Console.Write(" - ");
-                if (player.Money < items[i].Price)
+                if (player.Money < items[i].Price && !items[i].Sold)
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                 }
                 Console.WriteLine($"{items[i].Price} krajcár");
+
+                Console.ForegroundColor = ConsoleColor.White;
             }
 
             Console.ForegroundColor = ConsoleColor.White;

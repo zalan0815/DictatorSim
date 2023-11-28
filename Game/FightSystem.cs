@@ -19,7 +19,7 @@ namespace Game
         private int y;
         private int xMax;
         private int yMax;
-
+        private int widthSize = 2; //map bal-jobb szélének mérete
 
         private int spawnedEnemyId;
         private bool lostDeffence;
@@ -34,7 +34,7 @@ namespace Game
 
         private bool sliderStopped;
         private int yTop = 5;
-        private int mapSize;
+        private int mapSize { get { return xMax - 1; } }
         private int xGreenSpot;
 
         public FightSystem(Player player, Enemy enemy, out bool Victory)
@@ -83,6 +83,11 @@ namespace Game
             public double DamageMarkiplier { get; set; }
 
             public int Round { get; set; }
+        }
+        struct Colors
+        {
+            public int Number { get; set; }
+            public ConsoleColor Color { get; set; }
         }
 
         private bool Fight()
@@ -205,19 +210,19 @@ namespace Game
 
             Console.CursorLeft = 0;
             Console.CursorTop = yTop;
-            Console.Write(new string(' ', xMax + 1) );
+            Console.Write(new string(' ', xMax + widthSize) );
 
             Console.CursorLeft = 0;
             Console.CursorTop = yMax;
-            Console.Write(new string(' ', xMax + 1) );
+            Console.Write(new string(' ', xMax + widthSize) );
 
             for (int j = 1; j < yMax - yTop; j++)
             {
                 Console.CursorLeft = 0;
                 Console.CursorTop = yTop + j;
-                Console.Write(" ");
+                Console.Write(new string(' ', widthSize));
                 Console.CursorLeft = xMax;
-                Console.Write(" ");
+                Console.Write(new string(' ',widthSize));
             }
 
             Console.BackgroundColor = ConsoleColor.Black;
@@ -226,7 +231,6 @@ namespace Game
 
         private Attack[] generateMap()
         {
-            mapSize = xMax - 1;
             xGreenSpot = random.Next(mapSize + 1 - player.SliderSpeed);
             int xGreenSpotRight = xGreenSpot + player.SliderSpeed - 1;
             /* MapSize (exc. GreenSpots):
@@ -235,11 +239,11 @@ namespace Game
              * 30% - 50%-90% dmg    - Yellow
              
              */
-            Attack[] attackMap = new Attack[mapSize];
+            Attack[] attackMap = new Attack[mapSize - widthSize + 1];
             int count = 0;
 
 
-            while (count < mapSize)
+            while (count < mapSize - widthSize + 1)
             {
                 attackMap[count] = new Attack() { X = count, Round=round };
                 if(count >= xGreenSpot && count <= xGreenSpot + player.SliderSpeed - 1)
@@ -291,30 +295,53 @@ namespace Game
         }
         private void printAttackMap(Attack[] attackMap)
         {
+            List<int> numOfColors = new List<int>();
+            numOfColors.Add(1);
+
+            List<ConsoleColor> numOfColors_color = new List<ConsoleColor>();
+            numOfColors_color.Add(attackMap[0].Color);
+
+            for (int i = 1; i < attackMap.Length; i++)
+            {
+                if (attackMap[i-1].Color == attackMap[i].Color)
+                {
+                    numOfColors[numOfColors.Count-1] += 1;
+                }
+                else
+                {
+                    numOfColors.Add(1);
+                    numOfColors_color.Add(attackMap[i].Color);
+                }
+            }
+            
             for (int j = 1; j < yMax - yTop; j++)
             {
-                for (int i = 0; i < attackMap.Length; i++)
+                Console.CursorLeft = widthSize;
+                for (int i = 0; i < numOfColors.Count; i++)
                 {
-                    Console.CursorLeft = 1 + i;
                     Console.CursorTop = yTop + j;
-                    Console.BackgroundColor = attackMap[i].Color;
 
-                    Console.Write(" ");
+                    Console.BackgroundColor = numOfColors_color[i];
+
+                    Console.Write(new string(' ', numOfColors[i]));
                 }
             }
             Console.BackgroundColor= ConsoleColor.Black;
         }
         private async Task moveSlider(Attack[] attackMap)
         {
-            await Task.Run(() =>
+            await Task.Run(async () =>
             {
+                Stopwatch printTimer = new Stopwatch();
+                int travelTime = 1750/mapSize;
+
                 int currentRound = attackMap[0].Round;
                 bool direction = false;
-                sliderPostion = random.Next(2, mapSize);
+                sliderPostion = random.Next(1 + widthSize, mapSize);
                 while (!sliderStopped && round == currentRound)
                 {
-                    
-                    if ((sliderPostion >= mapSize - 1 && direction) || (sliderPostion + 1 <= 1 && !direction))
+                    printTimer.Start();
+                    if ((sliderPostion >= mapSize - 1 - widthSize + 1 && direction) || (sliderPostion + 1 <= 1 && !direction))
                     {
                         sliderPostion += direction ? 1 : -1;
                         direction = !direction;
@@ -322,13 +349,20 @@ namespace Game
                     }
                     sliderPostion += direction ? 1 : -1;
 
-                    printSliderMove(direction, attackMap);
+                    await printSliderMove(direction, attackMap);
 
-                    //if (sliderStopped || round != currentRound)
-                    //{
-                    //    return;
-                    //}
-                    Task.Delay(2000 / mapSize).Wait();
+                    printTimer.Stop();
+
+                    int printTime = Convert.ToInt32(printTimer.ElapsedMilliseconds);
+                    if (printTime < travelTime)
+                    {
+                        Task.Delay(travelTime - printTime).Wait();
+                    }
+                    else
+                    {
+                        Task.Delay(1).Wait();
+                    }
+                    printTimer.Reset();
                 }
             });
             
@@ -338,51 +372,31 @@ namespace Game
         {
             await Task.Run(() =>
             {
-                for (int j = 1; j < yMax - yTop; j++)
+                if (direction && sliderPostion + 1 > 1)
                 {
-                    Console.CursorTop = yTop + j;
-
-                    /*if (sliderStopped)
+                    for (int j = 1; j < yMax - yTop; j++)
                     {
-                        return;
-                    }*/
-
-                    if (direction)
-                    {
-                        Console.CursorLeft = sliderPostion;
-                        if (sliderPostion + 1 > 1)
-                        {
-                            Console.BackgroundColor = attackMap[sliderPostion - 1].Color;
-
-                        }
-                        else
-                        {
-                            Console.BackgroundColor = ConsoleColor.White;
-                        }
+                        Console.CursorTop = yTop + j;
+                        Console.CursorLeft = sliderPostion + widthSize - 1;
+                        Console.BackgroundColor = attackMap[sliderPostion - 1].Color;
                         Console.Write(" ");
                         Console.BackgroundColor = ConsoleColor.Black;
                         Console.Write(" ");
+                        Console.CursorTop = yTop + j + 1;
                     }
-                    else
-                    {
-                        Console.CursorLeft = sliderPostion + 1;
-                        Console.BackgroundColor = ConsoleColor.Black;
-                        Console.Write(" ");
-                        if (sliderPostion < mapSize - 1)
-                        {
-                            Console.BackgroundColor = attackMap[sliderPostion + 1].Color;
-                            
-                        }
-                        else
-                        {
-                            Console.BackgroundColor = ConsoleColor.White;
-                        }
-                        
-                        Console.Write(" ");
-                    }
-
                 }
-                //displayedSliderPosition = sliderPostion;
+                else if(sliderPostion < mapSize - 1 - widthSize + 1)
+                {
+                    for (int j = 1; j < yMax - yTop; j++)
+                    {
+                        Console.CursorTop = yTop + j;
+                        Console.CursorLeft = sliderPostion + widthSize;
+                        Console.BackgroundColor = ConsoleColor.Black;
+                        Console.Write(" ");
+                        Console.BackgroundColor = attackMap[sliderPostion + 1].Color;
+                        Console.Write(" ");
+                    }
+                }
             });
             
         }
@@ -652,7 +666,7 @@ namespace Game
             int longest = Program.PrintPlayerStat(yellowHealth);
             #endregion
 
-            xMax = Console.WindowWidth - longest - 2;
+            xMax = Console.WindowWidth - longest - 4;
             yMax = Console.WindowHeight - 3;
 
             Console.CursorLeft = x;

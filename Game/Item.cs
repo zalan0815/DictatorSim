@@ -16,6 +16,7 @@ namespace Game
         private StatType type;
         private int stat;
         private int price;
+        private bool sold;
 
         #region FIELDS
         public string Name
@@ -38,22 +39,35 @@ namespace Game
             get { return price; }
             set { price = value; }
         }
+        public bool Sold
+        {
+            get { return sold; }
+            set { sold = value; }
+        }
         #endregion
 
-        public int WriteItemStat(bool withItemsName = true, bool writeOut = true)
+        public int WriteItemStat(bool withItemsName = true, bool writeOut = true, bool writeWithColor = true)
         {
             int lenght = 0;
             Console.BackgroundColor = ConsoleColor.Black;
             if (withItemsName)
             {
-                Console.ForegroundColor = ConsoleColor.White;
+                if (writeWithColor)
+                {
+                    Console.ForegroundColor = ConsoleColor.White;
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
+                }
+
                 if (writeOut)
                 {
                     Console.Write($"{this.Name} (");
                 }
                 lenght += $"{this.Name} (".Length;
             }
-            Console.ForegroundColor = ConsoleColor.White;
+
             ConsoleColor color;
             string typeText;
             switch (type)
@@ -75,13 +89,31 @@ namespace Game
                     typeText = "key";
                     break;
             }
-            Console.ForegroundColor = color;
+            if (writeWithColor)
+            {
+                Console.ForegroundColor = color;
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.DarkGray;
+            }
+            
             if(writeOut)
             {
                 Console.Write($"{this.Stat} {typeText}");
             }
+
             lenght += $"{this.Stat} {typeText}".Length;
-            Console.ForegroundColor = ConsoleColor.White;
+
+            if (writeWithColor)
+            {
+                Console.ForegroundColor = ConsoleColor.White;
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.DarkGray;
+            }
+
             if (withItemsName)
             {
                 if(writeOut)

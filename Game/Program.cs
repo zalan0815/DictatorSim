@@ -1,4 +1,6 @@
-﻿namespace Game
+﻿using System.Security.Principal;
+
+namespace Game
 {
     partial class Program
     {
@@ -7,12 +9,14 @@
         static void Main(string[] args)
         {
             Locations.Generate();
-            player = new Player(10, 10, 1, 0);
-            printLenght = Console.WindowWidth - 30;
-
-            Locations.helyek[30].Run();
+            int location = 30;
+            do
+            {
+                location = Locations.helyek[location].Run();
+            }
+            while (Locations.helyek.Length > location && location > 0);
+            Console.Write("Program end");
         }
-        
         
         public static void SlowPrint(string text)
         {
