@@ -11,10 +11,10 @@ namespace Game
         #region Zalan
         public static int hely_29(ref LocationData currentLocation)
         {
-            //Program.SlowPrint("Miután Palkó felérkezett az égigérő paszuly tetejére végre megérkezett végső céljához, a SÁRKÁNYFÉSZEKHEZ.");
-            //Program.SlowPrint("A sárkányfészekben ült a 3 FEJŰ SÁRKÁNY.");
-            //Program.SlowPrint("\"Már vártalak téged, Ifjú lovag\" - Dörmögte a 3 fejű sárkány.");
-            //Program.SlowPrint("A sárkány legyőzéséhez Palkónak mind a 3 fejet le kell győznie!");
+            Program.SlowPrint("Miután Palkó felérkezett az égigérő paszuly tetejére végre megérkezett végső céljához, a SÁRKÁNYFÉSZEKHEZ.");
+            Program.SlowPrint("A sárkányfészekben ült a 3 FEJŰ SÁRKÁNY.");
+            Program.SlowPrint("\"Már vártalak téged, Ifjú lovag\" - Dörmögte a 3 fejű sárkány.");
+            Program.SlowPrint("A sárkány legyőzéséhez Palkónak mind a 3 fejet le kell győznie!");
 
             bool w0 = true;
             bool w1 = true;
@@ -49,8 +49,8 @@ namespace Game
         }
         public static int hely_30(ref LocationData currentLocation)
         {
-            //Program.SlowPrint("Elérkeztünk hát mesés történetünk végéhez. Palkó a Kacsalábon forgó kacsalábon forgó palotájában boldogan élt a királylánnyal míg meg nem halt.");
-            //Program.SlowPrint("VÉGE");
+            Program.SlowPrint("Elérkeztünk hát mesés történetünk végéhez. Palkó a Kacsalábon forgó kacsalábon forgó palotájában boldogan élt a királylánnyal míg meg nem halt.");
+            Program.SlowPrint("VÉGE");
             return 0;
         }
         #endregion

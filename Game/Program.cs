@@ -5,40 +5,37 @@ namespace Game
 {
     partial class Program
     {
-        private bool printStopped;
+        private static bool printStopped = false;
+        private static int lasti = 0;
 
         public static Player player = new Player(10, 10, 1, 180);
         public static int printLenght = Console.WindowWidth - 30;
         static void Main(string[] args)
         {
-            //Locations.Generate();
-            //int location = 29;
-            //do
-            //{
-            //    location = Locations.helyek[location].Run();
-            //}
-            //while (Locations.helyek.Length > location && location > 0);
-            //Console.Write("Program end");
+            Locations.Generate();
+            int location = 29;
+            do
+            {
+                location = Locations.helyek[location].Run();
+            }
+            while (Locations.helyek.Length > location && location > 0);
+            Console.Write("Program end");
 
-            Program program = new Program();
-            program.SlowPrint("123456789abcdefghijklmnopqrestwvxyz");
+            //SlowPrint("123456789abcdefghijklmnopqrestwvxyz");
         }
         
-        public void SlowPrint(string text)
+        public static void SlowPrint(string text)
         {
-            Stopwatch stopwatch;
             int i = 0;
-            printStopped = false;
 
-            slowPrint2(i, text);
+            Program program = new Program();
+            program.slowPrint2(i, text);
 
-            stopwatch = new Stopwatch();
-            stopwatch.Start();
-            while (stopwatch.ElapsedMilliseconds < 250)
-            {
-                Console.ReadKey(true);
-            }
+            Console.ReadKey(true);
+
             printStopped = true;
+
+            i = lasti;
 
             if (i < text.Length)
             {
@@ -63,7 +60,8 @@ namespace Game
                 }
             }
             Console.WriteLine();
-
+            lasti = 0;
+            printStopped = false;
         }
 
         private async Task slowPrint2(int i, string text)
@@ -90,6 +88,7 @@ namespace Game
                         Thread.Sleep(250);
                     }
                     i++;
+                    lasti = i + 1;
                 }
             });
         }
