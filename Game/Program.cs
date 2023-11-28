@@ -4,12 +4,18 @@ namespace Game
 {
     partial class Program
     {
-        static Player player = new Player(10, 10, 1, 180);
-        static int printLenght = Console.WindowWidth - 30;
+        public static Player player = new Player(10, 10, 1, 180);
+        public static int printLenght = Console.WindowWidth - 30;
         static void Main(string[] args)
         {
             Locations.Generate();
-            Locations.helyek[30].Run();
+            int location = 30;
+            do
+            {
+                location = Locations.helyek[location].Run();
+            }
+            while (Locations.helyek.Length > location && location > 0);
+            Console.Write("Program end");
         }
         
         public static void SlowPrint(string text)
