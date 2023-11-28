@@ -14,6 +14,9 @@ namespace Game
         public struct LocationData
         {
             private static int globID = 0;
+
+            private LocationMethod myMethod;
+
             private int id;
             private bool[] chosenOptions;
             private string name;
@@ -21,7 +24,6 @@ namespace Game
             public bool[] ChosenOptions { get { return chosenOptions; } set { chosenOptions = value; } }
             public string Name { get { return name; } set { name = value; } }
 
-            public LocationMethod myMethod;
             public int Run()
             {
                 return myMethod.Invoke(ref this);
