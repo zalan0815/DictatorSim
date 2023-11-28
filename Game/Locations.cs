@@ -27,6 +27,11 @@ namespace Game
                 return myMethod.Invoke(ref this);
             }
 
+            public int Valasztas(params string[] lehetosegek)
+            {
+                return Locations.Valasztas(ref this, lehetosegek);
+            }
+
             public LocationData(string name, LocationMethod method)
             {
                 this.id = globID++;
