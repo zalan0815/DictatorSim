@@ -11,12 +11,10 @@ namespace Game
 {
     class SlowPrintSystem
     {
-        public static int printms = 25;
         private static bool isPrintSkip = false;
-
-        public static void SlowPrint(string text)
+        public static void SlowPrint(string text, int printms=25)
         {
-            Thread printer = new Thread(() => SlowPrintHandler(text));
+            Thread printer = new Thread(() => SlowPrintHandler(text, printms));
 
             isPrintSkip = false;
             printer.Start();
@@ -28,7 +26,7 @@ namespace Game
             Console.WriteLine();
         }
 
-        private static void SlowPrintHandler(string text)
+        private static void SlowPrintHandler(string text, int printms)
         {
             string[] words = text.Split(' ');
 
@@ -44,12 +42,12 @@ namespace Game
                     words[i] += " ";
                 }
 
-                SlowPrintWord(words[i]);
+                SlowPrintWord(words[i], printms);
 
             }
         }
 
-        private static void SlowPrintWord(string word)
+        private static void SlowPrintWord(string word, int printms)
         {
             int cursorPostion = Console.CursorLeft;
             for (int i = 0; i < word.Length; i++)
