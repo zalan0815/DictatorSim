@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.Versioning;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Game
@@ -10,15 +12,29 @@ namespace Game
     class SlowPrintSystem
     {
         public static int printms = 25;
+        private static bool isPrintSkip = false;
 
         public static void SlowPrint(string text)
         {
-            Thread printWord;
+            Thread printer = new Thread(() => SlowPrintHandler(text));
+
+            isPrintSkip = false;
+            printer.Start();
+
+            Console.ReadKey(true);
+            isPrintSkip = true;
+            printer.Join();
+
+            Console.WriteLine();
+        }
+
+        private static void SlowPrintHandler(string text)
+        {
             string[] words = text.Split(' ');
 
             for (int i = 0; i < words.Length; i++)
             {
-                
+
                 if (words[i].Length >= Program.printLenght - Console.CursorLeft && !(words[i].Length >= Program.printLenght))
                 {
                     Console.WriteLine();
@@ -27,10 +43,10 @@ namespace Game
                 {
                     words[i] += " ";
                 }
-                printWord = new Thread(() => SlowPrintWord(words[i]));
-                //SlowPrintWord(words[i]);
+
+                SlowPrintWord(words[i]);
+
             }
-            Console.WriteLine();
         }
 
         private static void SlowPrintWord(string word)
@@ -46,8 +62,10 @@ namespace Game
                 Console.Write(word[i]);
                 cursorPostion++;
 
-                Thread.Sleep(printms);
+                Thread.Sleep(isPrintSkip ? 0 : printms);
+
             }
+            
         }
     }
 }
