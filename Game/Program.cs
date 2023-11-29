@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-using System.Security.Principal;
-using System.Text.Json.Serialization;
+﻿using System.Security.Principal;
 
 namespace Game
 {
@@ -10,16 +8,20 @@ namespace Game
         public static int printLenght = Console.WindowWidth - 30;
         public static int printms = 100;
 
+
+        public static Program program = new Program();
         static void Main(string[] args)
         {
             Locations.Generate();
-            int location = 30;
+            int location = 29;
             do
             {
                 location = Locations.helyek[location].Run();
             }
             while (Locations.helyek.Length > location && location > 0);
             Console.Write("Program end");
+
+            //SlowPrint("123456789abcdefghijklmnopqrestwvxyz");
         }
         
         public static void SlowPrint(string text)
