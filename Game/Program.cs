@@ -5,11 +5,10 @@ namespace Game
 {
     partial class Program
     {
-        private static bool printStopped = false;
-        private static int lasti = 0;
-
         public static Player player = new Player(10, 10, 1, 180);
         public static int printLenght = Console.WindowWidth - 30;
+
+        public static Program program = new Program();
         static void Main(string[] args)
         {
             Locations.Generate();
@@ -24,74 +23,6 @@ namespace Game
             //SlowPrint("123456789abcdefghijklmnopqrestwvxyz");
         }
         
-        public static void SlowPrint(string text)
-        {
-            int i = 0;
-
-            Program program = new Program();
-            program.slowPrint2(i, text);
-
-            Console.ReadKey(true);
-
-            printStopped = true;
-
-            i = lasti;
-
-            if (i < text.Length)
-            {
-                while (i < text.Length)
-                {
-                    if (Console.CursorLeft == printLenght)
-                    {
-                        Console.Write(' ');
-                        while (text[i] != ' ')
-                        {
-                            i--;
-                            Console.CursorLeft -= 2;
-                            Console.Write(' ');
-                        }
-                        Console.WriteLine(text[i]);
-                    }
-                    else
-                    {
-                        Console.Write(text[i]);
-                    }
-                    i++;
-                }
-            }
-            Console.WriteLine();
-            lasti = 0;
-            printStopped = false;
-        }
-
-        private async Task slowPrint2(int i, string text)
-        {
-            await Task.Run(() =>
-            {
-                while (!printStopped && i < text.Length)
-                {
-                    if (Console.CursorLeft == printLenght)
-                    {
-                        Console.Write(' ');
-                        while (text[i] != ' ')
-                        {
-                            i--;
-                            Console.CursorLeft -= 2;
-                            Console.Write(' ');
-                        }
-                        Console.WriteLine(text[i]);
-                        Thread.Sleep(250);
-                    }
-                    else
-                    {
-                        Console.Write(text[i]);
-                        Thread.Sleep(250);
-                    }
-                    i++;
-                    lasti = i + 1;
-                }
-            });
-        }
         static int getPlayerStatLength()
         {
             int longest = "életerőd".Length;
