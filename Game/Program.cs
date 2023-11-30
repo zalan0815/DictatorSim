@@ -1,47 +1,24 @@
-﻿using System.Security.Principal;
-
-namespace Game
+﻿namespace Game
 {
     partial class Program
     {
         public static Player player = new Player(10, 10, 1, 180);
         public static int printLenght = Console.WindowWidth - 30;
+
         static void Main(string[] args)
         {
             Locations.Generate();
-            int location = 30;
+            int location = 29;
             do
             {
                 location = Locations.helyek[location].Run();
             }
             while (Locations.helyek.Length > location && location > 0);
             Console.Write("Program end");
+
+            //SlowPrint("123456789abcdefghijklmnopqrestwvxyz");
         }
         
-        public static void SlowPrint(string text)
-        {
-            for (int i = 0; i < text.Length; i++)
-            {
-                if (Console.CursorLeft == printLenght)
-                {
-                    Console.Write(' ');
-                    while (text[i] != ' ')
-                    {
-                        i--;
-                        Console.CursorLeft -= 2;
-                        Console.Write(' ');
-                    }
-                    Console.WriteLine(text[i]);
-                    Thread.Sleep(25);
-                }
-                else
-                {
-                    Console.Write(text[i]);
-                    Thread.Sleep(25);
-                }
-            }
-            Console.WriteLine();
-        }
         static int getPlayerStatLength()
         {
             int longest = "életerőd".Length;

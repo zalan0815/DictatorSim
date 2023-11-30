@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using static Game.SlowPrintSystem;
 
 namespace Game
 {
@@ -11,13 +7,46 @@ namespace Game
         #region Zalan
         public static int hely_29(ref LocationData currentLocation)
         {
+            SlowPrint("Miután Palkó felérkezett az égigérő paszuly tetejére végre megérkezett végső céljához, a SÁRKÁNYFÉSZEKHEZ.");
+            SlowPrint("A sárkányfészekben ült a 3 FEJŰ SÁRKÁNY.");
+            SlowPrint("\"Már vártalak téged, Ifjú lovag\" - Dörmögte a 3 fejű sárkány.");
+            SlowPrint("A sárkány legyőzéséhez Palkónak mind a 3 fejet le kell győznie!");
 
-            return 0;
+            bool w0 = true;
+            bool w1 = true;
+            bool w2 = true;
+
+            do
+            {
+                int choice = Valasztas(ref currentLocation, "Bal fej megtámadása", "Középső fej megtámadása", "Jobb fej megtámadása");
+                switch (choice)
+                {
+                    case 0:
+                        FightSystem balfej = new FightSystem(Program.player, new Enemy(5, 1, name: "Bal fej"), out w0);
+                        break;
+                    case 1:
+                        FightSystem kozepsofej = new FightSystem(Program.player, new Enemy(5, 1, name: "Középső fej"), out w1);
+                        break;
+                    case 2:
+                        FightSystem jobbfej = new FightSystem(Program.player, new Enemy(5, 1, name: "Jobb fej"), out w2);
+                        break;
+                }
+            }
+            while (w0 && w1 && w2);
+            
+            if (w0 && w1 && w2)
+            {
+                return 30;
+            }
+            else
+            {
+                return 0;
+            }
         }
         public static int hely_30(ref LocationData currentLocation)
         {
-            Program.SlowPrint("Elérkeztünk hát mesés történetünk végéhez. Palkó a Kacsalábon forgó kacsalábon forgó palotájában boldogan élt a királylánnyal míg meg nem halt.");
-            Program.SlowPrint("VÉGE");
+            SlowPrintSystem.SlowPrint("Elérkeztünk hát mesés történetünk végéhez. Palkó a Kacsalábon forgó kacsalábon forgó palotájában boldogan élt a királylánnyal míg meg nem halt.");
+            SlowPrintSystem.SlowPrint("VÉGE");
             return 0;
         }
         #endregion
