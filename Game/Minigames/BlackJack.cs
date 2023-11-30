@@ -1,6 +1,6 @@
 ﻿namespace Game.Minigames
 {
-    public class BlackJack
+    class BlackJack
     {
         public enum CardColor
         {
@@ -108,15 +108,110 @@
                 }
             }
         }
-
-        private List<Card> deck;
-
-
-        public BlackJack()
+        public struct BlackJackInventory
         {
-            this.deck = Card.generateDeck();
-            this.deck = Card.shuffleDeck(this.deck,6);
+            public List<Card> Cards { get; set; }
+            public int Bet { get; set; }
+            public bool isHidden { get; set; }
+            public int CardsValue { 
+                get
+                {
+                    int value = 0;
+                    int aces = 0;
+                    foreach (Card card in Cards)
+                    {
+                        if(card.Numeral == "A")
+                        {
+                            aces++;
+                        }
+                        else
+                        {
+                            value += card.Value;
+                        }
+                        
+                    }
+                    if(aces >= 1)
+                    {
+                        value += 1 * (aces - 1);
+                        if(value + 11 > 21)
+                        {
+                            value += 1;
+                        }
+                        else
+                        {
+                            value += 11;
+                        }
+                    }
+
+
+                    return value;
+                } 
+            }
+            public BlackJackInventory(List<Card> cards, int bet = 0, bool isHidden = false)
+            {
+                this.Cards = cards;
+                this.Bet = bet;
+                this.isHidden = isHidden;
+            }
+
+        }
+        private List<Card> deck;
+        private List<Card> allCards;
+        private Player player;
+
+        private BlackJackInventory playerInventory;
+        private BlackJackInventory dealerInventory;
+
+        public BlackJack(ref Player player)
+        {
+            this.deck = Card.shuffleDeck(Card.generateDeck(), 6);
+            this.allCards = deck;
+            this.player = player;
+        }
+        
+        public void Run()
+        {
+            if (player.Money <= 0)
+            {
+                return;
+            }
+            playerInventory = new BlackJackInventory(new List<Card>(), 0, false);
+            dealerInventory = new BlackJackInventory(new List<Card>(), 0, false);
+            Bet();
+            FirstDeal();
         }
 
+        private void Bet()
+        {
+            Program.PrintPlayerStat();
+            Console.WriteLine("Mennyi pénzt teszel fel? ");
+            string input;
+            int bet;
+            do
+            {
+                input = Console.ReadLine();
+
+            } while (!int.TryParse(input, out bet) && bet > 0 && bet <= player.Money);
+
+            playerInventory.Bet = bet;
+            player.Money -= bet;
+        }
+
+        private void FirstDeal()
+        {
+            for (int i = 0; i < 2; i++)
+            {
+                if (deck.Count > 0)
+                {
+                    playerInventory.Cards.Add(deck[0]);
+                    deck.RemoveAt(0);
+                }
+                if (deck.Count > 0)
+                {
+                    dealerInventory.Cards.Add(deck[0]);
+                    deck.RemoveAt(0);
+                }
+            }
+        }
     }
 }
