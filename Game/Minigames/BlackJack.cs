@@ -72,30 +72,30 @@
                 return cards;
             }
 
-            public static List<Card> shuffleDeck(List<Card> cards)
+            public static List<Card> shuffleDeck(List<Card> cards, int howManyTimes=1)
             {
-                List<Card> newCards = new List<Card>(cards);
-                Random r = new Random();
+                List<Card> newCards;
+                Random r;
+                int count = 0;
 
-                bool[] usedPosition = new bool[cards.Count];
-
-                for (int i = 0; i < cards.Count; i++)
+                do
                 {
-                    int nthToGo = r.Next(cards.Count - i); //52 - 0 = 52 => 0,51 lesz szám
+                    newCards = new List<Card>(cards);
+                    r = new Random();
 
-                    int realCount = 0;    //ahányadik elem a listában
-                    int relativeCount = 0;//ahányadik állítható elem
-                    while (relativeCount < nthToGo)
+                    for (int i = 0; i < newCards.Count; i++)
                     {
-                        if (usedPosition[realCount] == false)
-                        {
-                            relativeCount++;
-                        }
-                        realCount++;
+                        int randomIndex = r.Next(cards.Count);
+
+                        newCards[i] = cards[randomIndex];
+                        cards.RemoveAt(randomIndex);
                     }
-                    newCards[relativeCount] = cards[i];
-                    usedPosition[realCount] = true;
+
+                    cards = newCards;
+                    count++;
                 }
+                while (count < howManyTimes);
+
 
                 return newCards;
             }
@@ -115,8 +115,7 @@
         public BlackJack()
         {
             this.deck = Card.generateDeck();
-            this.deck = Card.shuffleDeck(this.deck);
-            Card.printDeck(this.deck);
+            this.deck = Card.shuffleDeck(this.deck,6);
         }
 
     }
