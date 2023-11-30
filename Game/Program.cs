@@ -7,6 +7,7 @@
 
         static void Main(string[] args)
         {
+            new Minigames.BlackJack();
             Locations.Generate();
             int location = 29;
             do
