@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
+using static Game.SlowPrintSystem;
 
 namespace Game
 {
@@ -60,8 +61,8 @@ namespace Game
             Console.ForegroundColor = ConsoleColor.White;
             Console.BackgroundColor = ConsoleColor.Black;
 
-            Console.WriteLine($"{txt1}\n");
-            Console.WriteLine($"{txt2}\n");
+            SlowPrint($"{txt1}\n");
+            SlowPrint($"{txt2}\n");
 
             for (int i = 0; i < items.Count; i++)
             {
@@ -70,7 +71,7 @@ namespace Game
                     Console.ForegroundColor = ConsoleColor.DarkGray;
                 }
 
-                Console.Write($"{i + 1}, ");
+                Console.Write($"{i + 1} - ");
                 items[i].WriteItemStat(writeWithColor:!items[i].Sold);
                 Console.Write(" - ");
                 if (player.Money < items[i].Price && !items[i].Sold)
@@ -83,7 +84,7 @@ namespace Game
             }
 
             Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine("\n0, elmenni a pulttól");
+            Console.WriteLine("\n0 - elmenni a pulttól");
         }
 
         public void ShopMenu(ref Player player)

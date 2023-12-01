@@ -8,7 +8,7 @@
         static void Main(string[] args)
         {
             Locations.Generate();
-            int location = 29;
+            int location = 27;
             do
             {
                 location = Locations.helyek[location].Run();
