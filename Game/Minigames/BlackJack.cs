@@ -205,9 +205,12 @@ namespace Game.Minigames
                         Deal(ref playerInventory);
                         break;
                     case BlackJackAction.Stop:
-                        while(dealerInventory.CardsValue <= 16)
+                        dealerInventory.isHidden = false;
+                        PrintTable();
+                        while (dealerInventory.CardsValue <= 16)
                         {
                             Deal(ref dealerInventory);
+                            PrintTable();
                         }
                         gameOver = true;
                         break;
@@ -219,7 +222,13 @@ namespace Game.Minigames
                     gameOver = true;
                 }
             }
-            
+            PrintTable();
+            #region KIÉRTÉKELÉS
+            if(playerInventory.CardsValue > 21)
+            {
+                Console.WriteLine("Vesztettél!");
+            }
+            #endregion
         }
 
         private void Bet()
