@@ -24,9 +24,12 @@ namespace Game
             public bool[] ChosenOptions { get { return chosenOptions; } set { chosenOptions = value; } }
             public string Name { get { return name; } set { name = value; } }
 
+            public bool FirstTime { get; set; }
             public int Run()
             {
-                return myMethod.Invoke(ref this);
+                int returnpos = myMethod.Invoke(ref this);
+                this.FirstTime = false;
+                return returnpos;
             }
 
             public int Valasztas(params string[] lehetosegek)
@@ -40,6 +43,7 @@ namespace Game
                 this.name = name;
                 this.chosenOptions = new bool[6]; //maximum 6 választási lehetőség
                 this.myMethod = method;
+                this.FirstTime = true;
             }
         }
         public static void Generate()
