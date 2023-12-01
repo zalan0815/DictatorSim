@@ -8,25 +8,37 @@ namespace Game
 {
     partial class Locations
     {
-        public delegate int LocationMethod();
+        public delegate int LocationMethod(ref LocationData currentLocation);
 
         public static LocationData[] helyek;
         public struct LocationData
         {
             private static int globID = 0;
+
+            private LocationMethod myMethod;
+
             private int id;
-            public int ID { get { return id; } }
-            public string Name { get; set; }
-            public LocationMethod myMethod;
+            private bool[] chosenOptions;
+            private string name;
+            public readonly int ID { get { return id; } }
+            public bool[] ChosenOptions { get { return chosenOptions; } set { chosenOptions = value; } }
+            public string Name { get { return name; } set { name = value; } }
+
             public int Run()
             {
-                return myMethod.Invoke();
+                return myMethod.Invoke(ref this);
+            }
+
+            public int Valasztas(params string[] lehetosegek)
+            {
+                return Locations.Valasztas(ref this, lehetosegek);
             }
 
             public LocationData(string name, LocationMethod method)
             {
-                id = globID++;
-                this.Name = name;
+                this.id = globID++;
+                this.name = name;
+                this.chosenOptions = new bool[6]; //maximum 6 választási lehetőség
                 this.myMethod = method;
             }
         }
@@ -98,16 +110,42 @@ namespace Game
             Console.Write($"mendegélt tovább {helyek[choice - 1].Name} felé.\n");
             return helyek[choice - 1].ID;
         }
-        public static int Valasztas(params string[] lehetosegek)
+        public static int Valasztas(ref LocationData currentLocation, params string[] lehetosegek)
         {
+            #region Biztosíték
+            if (lehetosegek.Length > currentLocation.ChosenOptions.Length)
+            {
+                throw new Exception("túl sok választási lehetőség");
+            }
+
+            bool foundChoosable = false;
+            for (int i = 0; i < lehetosegek.Length; i++)
+            {
+                if (!currentLocation.ChosenOptions[i])
+                {
+                    foundChoosable = true;
+                    break;
+                }
+            }
+            if (!foundChoosable)
+            {
+                return -1; //switch case default kezelje majd
+            }
+            #endregion
+
             Console.WriteLine("Mit akarsz csinálni:");
             for (int i = 1; i < lehetosegek.Length + 1; i++)
             {
+                if (currentLocation.ChosenOptions[i - 1])
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
+                }
                 Console.WriteLine($"{i}. - {lehetosegek[i - 1]}");
+                Console.ForegroundColor = ConsoleColor.White;
             }
             int choice;
             bool error = false;
-            while (!int.TryParse(Console.ReadKey(true).KeyChar.ToString(), out choice) || (choice < 1 || choice > lehetosegek.Length))
+            while (!int.TryParse(Console.ReadKey(true).KeyChar.ToString(), out choice) || (choice < 1 || choice > lehetosegek.Length || currentLocation.ChosenOptions[choice-1]))
             {
                 if (!error)
                 {
@@ -118,9 +156,10 @@ namespace Game
                     error = true;
                 }
             }
+            currentLocation.ChosenOptions[choice - 1] = true;
             return choice - 1;
         }
-        public static int basic()
+        public static int basic(ref LocationData currentLocation)
         {
             return 0;
         }
