@@ -90,7 +90,10 @@ namespace Game
 
         public static int hely_1(ref LocationData currentLocation)
         {
-            return 0;
+            Program.SlowPrint("A történet Palko házában veszi kezdetét, ahol egy szép napon reggel Palko elhatározta, hogy elmegy világot látni.");
+            Program.SlowPrint("Mit csináljon palko?");
+            int choice = Valasztas("Sarokban lévő láda kinyitása", "Elbúcsúzás Palko édesanyjától");
+            return Tovabb(helyek[2]);
         }
         public static int hely_2(ref LocationData currentLocation)
         {
