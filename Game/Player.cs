@@ -18,6 +18,8 @@ namespace Game
 
         public Sword sword = new Sword("Kés",10);
         public Armor armor = new Armor("Szakadt ruha",10);
+
+        private int healPotions;
         #endregion
 
         #region FIELDS
@@ -62,6 +64,8 @@ namespace Game
             }
         }
 
+        public int HealPotions { get { return healPotions; } set { healPotions = value; } }
+
         
         #endregion
 
@@ -75,6 +79,7 @@ namespace Game
             this.Money = money;
 
             this.Name = name;
+            this.HealPotions = 0;
         }
 
         private int calculateStat(StatType type)
@@ -88,6 +93,18 @@ namespace Game
                 }
             }
             return stat;
+        }
+
+        public void NewItem(OtherItem item)
+        {
+            inventory.Add(item);
+            SlowPrintSystem.SlowPrint($"Új tárgyat kaptál: {item.Name}!");
+        }
+
+        public void Heal()
+        {
+            HealPotions--;
+            Health = MaxHealth;
         }
     }
 }
