@@ -271,11 +271,23 @@ namespace Game.Minigames
                             playerInventory.Cards.RemoveAt(1);
                             playerInventory.Text = "1. Lapjaid:\t";
 
-                            playerInventories = new BlackJackInventory[] { playerInventory, new BlackJackInventory(new List<Card> { nextDeckCard}, playerInventory.Bet, false, "2. Lapjaid:\t") };
+                            playerInventories = new BlackJackInventory[] { playerInventory, new BlackJackInventory(new List<Card> { nextDeckCard}, 0, false, "2. Lapjaid:\t") };
                             blackJackInventories[1] = playerInventories[1];
                             blackJackInventories.Add(dealerInventory);
 
-                            player.Money -= playerInventories[1].Bet;
+                            if(player.Money >= playerInventory.Bet)
+                            {
+                                playerInventories[1].Bet = playerInventory.Bet;
+                                player.Money -= playerInventories[1].Bet;
+                            }
+                            else
+                            {
+                                playerInventories[1].Bet = player.Money;
+                                player.Money = 0;
+                            }
+
+                            Deal(ref playerInventories[0]);
+                            Deal(ref playerInventories[1]);
 
                             playerInventory.round--;
                             break;
@@ -359,8 +371,10 @@ namespace Game.Minigames
             }
             #endregion
 
-
             Program.PrintPlayerStat();
+
+            dealerInventory.isHidden = false;
+
             playerInventories[0].Bet = 0;
             player.Money += playerInventories[0].playerGetsMoney;
             if(playerInventories.Length > 1)
@@ -487,9 +501,9 @@ namespace Game.Minigames
             {   
                 playerInventory.CardsValue < 21,
                 true,
-                (playerInventory.round == 1 && player.Money >= playerInventory.Bet),
-                (playerInventory.round == 1 && playerInventory.Cards.Count > 1 && playerInventory.Cards[0].Numeral == playerInventory.Cards[1].Numeral),
-                (playerInventory.round == 1 && dealerInventory.Cards[0].Numeral == "A"),
+                playerInventory.round == 1 && player.Money >= playerInventory.Bet,
+                playerInventory.round == 1 && playerInventories.Length == 1 && playerInventory.Cards[0].Numeral == playerInventory.Cards[1].Numeral,
+                playerInventory.round == 1 && dealerInventory.Cards[0].Numeral == "A",
                 playerInventory.round == 1
             };
 
