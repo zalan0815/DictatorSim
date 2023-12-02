@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System.Linq;
+using System.Runtime.CompilerServices;
 using static Game.Minigames.BlackJack;
 
 namespace Game.Minigames
@@ -196,7 +197,7 @@ namespace Game.Minigames
         public BlackJack(ref Player player)
         {
             this.deck = Card.shuffleDeck(Card.generateDeck(), 6);
-            this.allCards = deck;
+            this.allCards = new List<Card>(deck);
             this.player = player;
         }
 
@@ -425,26 +426,39 @@ namespace Game.Minigames
         {
             for (int i = 0; i < 2; i++)
             {
-                if (deck.Count > 0)
+                if (deck.Count < 2)
                 {
-                    playerInventory.Cards.Add(deck[0]);
-                    deck.RemoveAt(0);
+                    MakeNewDeck();
                 }
-                if (deck.Count > 0)
-                {
-                    dealerInventory.Cards.Add(deck[0]);
-                    deck.RemoveAt(0);
-                }
+                playerInventory.Cards.Add(deck[0]);
+                deck.RemoveAt(0);
+
+                dealerInventory.Cards.Add(deck[0]);
+                deck.RemoveAt(0);
             }
         }
 
         private void Deal(ref BlackJackInventory inventory)
         {
-            if (deck.Count > 0)
+            if (deck.Count == 0)
             {
-                inventory.Cards.Add(deck[0]);
-                deck.RemoveAt(0);
+                MakeNewDeck();
             }
+            inventory.Cards.Add(deck[0]);
+            deck.RemoveAt(0);
+        }
+
+        private void MakeNewDeck()
+        {
+            deck = new List<Card>(allCards);
+            foreach (BlackJackInventory inventory in blackJackInventories)
+            {
+                foreach (Card card in inventory.Cards)
+                {
+                    deck.Remove(card);
+                }
+            }
+            deck = Card.shuffleDeck(deck, 6);
         }
 
         private void PrintTable()
