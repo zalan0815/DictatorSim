@@ -1,4 +1,5 @@
-﻿using static Game.Minigames.BlackJack;
+﻿using System.Runtime.CompilerServices;
+using static Game.Minigames.BlackJack;
 
 namespace Game.Minigames
 {
@@ -120,7 +121,7 @@ namespace Game.Minigames
                 }
             }
         }
-        public struct BlackJackInventory
+        public class BlackJackInventory
         {
             public List<Card> Cards { get; set; }
             public int Bet { get; set; }
@@ -128,6 +129,10 @@ namespace Game.Minigames
             public bool isHidden { get; set; }
             public bool hasSurrendered { get; set; }
             public string Text { get; set; }
+            public bool gameOver { get; set; }
+            public int round { get; set; }
+            public string endString { get; set; }
+            public int playerGetsMoney { get; set; }
             public int CardsValue
             {
                 get
@@ -171,6 +176,10 @@ namespace Game.Minigames
                 this.Text = text;
                 this.InsuranceBet = 0;
                 this.hasSurrendered = false;
+                this.gameOver = false;
+                this.round = 1;
+                this.endString = "";
+                this.playerGetsMoney = 0;
             }
 
         }
@@ -178,11 +187,11 @@ namespace Game.Minigames
         private List<Card> allCards;
         private Player player;
 
+        private List<BlackJackInventory> blackJackInventories;
+        private BlackJackInventory[] playerInventories;
+
         private BlackJackInventory playerInventory;
         private BlackJackInventory dealerInventory;
-
-        private bool gameOver;
-        private int round;
 
         public BlackJack(ref Player player)
         {
@@ -199,126 +208,172 @@ namespace Game.Minigames
             {
                 return;
             }
-            gameOver = false;
-            round = 1;
             Start();
         }
 
         private void Start()
         {
             playerInventory = new BlackJackInventory(new List<Card>(), 0, false, "Lapjaid:\t ");
+            playerInventories = new BlackJackInventory[] { playerInventory };
+
             dealerInventory = new BlackJackInventory(new List<Card>(), 0, true, "Osztó lapjai:\t ");
+            blackJackInventories = new List<BlackJackInventory> { playerInventory, dealerInventory };
+
             Bet();
             FirstDeal();
-            if(playerInventory.CardsValue == 21)
+
+            if (playerInventory.CardsValue == 21)
             {
-                gameOver = true;
+                playerInventory.gameOver = true;
             }
-            while (!gameOver)
+
+            for (int i = 0; i < playerInventories.Length; i++)
             {
-                PrintTable();
-                BlackJackAction action = Choose();
-                switch (action)
+                playerInventory = playerInventories[i];
+
+                while (!playerInventory.gameOver)
                 {
-                    case BlackJackAction.Hit:
-                        Deal(ref playerInventory);
+                    PrintTable();
+                    BlackJackAction action = Choose();
+                    switch (action)
+                    {
+                        case BlackJackAction.Hit:
+                            Deal(ref playerInventory);
 
-                        break;
+                            break;
 
-                    case BlackJackAction.Stand:
+                        case BlackJackAction.Stand:
 
-                        DealerHits();
-                        gameOver = true;
+                            if(playerInventories.Length == 1 || playerInventories[1] == playerInventory)
+                            {
+                                DealerHits();
+                            }
 
-                        break;
+                            playerInventory.gameOver = true;
 
-                    case BlackJackAction.Double:
-                        player.Money -= playerInventory.Bet;
-                        playerInventory.Bet *= 2;
-                        Deal(ref playerInventory);
+                            break;
 
-                        DealerHits();
-                        gameOver = true;
+                        case BlackJackAction.Double:
+                            player.Money -= playerInventory.Bet;
+                            playerInventory.Bet *= 2;
+                            Deal(ref playerInventory);
 
-                        break;
+                            if (playerInventories.Length == 1 || playerInventories[1] == playerInventory)
+                            {
+                                DealerHits();
+                            }
+                            playerInventory.gameOver = true;
 
-                    //case BlackJackAction.Split:
-                    case BlackJackAction.Insurance:
-                        playerInventory.InsuranceBet = insuranceBet();
+                            break;
 
-                        break;
+                        case BlackJackAction.Split:
+                            Card nextDeckCard = playerInventory.Cards[1];
+                            playerInventory.Cards.RemoveAt(1);
+                            playerInventory.Text = "1. Lapjaid:\t";
 
-                    case BlackJackAction.Surrender:
-                        player.Money += playerInventory.Bet / 2;
+                            playerInventories = new BlackJackInventory[] { playerInventory, new BlackJackInventory(new List<Card> { nextDeckCard}, playerInventory.Bet, false, "2. Lapjaid:\t") };
+                            blackJackInventories[1] = playerInventories[1];
+                            blackJackInventories.Add(dealerInventory);
 
-                        playerInventory.hasSurrendered = true;
-                        gameOver = true;
-                        
-                        break;
+                            player.Money -= playerInventories[1].Bet;
+
+                            playerInventory.round--;
+                            break;
+
+                        case BlackJackAction.Insurance:
+                            playerInventory.InsuranceBet = insuranceBet();
+
+                            break;
+
+                        case BlackJackAction.Surrender:
+                            playerInventory.playerGetsMoney += playerInventory.Bet / 2;
+
+                            playerInventory.hasSurrendered = true;
+                            playerInventory.gameOver = true;
+
+                            break;
+                    }
+                    if (playerInventory.CardsValue > 21)
+                    {
+                        playerInventory.gameOver = true;
+                    }
+                    playerInventory.round++;
                 }
-                if (playerInventory.CardsValue > 21)
-                {
-                    gameOver = true;
-                }
-                round++;
             }
+
             #region KIÉRTÉKELÉS
-            string endText;
-            if (!playerInventory.hasSurrendered)
+            for (int i = 0; i < playerInventories.Length; i++)
             {
-                if (dealerInventory.Cards[1].Value == 10)
-                {
-                    player.Money += 2 * playerInventory.InsuranceBet;
-                }
+                playerInventory = playerInventories[i];
 
-                if (playerInventory.CardsValue > 21)
+                if (!playerInventory.hasSurrendered)
                 {
-                    endText = "Bust... Vesztettél.";
-                }
-                else if (dealerInventory.CardsValue > 21)
-                {
-                    endText = $"Bust! Nyertél! ({2 * playerInventory.Bet})";
-                    player.Money += 2 * playerInventory.Bet;
-                }
-                else
-                {
-                    if (playerInventory.CardsValue == dealerInventory.CardsValue)
+                    if (dealerInventory.Cards[1].Value == 10)
                     {
-                        endText = $"Döntetlen... Pénzed ({playerInventory.Bet}) visszajár";
-                        player.Money += playerInventory.Bet;
+                        playerInventory.playerGetsMoney += 2 * playerInventory.InsuranceBet;
                     }
-                    else if (playerInventory.CardsValue == 21 && playerInventory.Cards.Count == 2)
+
+                    if (playerInventory.CardsValue > 21)
                     {
-                        endText = $"BlackJack!!! ({3 * playerInventory.Bet / 2})";
-                        player.Money += 3 * playerInventory.Bet / 2;
+                        playerInventory.endString = "Bust... Vesztettél.";
                     }
-                    else if (playerInventory.CardsValue > dealerInventory.CardsValue)
+                    else if (dealerInventory.CardsValue > 21)
                     {
-                        endText = $"Nyertél! ({2 * playerInventory.Bet})";
-                        player.Money += 2 * playerInventory.Bet;
-                    }
-                    else if (playerInventory.CardsValue < dealerInventory.CardsValue)
-                    {
-                        endText = $"Vesztettél...";
+                        playerInventory.endString = $"Bust! Nyertél! ({2 * playerInventory.Bet})";
+                        playerInventory.playerGetsMoney += 2 * playerInventory.Bet;
                     }
                     else
                     {
-                        endText = "How did you get here?";
-                        player.Money += playerInventory.Bet;
+                        if (playerInventory.CardsValue == dealerInventory.CardsValue)
+                        {
+                            playerInventory.endString = $"Döntetlen... Pénzed ({playerInventory.Bet}) visszajár";
+                            playerInventory.playerGetsMoney += playerInventory.Bet;
+                        }
+                        else if (playerInventory.CardsValue == 21 && playerInventory.Cards.Count == 2)
+                        {
+                            playerInventory.endString = $"BlackJack!!! ({3 * playerInventory.Bet / 2})";
+                            playerInventory.playerGetsMoney += 3 * playerInventory.Bet / 2;
+                        }
+                        else if (playerInventory.CardsValue > dealerInventory.CardsValue)
+                        {
+                            playerInventory.endString = $"Nyertél! ({2 * playerInventory.Bet})";
+                            playerInventory.playerGetsMoney += 2 * playerInventory.Bet;
+                        }
+                        else if (playerInventory.CardsValue < dealerInventory.CardsValue)
+                        {
+                            playerInventory.endString = $"Vesztettél...";
+                        }
+                        else
+                        {
+                            playerInventory.endString = "How did you get here?";
+                            playerInventory.playerGetsMoney += playerInventory.Bet;
+                        }
+
                     }
-
                 }
-            }
-            else
-            {
-                endText = $"Feladtad. Pénzed fele ({playerInventory.Bet / 2}) visszajár";
-            }
+                else
+                {
+                    playerInventory.endString = $"Feladtad. Pénzed fele ({playerInventory.Bet / 2}) visszajár";
+                }
 
-            
+            }
             #endregion
+
+
             Program.PrintPlayerStat();
+            playerInventories[0].Bet = 0;
+            player.Money += playerInventories[0].playerGetsMoney;
+            if(playerInventories.Length > 1)
+            {
+                playerInventories[1].Bet = 0;
+                player.Money += playerInventories[1].playerGetsMoney;
+            }
             PrintTable();
-            Console.WriteLine(endText);
+            Console.WriteLine(playerInventories[0].endString);
+            if (playerInventories.Length > 1)
+            {
+                Console.WriteLine(playerInventories[playerInventories.Length - 1].endString);
+            }
             Console.ReadKey(true);
         }
 
@@ -382,10 +437,23 @@ namespace Game.Minigames
         {
             Console.Clear();
             Program.PrintPlayerStat();
-            Console.WriteLine($"Betett pénzed: {playerInventory.Bet}\n\n");
 
-            foreach (BlackJackInventory inventory in new BlackJackInventory[] { playerInventory, dealerInventory})
+            if (playerInventories.Length > 1 && playerInventory == playerInventories[0])
             {
+                Console.WriteLine($"Betett pénzed: {playerInventories[0].Bet} + {playerInventories[1].Bet}\n\n");
+            }
+            else
+            {
+                Console.WriteLine($"Betett pénzed: {playerInventory.Bet}\n\n");
+            }
+            
+
+            foreach (BlackJackInventory inventory in blackJackInventories)
+            {
+                if (playerInventories.Contains(inventory) && playerInventory != inventory)
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
+                }
                 Console.Write(inventory.Text);
                 for (int i = 0; i < inventory.Cards.Count - 1; i++)
                 {
@@ -402,6 +470,7 @@ namespace Game.Minigames
                 }
                 
                 Console.WriteLine();
+                Console.ForegroundColor = ConsoleColor.White;
             }
             Console.WriteLine("\n");
             
@@ -418,10 +487,10 @@ namespace Game.Minigames
             {   
                 playerInventory.CardsValue < 21,
                 true,
-                (round == 1 && player.Money >= playerInventory.Bet),
-                (round == 1 && playerInventory.Cards[0].Numeral == playerInventory.Cards[1].Numeral),
-                (round == 1 && dealerInventory.Cards[0].Numeral == "A"),
-                round == 1
+                (playerInventory.round == 1 && player.Money >= playerInventory.Bet),
+                (playerInventory.round == 1 && playerInventory.Cards.Count > 1 && playerInventory.Cards[0].Numeral == playerInventory.Cards[1].Numeral),
+                (playerInventory.round == 1 && dealerInventory.Cards[0].Numeral == "A"),
+                playerInventory.round == 1
             };
 
             Console.WriteLine("Mit akarsz csinálni:");
