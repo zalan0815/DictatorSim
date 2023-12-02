@@ -7,10 +7,7 @@
 
         static void Main(string[] args)
         {
-            while (true)
-            {
-                new Minigames.BlackJack(ref player).Run();
-            }
+            new Minigames.BlackJack(ref player).Run();
             
             Locations.Generate();
             int location = 29;

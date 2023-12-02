@@ -203,16 +203,20 @@ namespace Game.Minigames
 
         public void Run()
         {
-            Console.Clear();
-
-            if (player.Money <= 0)
+            do
             {
-                return;
+                Console.Clear();
+
+                if (player.Money <= 0)
+                {
+                    return;
+                }
+
             }
-            Start();
+            while (Start());
         }
 
-        private void Start()
+        private bool Start()
         {
             playerInventory = new BlackJackInventory(new List<Card>(), 0, false, "Lapjaid:\t ");
             playerInventories = new BlackJackInventory[] { playerInventory };
@@ -220,7 +224,11 @@ namespace Game.Minigames
             dealerInventory = new BlackJackInventory(new List<Card>(), 0, true, "Osztó lapjai:\t ");
             blackJackInventories = new List<BlackJackInventory> { playerInventory, dealerInventory };
 
-            Bet();
+            bool continuesToPlay = Bet();
+            if (!continuesToPlay)
+            {
+                return false;
+            }
             FirstDeal();
 
             if (playerInventory.CardsValue == 21)
@@ -390,12 +398,14 @@ namespace Game.Minigames
                 Console.WriteLine(playerInventories[playerInventories.Length - 1].endString);
             }
             Console.ReadKey(true);
+
+            return true;
         }
 
-        private void Bet()
+        private bool Bet()
         {
             Program.PrintPlayerStat();
-            Console.WriteLine("Mennyi pénzt teszel fel? ");
+            Console.WriteLine("Mennyi pénzt teszel fel? (0 - kilépés)");
             string input;
             int bet;
             do
@@ -404,8 +414,15 @@ namespace Game.Minigames
 
             } while (!int.TryParse(input, out bet) || bet < 0 || bet > player.Money);
 
+            if(bet == 0)
+            {
+                return false;
+            }
+
             playerInventory.Bet = bet;
             player.Money -= bet;
+
+            return true;
         }
 
         private int insuranceBet()
