@@ -218,10 +218,10 @@ namespace Game.Minigames
 
         private bool Start()
         {
-            playerInventory = new BlackJackInventory(new List<Card>(), 0, false, "Lapjaid:\t ");
+            playerInventory = new BlackJackInventory(new List<Card>(), 0, false, "A te kezed:\t");
             playerInventories = new BlackJackInventory[] { playerInventory };
 
-            dealerInventory = new BlackJackInventory(new List<Card>(), 0, true, "Osztó lapjai:\t ");
+            dealerInventory = new BlackJackInventory(new List<Card>(), 0, true, "Osztó lapjai:\t");
             blackJackInventories = new List<BlackJackInventory> { playerInventory, dealerInventory };
 
             bool continuesToPlay = Bet();
@@ -278,9 +278,9 @@ namespace Game.Minigames
                         case BlackJackAction.Split:
                             Card nextDeckCard = playerInventory.Cards[1];
                             playerInventory.Cards.RemoveAt(1);
-                            playerInventory.Text = "1. Lapjaid:\t";
+                            playerInventory.Text = "1. Kezed:\t";
 
-                            playerInventories = new BlackJackInventory[] { playerInventory, new BlackJackInventory(new List<Card> { nextDeckCard}, 0, false, "2. Lapjaid:\t") };
+                            playerInventories = new BlackJackInventory[] { playerInventory, new BlackJackInventory(new List<Card> { nextDeckCard}, 0, false, "2. Kezed:\t") };
                             blackJackInventories[1] = playerInventories[1];
                             blackJackInventories.Add(dealerInventory);
 
@@ -404,12 +404,13 @@ namespace Game.Minigames
 
         private bool Bet()
         {
-            Program.PrintPlayerStat();
-            Console.WriteLine("Mennyi pénzt teszel fel? (0 - kilépés)");
             string input;
             int bet;
             do
             {
+                Console.Clear();
+                Program.PrintPlayerStat();
+                Console.WriteLine("Mennyi pénzt teszel fel? (0 - kilépés)");
                 input = Console.ReadLine();
 
             } while (!int.TryParse(input, out bet) || bet < 0 || bet > player.Money);
@@ -427,11 +428,13 @@ namespace Game.Minigames
 
         private int insuranceBet()
         {
-            Console.WriteLine("Mennyi pénzt teszel biztosítás végett? ");
             string input;
             int bet;
             do
             {
+                Console.Clear();
+                PrintTable();
+                Console.WriteLine($"Mennyi pénzt teszel biztosítás végett? (max. {playerInventory.Bet / 2})");
                 input = Console.ReadLine();
 
             } while (!int.TryParse(input, out bet) || bet < 0 || bet > player.Money || bet > playerInventory.Bet / 2);
