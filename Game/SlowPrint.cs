@@ -23,6 +23,10 @@ namespace Game
             isPrintSkip = true;
             printer.Join();
 
+        }
+        public static void SlowPrintLine(string text, int printms = 25)
+        {
+            SlowPrint(text, printms);
             Console.WriteLine();
         }
 

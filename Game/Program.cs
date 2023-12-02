@@ -2,7 +2,7 @@
 {
     partial class Program
     {
-        public static Player player = new Player(10, 10, 1, 180);
+        public static Player player = new Player(10, 10, 1, 100);
         public static int printLenght = Console.WindowWidth - 30;
 
         static void Main(string[] args)
@@ -83,6 +83,8 @@
             }
 
             printLenght = Console.WindowWidth - longest - 2;
+            Console.CursorLeft = 0;
+            Console.CursorTop = 0;
             return longest;
         }
     }
