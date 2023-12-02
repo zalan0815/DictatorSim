@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Media;
 
 namespace Game
 {
@@ -20,6 +16,7 @@ namespace Game
             new Armor("Varázspáncél",       100,169, StatType.Health),
             new OtherItem("Sima sisak",     40, 200, StatType.Health)
             );
-
+        //public static SoundPlayer baseSounds = new SoundPlayer("Audio/smash.wav");
+        public static SoundPlayer swordSounds = new SoundPlayer("Audio/sword.wav");
     }
 }
