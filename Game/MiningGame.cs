@@ -21,7 +21,7 @@ namespace Game
             printMiningMapBase();
             PrintMine(ko, dia);
 
-            Console.WriteLine($"\nBánya - nyilakkla keresd meg és ENTER-el bányászd ki a gyémántot! (kövek: {ko}, gyémánt: {dia})");
+            Console.WriteLine($"\nBánya - NYILAK-kal keresd meg és ENTER-el bányászd ki a gyémántot! Kilépéshez nyomd meg a 0-t. (kövek: {ko}, gyémánt: {dia})");
 
             SearchForDiamond();
         }
