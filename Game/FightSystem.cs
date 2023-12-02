@@ -111,7 +111,7 @@ namespace Game
                 Thread.Sleep(800);
                 Console.Clear();
             }
-            return enemy.Health == 0;
+            return enemy.Health <= 0;
         }
 
         private void attackOf(Character c)

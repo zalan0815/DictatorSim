@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Game.SlowPrintSystem;
 
 namespace Game
 {
@@ -24,9 +25,12 @@ namespace Game
             public bool[] ChosenOptions { get { return chosenOptions; } set { chosenOptions = value; } }
             public string Name { get { return name; } set { name = value; } }
 
+            public bool FirstTime { get; set; }
             public int Run()
             {
-                return myMethod.Invoke(ref this);
+                int returnpos = myMethod.Invoke(ref this);
+                this.FirstTime = false;
+                return returnpos;
             }
 
             public int Valasztas(params string[] lehetosegek)
@@ -40,6 +44,7 @@ namespace Game
                 this.name = name;
                 this.chosenOptions = new bool[6]; //maximum 6 választási lehetőség
                 this.myMethod = method;
+                this.FirstTime = true;
             }
         }
         public static void Generate()
@@ -83,31 +88,28 @@ namespace Game
 
         public static int Tovabb(params LocationData[] helyek)
         {
-            Console.WriteLine("Tovább mész:");
-            for (int i = 1; i < helyek.Length + 1; i++)
+            int choice = 1;
+            if (helyek.Length > 1)
             {
-                Console.WriteLine($"{i}. - {helyek[i - 1].Name}");
-            }
-            int choice;
-            bool error = false;
-            while (!int.TryParse(Console.ReadKey(true).KeyChar.ToString(), out choice) || (choice < 1 || choice > helyek.Length))
-            {
-                if (!error)
+                Console.WriteLine("Tovább mész:");
+                for (int i = 1; i < helyek.Length + 1; i++)
                 {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Olyan helyet választottál, ami még eme mesés helyen sem létezik!");
-                    Console.ForegroundColor = ConsoleColor.White;
-                    Console.WriteLine("Próbáld újra!");
-                    error = true;
+                    Console.WriteLine($"{i}. - {helyek[i - 1].Name}");
+                }
+                bool error = false;
+                while (!int.TryParse(Console.ReadKey(true).KeyChar.ToString(), out choice) || (choice < 1 || choice > helyek.Length))
+                {
+                    if (!error)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("Olyan helyet választottál, ami még eme mesés helyen sem létezik!");
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.WriteLine("Próbáld újra!");
+                        error = true;
+                    }
                 }
             }
-            Console.Write("\nÉs Palkó ");
-            Thread.Sleep(500);
-            Console.Write("ment ");
-            Thread.Sleep(500);
-            Console.Write("ment ");
-            Thread.Sleep(500);
-            Console.Write($"mendegélt tovább {helyek[choice - 1].Name} felé.\n");
+            SlowPrint($"És Palkó ment ment mendegélt tovább a/az {helyek[choice - 1].Name} felé.\n");
             return helyek[choice - 1].ID;
         }
         public static int Valasztas(ref LocationData currentLocation, params string[] lehetosegek)
@@ -119,9 +121,9 @@ namespace Game
             }
 
             bool foundChoosable = false;
-            for (int i = 0; i < lehetosegek.Length; i++)
+            for (int j = 0; j < lehetosegek.Length; j++)
             {
-                if (!currentLocation.ChosenOptions[i])
+                if (!currentLocation.ChosenOptions[j])
                 {
                     foundChoosable = true;
                     break;
@@ -134,7 +136,8 @@ namespace Game
             #endregion
 
             Console.WriteLine("Mit akarsz csinálni:");
-            for (int i = 1; i < lehetosegek.Length + 1; i++)
+            int i;
+            for (i = 1; i < lehetosegek.Length + 1; i++)
             {
                 if (currentLocation.ChosenOptions[i - 1])
                 {
@@ -143,10 +146,20 @@ namespace Game
                 Console.WriteLine($"{i}. - {lehetosegek[i - 1]}");
                 Console.ForegroundColor = ConsoleColor.White;
             }
+            if (Program.player.Health < Program.player.MaxHealth && Program.player.HealPotions >= 1)
+            {
+                Console.WriteLine($"{i}. - Gyógyítás");
+            }
             int choice;
             bool error = false;
             while (!int.TryParse(Console.ReadKey(true).KeyChar.ToString(), out choice) || (choice < 1 || choice > lehetosegek.Length || currentLocation.ChosenOptions[choice-1]))
             {
+                if (choice - 1 == lehetosegek.Length && Program.player.Health < Program.player.MaxHealth && Program.player.HealPotions >= 1)
+                {
+                    Program.player.Heal();
+                    return Valasztas(ref currentLocation, lehetosegek);
+                }
+
                 if (!error)
                 {
                     Console.ForegroundColor = ConsoleColor.Red;

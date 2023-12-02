@@ -10,7 +10,8 @@
             new Minigames.BlackJack(ref player).Run();
             
             Locations.Generate();
-            int location = 29;
+            int location = 1;
+          
             do
             {
                 location = Locations.helyek[location].Run();
