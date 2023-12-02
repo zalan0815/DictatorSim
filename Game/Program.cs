@@ -7,7 +7,11 @@
 
         static void Main(string[] args)
         {
-            new Minigames.BlackJack(ref player).Run();
+            while (true)
+            {
+                new Minigames.BlackJack(ref player).Run();
+            }
+            
             Locations.Generate();
             int location = 29;
             do
@@ -82,6 +86,8 @@
             }
 
             printLenght = Console.WindowWidth - longest - 2;
+            Console.CursorLeft = 0;
+            Console.CursorTop = 0;
             return longest;
         }
     }
