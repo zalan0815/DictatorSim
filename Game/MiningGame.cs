@@ -15,7 +15,7 @@ namespace Game
 
         private int diaPosx;
         private int diaPosy;
-
+      
         public void Mining(char ko, char dia, bool easyMode = false)
         {
             printMiningMapBase();
@@ -81,7 +81,7 @@ namespace Game
 
             Console.CursorTop = yMax;
         }
-
+      
         private void SearchForDiamond(bool easy)
         {
             bool found = false;
