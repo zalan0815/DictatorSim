@@ -16,14 +16,14 @@ namespace Game
         private int diaPosx;
         private int diaPosy;
 
-        public void Mining(char ko, char dia)
+        public void Mining(char ko, char dia, bool easyMode = false)
         {
             printMiningMapBase();
-            PrintMine(ko, dia);
+            PrintMine(ko, dia, easyMode);
 
             Console.WriteLine($"\nBánya - NYILAK-kal keresd meg és ENTER-el bányászd ki a gyémántot! Kilépéshez nyomd meg a 0-t. (kövek: {ko}, gyémánt: {dia})");
 
-            SearchForDiamond();
+            SearchForDiamond(easyMode);
         }
 
         private void printMiningMapBase()
@@ -54,7 +54,7 @@ namespace Game
             Console.BackgroundColor = ConsoleColor.Black;
         }
 
-        private void PrintMine(char ko, char dia)
+        private void PrintMine(char ko, char dia, bool easy)
         {
             Random random = new Random();
 
@@ -72,14 +72,17 @@ namespace Game
 
             Console.CursorLeft = diaPosx;
             Console.CursorTop = diaPosy;
-            Console.ForegroundColor = ConsoleColor.Red;
+            if (easy)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+            }
             Console.Write(dia);
             Console.ForegroundColor = ConsoleColor.White;
 
             Console.CursorTop = yMax;
         }
 
-        private void SearchForDiamond()
+        private void SearchForDiamond(bool easy)
         {
             bool found = false;
             bool mining = true;
@@ -103,7 +106,11 @@ namespace Game
                 if (cursorPosX == diaPosx && cursorPosY == diaPosy)
                 {
                     Console.BackgroundColor = ConsoleColor.Black;
-                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.ForegroundColor = ConsoleColor.White;
+                    if (easy)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                    }
                     Console.Write('x');
                     Console.ForegroundColor = ConsoleColor.White;
                 }
@@ -117,16 +124,28 @@ namespace Game
                 switch (input)
                 {
                     case ConsoleKey.LeftArrow:
-                        cursorPosX--;
+                        if (!(cursorPosX == widthSize))
+                        {
+                            cursorPosX--;
+                        }
                         break;
                     case ConsoleKey.UpArrow:
-                        cursorPosY--;
+                        if (!(cursorPosY == yTop))
+                        {
+                            cursorPosY--;
+                        }
                         break;
                     case ConsoleKey.RightArrow:
-                        cursorPosX++;
+                        if (!(cursorPosX == xMax - widthSize + 1))
+                        {
+                            cursorPosX++;
+                        }
                         break;
                     case ConsoleKey.DownArrow:
-                        cursorPosY++;
+                        if (!(cursorPosY == yMax - 1))
+                        {
+                            cursorPosY++;
+                        }
                         break;
                     case ConsoleKey.Enter:
                         if (cursorPosX == diaPosx && cursorPosY == diaPosy)
