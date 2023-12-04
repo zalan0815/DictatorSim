@@ -9,7 +9,7 @@ namespace Game
 
         static void Main(string[] args)
         {
-            new TyperGame(player, "Jelenleg egy sor van tamogatva ekezetek nelkul").Run();
+            new BlackJack(ref player).Run();
             Locations.Generate();
             int location = 1;
 
