@@ -116,7 +116,7 @@ namespace Game
         public static int hely_2(ref LocationData currentLocation)
         {
             Console.Clear();
-            PrintPlayerStat(); 
+            PrintPlayerStat();
             if (currentLocation.FirstTime)
             {
                 SlowPrintLine("Markotabödöge, a falu ahol Palkó az életét élte.");
@@ -149,8 +149,10 @@ namespace Game
                     SlowPrintLine("- \"Dícsértessék fiam!\"");
                     SlowPrintLine("- \"Atyám, elhatároztam, hog elmegyek világot látni. Tudom, hogy a világ tele van veszélyekkel, ezért szeretnék áldást kéreni!\"");
                     SlowPrintLine("- \"Fiam, csak Isten tud áldást adni én nem, de ezt az üvegcsét fogadd el. Ha megsebesülsz önts belőle kicsit a sebre majd a maradékot idd meg és jobban leszel.\"");
+                    player.HealPotions += 1;
                     SlowPrintLine("- \"Köszönöm atyám!\"");
                     SlowPrintLine("- \"Isten áldjon, fiam\"");
+
                     break;
             }
             if (currentLocation.FirstTime)
@@ -171,13 +173,13 @@ namespace Game
             {
                 SlowPrintLine("Palkó rendíthetetlen magabiztoságal lépett be a kerekerdő sötét fái közé.");
                 SlowPrintLine("Egyszercsak egy csoport bandita lép elő.");
-                SlowPrintLine("\"Üdvözlet kisfíú! Rossz irányba jöttél! Most pedig átadod a vagyonod nekünk!\" - mondták nagyképűen.");
+                SlowPrintLine("- \"Üdvözlet kisfíú! Rossz irányba jöttél! Most pedig átadod a vagyonod nekünk!\" - mondták nagyképűen.");
                 int choice = Valasztas(ref currentLocation, "Harcolsz velük", "Adsz pénzt");
                 switch (choice)
                 { 
                     case 0:
-                        SlowPrintLine("\"Azt majd meglátjuk ki ad át mit!\" - válaszolt Palko megabiztosan.");
-                        SlowPrintLine("\"Azért én vigyáznék ekkora szájjal!\" - mondta a banditák főnöke majd kard-ot rántott Palkóra");
+                        SlowPrintLine("- \"Azt majd meglátjuk ki ad át mit!\" - válaszolt Palko megabiztosan.");
+                        SlowPrintLine("- \"Azért én vigyáznék ekkora szájjal!\" - mondta a banditák főnöke majd kard-ot rántott Palkóra");
                         SlowPrintLine("Palkó ügyesen kilépett a bandita elől aki a földre esett, majd lassan fölkelt és kezdetét vette a harc.");
                         bool w;
                         FightSystem banditák = new FightSystem(player, new Enemy(50, 5,speed: 1500, name: "Banditák vezetője"), out w);
@@ -192,11 +194,12 @@ namespace Game
                         }
                         break;
                     case 1:
-                        SlowPrintLine("\"Jólvan nyugalom adok pénzt.\" - mondta Palkó magabiztosnak tűnve.");
+                        SlowPrintLine("- \"Jólvan nyugalom adok pénzt.\" - mondta Palkó magabiztosnak tűnve.");
                         SlowPrintLine("Félt, hogy a banditák rátámadnak ha gyengének tűnik.");
+                        SlowPrintLine("Adott 10 krajcárt bízva abban, hogy megelégednek vele.");
                         player.Money -= 6;
                         PrintPlayerStat();
-                        SlowPrintLine("\"Jólva fiam, most az egyszer békén hagyunk de legközelebb még az alsógatyádat is ellopjuk!\"");
+                        SlowPrintLine("- \"Jólva fiam, most az egyszer békén hagyunk de legközelebb még az alsógatyádat is ellopjuk!\"");
                         SlowPrintLine("Ezzel a banditák távoztak.");
                         break;
                 }
@@ -209,8 +212,6 @@ namespace Game
         #region Huba
         public static int hely_5(ref LocationData currentLocation)
         {
-            SlowPrintLine("Palkó ügyesen kilépett a bandita elől aki a földre esett, majd lassan fölkelt és kezdetét vette a harc.");
-
             int choice;
             do
             {
@@ -243,10 +244,6 @@ namespace Game
             return 0;
         }
         public static int hely_4(ref LocationData currentLocation)
-        {
-            return 0;
-        }
-        public static int hely_5(ref LocationData currentLocation)
         {
             return 0;
         }
