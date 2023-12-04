@@ -1,5 +1,4 @@
-﻿using System.Xml.Serialization;
-using static Game.SlowPrintSystem;
+﻿using static Game.SlowPrintSystem;
 
 namespace Game
 {
@@ -160,7 +159,11 @@ namespace Game
         #region Huba
         public static int hely_5(ref LocationData currentLocation)
         {
-            SlowPrintLine("Palkó ügyesen kilépett a bandita elől aki a földre esett, majd lassan fölkelt és kezdetét vette a harc.");
+            Program.PrintPlayerStat();
+            if (currentLocation.FirstTime)
+            {
+                SlowPrintLine("A helyi kovács műhelyéhez érkeztél.");
+            }
 
             int choice;
             do
