@@ -8,7 +8,7 @@
         static void Main(string[] args)
         {
             Locations.Generate();
-            int location = 1;
+            int location = 5;
 
             do
             {
@@ -45,6 +45,8 @@
         public static int PrintPlayerStat(bool yellowHealth = false)
         {
             int longest = getPlayerStatLength();
+            int x = Console.CursorLeft;
+            int y = Console.CursorTop;
 
             Console.CursorLeft = Console.WindowWidth - longest - 1;
             Console.CursorTop = 0;
@@ -80,8 +82,8 @@
             }
 
             printLenght = Console.WindowWidth - longest - 2;
-            Console.CursorLeft = 0;
-            Console.CursorTop = 0;
+            Console.CursorLeft = x;
+            Console.CursorTop = y;
             return longest;
         }
     }

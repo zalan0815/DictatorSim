@@ -160,6 +160,8 @@ namespace Game
         #region Huba
         public static int hely_5(ref LocationData currentLocation)
         {
+            SlowPrintLine("Palkó ügyesen kilépett a bandita elől aki a földre esett, majd lassan fölkelt és kezdetét vette a harc.");
+
             int choice;
             do
             {
