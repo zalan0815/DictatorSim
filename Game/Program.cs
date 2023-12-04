@@ -10,7 +10,7 @@ namespace Game
         static void Main(string[] args)
         {
             Locations.Generate();
-            int location = 6;
+            int location = 1;
 
             do
             {
@@ -50,23 +50,20 @@ namespace Game
             int x = Console.CursorLeft;
             int y = Console.CursorTop;
 
-            Console.CursorLeft = Console.WindowWidth - longest - 1;
+            string[] namesToWrite = { "Életerőd", "Pénzed", "Varázsitaljaid" };
+            string[] statsToWrite = { $"{player.Health} / {player.MaxHealth}", player.Money.ToString(), player.HealPotions.ToString() };
+            ConsoleColor[] colorsToWrite = { ConsoleColor.Green, ConsoleColor.DarkYellow, ConsoleColor.DarkRed };
+
             Console.CursorTop = 0;
-            Console.ForegroundColor = ConsoleColor.DarkGreen;
-            Console.Write("Életerőd");
-            Console.CursorLeft = Console.WindowWidth - longest - 1;
-            Console.CursorTop += 1;
-            if (yellowHealth) { Console.ForegroundColor = ConsoleColor.Yellow; }
-            Console.Write($"{player.Health} ");
-            Console.ForegroundColor = ConsoleColor.DarkGreen;
-            Console.Write($"/ {player.MaxHealth}");
-            Console.ForegroundColor = ConsoleColor.DarkYellow;
-            Console.CursorLeft = Console.WindowWidth - longest - 1;
-            Console.CursorTop += 1;
-            Console.Write("Pénzed");
-            Console.CursorLeft = Console.WindowWidth - longest - 1;
-            Console.CursorTop += 1;
-            Console.Write(player.Money);
+            for (int i = 0; i < statsToWrite.Length; i++)
+            {
+                Console.CursorLeft = Console.WindowWidth - longest - 1;
+                Console.ForegroundColor = colorsToWrite[i];
+                if(yellowHealth && i == 0) { Console.ForegroundColor = ConsoleColor.Yellow; }
+                Console.WriteLine(namesToWrite[i]);
+                Console.CursorLeft = Console.WindowWidth - longest - 1;
+                Console.WriteLine(statsToWrite[i]);
+            }
 
             Console.CursorTop += 1;
 

@@ -1,5 +1,4 @@
-﻿using System.Xml.Serialization;
-using static Game.SlowPrintSystem;
+﻿using static Game.SlowPrintSystem;
 using Game.Minigames;
 using static Game.Program;
 
@@ -246,10 +245,16 @@ namespace Game
         #region Huba
         public static int hely_5(ref LocationData currentLocation)
         {
+            SlowPrintLine("Palkó belépett a műhelybe, ahol a kovács, János bácsi, éppen a forró lángok között dolgozott. Az üllőn egy csomó kovácsolt vas darab hevert, mintha valami izgalmas projektbe fogott volna.");
+            if (currentLocation.FirstTime)
+            {
+                currentLocation.ChosenOptions[2] = true;
+            }
+
             int choice;
             do
             {
-                choice = Valasztas(ref currentLocation, "Körbenézel a boltban", "Vásárlás", "Vissza");
+                choice = Valasztas(ref currentLocation, "Körbenézel a műhelyben", "Vásárlás", "Vissza");
                 switch (choice)
                 {
                     case 0:
@@ -259,6 +264,7 @@ namespace Game
                     case 1:
                         Program.smith.ShopMenu(ref Program.player);
                         currentLocation.ChosenOptions[1] = false;
+                        currentLocation.ChosenOptions[2] = false;
                         break;
                     case 2:
                         choice = -1;
