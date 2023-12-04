@@ -16,8 +16,8 @@ namespace Game
         private int defaultStrength;
         private int defaultSliderSpeed;
 
-        public Sword sword = new Sword("Kés",10);
-        public Armor armor = new Armor("Szakadt ruha",10);
+        private Sword sword = new Sword("Kés",10);
+        private Armor armor = new Armor("Szakadt ruha",10);
 
         private int healPotions;
         #endregion
@@ -30,6 +30,26 @@ namespace Game
                 return new List<Item>() { this.sword, this.armor};
             }
         }
+
+        public Sword Sword
+        {
+            get { return sword; }
+            set
+            {
+                sword = value;
+                addHealthByItem(value);
+            }
+        }
+        public Armor Armor
+        {
+            get { return armor; }
+            set
+            {
+                armor = value;
+                addHealthByItem(value);
+            }
+        }
+
         public int Money
         {
             get { return money; }
@@ -75,7 +95,7 @@ namespace Game
             this.defaultStrength = strength;
             this.defaultSliderSpeed = sliderSpeed;
 
-            this.Health = health;
+            this.Health = MaxHealth;
             this.Money = money;
 
             this.Name = name;
@@ -105,6 +125,14 @@ namespace Game
         {
             HealPotions--;
             Health = MaxHealth;
+        }
+
+        private void addHealthByItem(Item item)
+        {
+            if(item.Type == StatType.Health)
+            {
+                Health += item.Stat;
+            }
         }
     }
 }

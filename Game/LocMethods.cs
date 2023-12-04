@@ -1,17 +1,13 @@
 ﻿using System.Xml.Serialization;
 using static Game.SlowPrintSystem;
 using Game.Minigames;
+using static Game.Program;
 
 namespace Game
 {
     partial class Locations
     {
         #region Zalan
-        public static int hely_27(ref LocationData currentLocation)
-        {
-            Program.trader.ShopMenu(ref Program.player);
-            return 0;
-        }
         public static int hely_28(ref LocationData currentLocation)
         {
             SlowPrint("Palkó belépett a király csodaszép kacsalábon forgó palotájába.");
@@ -26,7 +22,7 @@ namespace Game
                 case 0:
                     SlowPrint("\"Ez esetben menj vissza a Kerekerdőbe és mássz fel az Égigérő paszuly tetejére.\n Ott fogod megtalálni a sárkányfészket, ahol a 3 fejű sárkány lakik.\"");
                     SlowPrint("\"Tessék itt egy Égig érő kötél, ezzel fel fogsz tudni mászni a paszuly tetejére.\"");
-                    Program.player.NewItem(new OtherItem("Égig érő kötél", 0, type:StatType.Key));
+                    Program.player.NewItem(new OtherItem("Égig érő kötél", 0, type: StatType.Key));
                     SlowPrint("\"Sok sikert, Ifjú Vitéz!!!\"");
                     return Tovabb(helyek[6]);
                 case 1:
@@ -89,24 +85,26 @@ namespace Game
         #region Peti
         public static int hely_1(ref LocationData currentLocation)
         {
-            SlowPrint("A történet Palko házában veszi kezdetét, ahol egy szép napon reggel Palko elhatározta, hogy elmegy világot látni.");
-            
+            if (currentLocation.FirstTime) { 
+                SlowPrintLine("A történet Palko házában veszi kezdetét, ahol egy szép napon reggel Palko elhatározta, hogy elmegy világot látni.");
+            }
+
             for (int i = 0; i < 2; i++)
             {
                 int choice = Valasztas(ref currentLocation, "Nyissa ki a sarokban kévő ládát", "Búcsúzzon el az anyjától");
                 switch (choice)
                 {
                     case 0:
-                        SlowPrint("Palkó kinyitja a ládát.");
-                        SlowPrint("Megtalálta régi gyakorló kardját fiatal korából.");
-                        SlowPrint("Ha a pengéje nem is annyira éles még hasznát fogja venni.");
+                        SlowPrintLine("Palkó kinyitja a ládát.");
+                        SlowPrintLine("Megtalálta régi gyakorló kardját fiatal korából.");
+                        SlowPrintLine("Ha a pengéje nem is annyira éles még hasznát fogja venni.");
                         Sword sword = new Sword("Fakard", 2, 0, StatType.SliderSpeed);
                         break;
                     case 1:
-                        SlowPrint("Palkót megpróbálja lebeszélni az édesanyja, de az igazi hőst nem állítja meg semmi.");
-                        SlowPrint("Megígéri, hogy vigyáz magára és visszatér még.");
+                        SlowPrintLine("Palkót megpróbálja lebeszélni az édesanyja, de az igazi hőst nem állítja meg semmi.");
+                        SlowPrintLine("Megígéri, hogy vigyáz magára és visszatér még.");
                         break;
-                    case -1:
+                    case 2:
                         break;
                 }
             }
@@ -117,24 +115,23 @@ namespace Game
         {
             if (currentLocation.FirstTime)
             {
-                SlowPrint("Markotabödöge, a falu ahol Palkó az életét élte.");
-                SlowPrint("Majdnem minden embert ismert, de most nem vesztegethette idejét.");
+                SlowPrintLine("Markotabödöge, a falu ahol Palkó az életét élte.");
+                SlowPrintLine("Majdnem minden embert ismert, de most nem vesztegethette idejét.");
             }
-            
+
             int choice = Valasztas(ref currentLocation, "Ki a faluból", "Paphoz");
             switch (choice)
             {
                 case 0:
-                    SlowPrint("Palko szerette volna mi hamarabb elhagyni a falut, ám meglátta a szomszéd kutyáját.");
-                    SlowPrint("Megpróbálta megsimogatni de hirtelen rátámadt.");
+                    SlowPrintLine("Palko szerette volna mi hamarabb elhagyni a falut, ám egy veszett kutya útját állta");
+                    SlowPrintLine("Megpróbálta kikerülni de hirtelen rátámadt.");
                     bool w;
                     FightSystem kutya = new FightSystem(Program.player, new Enemy(20, 1, name: "Kutya"), out w);
-                    Console.WriteLine(w);
                     if (w)
                     {
-                        SlowPrint("Palkó sajnálta, hogy a kutyát meg kellett ölnie.");
-                        SlowPrint("Nem volt nagy ellenfél, de úgy érezte mindent képes lenne legyőzni.");
-                        SlowPrint("Nagy magabiztossággal indult tovább.");
+                        SlowPrintLine("Palkó sajnálta, hogy a kutyát meg kellett ölnie.");
+                        SlowPrintLine("Nem volt nagy ellenfél, de úgy érezte mindent képes lenne legyőzni.");
+                        SlowPrintLine("Nagy magabiztossággal indult tovább.");
                         break;
                     }
                     else
@@ -142,28 +139,139 @@ namespace Game
                         return 0;
                     }
                 case 1:
-                    SlowPrint("Palkó a templom felé vette az irányt.");
-                    SlowPrint("Odaérkezve üdvözölte a papot.");
-                    SlowPrint("- \"Dícsértessék atyám!\"");
-                    SlowPrint("- \"Dícsértessék fiam!\"");
-                    SlowPrint("- \"Atyám, elhatároztam, hog elmegyek világot látni. Tudom, hogy a világ tele van veszélyekkel, ezért szeretnék áldást kéreni!\"");
-                    SlowPrint("- \"Fiam, csak Isten tud áldást adni én nem, de ezt az üvegcsét fogadd el. Ha megsebesülsz önts belőle kicsit a sebre majd a maradékot idd meg és jobban leszel.\"");
-                    SlowPrint("- \"Köszönöm atyám!\"");
-                    SlowPrint("- \"Isten áldjon, fiam\"");
+                    SlowPrintLine("Palkó a templom felé vette az irányt.");
+                    SlowPrintLine("Odaérkezve üdvözölte a papot.");
+                    SlowPrintLine("- \"Dícsértessék atyám!\"");
+                    SlowPrintLine("- \"Dícsértessék fiam!\"");
+                    SlowPrintLine("- \"Atyám, elhatároztam, hog elmegyek világot látni. Tudom, hogy a világ tele van veszélyekkel, ezért szeretnék áldást kéreni!\"");
+                    SlowPrintLine("- \"Fiam, csak Isten tud áldást adni én nem, de ezt az üvegcsét fogadd el. Ha megsebesülsz önts belőle kicsit a sebre majd a maradékot idd meg és jobban leszel.\"");
+                    player.HealPotions += 1;
+                    SlowPrintLine("- \"Köszönöm atyám!\"");
+                    SlowPrintLine("- \"Isten áldjon, fiam\"");
+
                     break;
             }
             if (currentLocation.FirstTime)
             {
-                SlowPrint("Palkó, elgondolkodott rajta, hogy lehet mégsem kéne csak úgy nekiindulni megfelelő felszerelés nélkül.");
-                SlowPrint("Elmehet a bányába értékek után kutatni vagy a helyi gazdához dolgozni némi pénzért dolgozni, hogy a kovácstól vegyvert vásároljon.");
+                SlowPrintLine("Palkó, elgondolkodott rajta, hogy lehet mégsem kéne csak úgy nekiindulni megfelelő felszerelés nélkül.");
+                SlowPrintLine("Elmehet a bányába értékek után kutatni vagy a helyi gazdához dolgozni némi pénzért dolgozni, hogy a kovácstól vegyvert vásároljon.");
             }
-            
+
 
             return Tovabb(helyek[3], helyek[4], helyek[5], helyek[6]);
         }
+
+        public static int hely_6(ref LocationData currentLocation)
+        {
+            if (currentLocation.FirstTime)
+            {
+                SlowPrintLine("Palkó rendíthetetlen magabiztoságal lépett be a kerekerdő sötét fái közé.");
+                SlowPrintLine("Egyszercsak egy csoport bandita lép elő.");
+                SlowPrintLine("- \"Üdvözlet kisfíú! Rossz irányba jöttél! Most pedig átadod a vagyonod nekünk!\" - mondták nagyképűen.");
+                int choice = Valasztas(ref currentLocation, "Harcolsz velük", "Adsz pénzt");
+                switch (choice)
+                { 
+                    case 0:
+                        SlowPrintLine("- \"Azt majd meglátjuk ki ad át mit!\" - válaszolt Palko megabiztosan.");
+                        SlowPrintLine("- \"Azért én vigyáznék ekkora szájjal!\" - mondta a banditák főnöke majd kard-ot rántott Palkóra");
+                        SlowPrintLine("Palkó ügyesen kilépett a bandita elől aki a földre esett, majd lassan fölkelt és kezdetét vette a harc.");
+                        bool w;
+                        FightSystem banditák = new FightSystem(player, new Enemy(50, 5,speed: 1500, name: "Banditák vezetője"), out w);
+                        if (w)
+                        {
+                            SlowPrintLine("Szerencsére csak a szájuk volt nagy. Amint Palkó elintézte a főnököt elmenekült a többi.");
+                            SlowPrintLine("Palkó nyugodtan folytathatta útját az erdőben.");
+                        }
+                        else
+                        {
+                            return 0;
+                        }
+                        break;
+                    case 1:
+                        SlowPrintLine("- \"Jólvan nyugalom adok pénzt.\" - mondta Palkó magabiztosnak tűnve.");
+                        SlowPrintLine("Félt, hogy a banditák rátámadnak ha gyengének tűnik.");
+                        SlowPrintLine("Adott 10 krajcárt bízva abban, hogy megelégednek vele.");
+                        player.Money -= 6;
+                        PrintPlayerStat();
+                        SlowPrintLine("- \"Jólva fiam, most az egyszer békén hagyunk de legközelebb még az alsógatyádat is ellopjuk!\"");
+                        SlowPrintLine("Ezzel a banditák távoztak.");
+                        break;
+                }
+                SlowPrintLine("Kicsivel arrébb egy elágazáshoz érsz.");
+            }
+            return Tovabb(helyek[7], helyek[8], helyek[11], helyek[12]);
+        }
+
+        public static int hely_8(ref LocationData currentLocation)
+        {
+            if (currentLocation.FirstTime)
+            {
+                SlowPrintLine("Az út szélén a bokorban mozgóldást hall Palkó.");
+                SlowPrintLine("Odanéz és meglát egy kék foltot eltűnni mögötte.");
+                SlowPrintLine("Megvizsgálja mi van a bokor mögött és egy hupikék törpikét pillant meg.");
+                SlowPrintLine("- \"Ne bánts ifjú, nem akartalak megzavarni.\" - mondta félénken a törp.");
+                SlowPrintLine("- \"Ne félj, nem bántalak. Mi járatban vagy erre?\"");
+                SlowPrintLine("- \"Öhmm... a kardodból arra következtettünk társaimmal, hogy harcos vagy. A segítségedre lenne szükségünk. Meghálálnánk.\"");
+                int choice = Valasztas(ref currentLocation, "Elfogadod", "Nem fogadod el");
+                switch (choice)
+                {
+                    case 0:
+                        SlowPrintLine("- \"Miben kéne segíteni?\" - mondta Palkó kíváncsian.");
+                        SlowPrintLine("- \"A gonosz Hókuszpók mostanában egyre többször rabol el törpöket, hogy fagyit készítsen a város lakóinak. Arra szeretnénk kérni, hogy menj el a házához és szabadítsd ki a törpöket.\"");
+                        SlowPrintLine("- \"Rendben. Mutassátok az utat.\"");
+                        return Tovabb(helyek[9]);
+                    case 1:
+                        SlowPrintLine("- \"Sajnálom, de én egy igazi kalandra vágyok nem holmi öregembert bántani\" - mondta Palkó öntelten, majd folytatta útját.");
+                        return Tovabb(helyek[6]);
+                }
+            }
+            else
+            {
+                SlowPrintLine("Palkó benéz a bokor mögé.");
+                SlowPrintLine("Nem lát semmi érdekeset, ezért folytatja útját.");
+                return Tovabb(helyek[6]);
+            }   
+            return 0;
+        }
+        public static int hely_9(ref LocationData currentLocation)
+        {
+            return 0;
+        }
+        public static int hely_10(ref LocationData currentLocation)
+        {
+            return 0;
+        }
         #endregion
 
+        #region Huba
+        public static int hely_5(ref LocationData currentLocation)
+        {
+            int choice;
+            do
+            {
+                choice = Valasztas(ref currentLocation, "Körbenézel a boltban", "Vásárlás", "Vissza");
+                switch (choice)
+                {
+                    case 0:
+                        SlowPrint("Ahogy Palkó körbejárta a kovács műhelyét, csodálkozva nézte a jobbnál jobb, nagyobbnál nagyobb kardokat, pajzsokat és páncélokat, ahogy azok a falon, a magasban büszkén csillogtak. ");
+                        SlowPrintLine($"Az áruk viszont túlságosan is magas volt. Palkó szegény legény, nincs pénze ilyenekre. Hátha van valami olcsóbb is. Meg kéne kérdeznem a kovácsot, mit ajánlana {Program.player.Money} krajcár keretein bellül.");
+                        break;
+                    case 1:
+                        Program.smith.ShopMenu(ref Program.player);
+                        currentLocation.ChosenOptions[1] = false;
+                        break;
+                    case 2:
+                        choice = -1;
+                        currentLocation.ChosenOptions[2] = false;
+                        break;
+                }
+            }
+            while (choice != -1);
 
+
+            return Tovabb(helyek[2]);
+        }
+        #endregion
 
         public static int hely_3(ref LocationData currentLocation)
         {
@@ -173,27 +281,7 @@ namespace Game
         {
             return 0;
         }
-        public static int hely_5(ref LocationData currentLocation)
-        {
-            return 0;
-        }
-        public static int hely_6(ref LocationData currentLocation)
-        {
-            return 0;
-        }
         public static int hely_7(ref LocationData currentLocation)
-        {
-            return 0;
-        }
-        public static int hely_8(ref LocationData currentLocation)
-        {
-            return 0;
-        }
-        public static int hely_9(ref LocationData currentLocation)
-        {
-            return 0;
-        }
-        public static int hely_10(ref LocationData currentLocation)
         {
             return 0;
         }
@@ -261,8 +349,10 @@ namespace Game
         {
             return 0;
         }
-       
-        
+        public static int hely_27(ref LocationData currentLocation)
+        {
 
+            return 0;
+        }
     }
 }

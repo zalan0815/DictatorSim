@@ -4,14 +4,13 @@ namespace Game
 {
     partial class Program
     {
-        public static Player player = new Player(10, 10, 1, 100);
+        public static Player player = new Player(10, 10, 1, 1000);
         public static int printLenght = Console.WindowWidth - 30;
 
         static void Main(string[] args)
         {
-            new TyperGame(player, "Jelenleg egy sor van tamogatva ekezetek nelkul").Run();
             Locations.Generate();
-            int location = 1;
+            int location = 6;
 
             do
             {
@@ -19,9 +18,6 @@ namespace Game
             }
             while (Locations.helyek.Length > location && location > 0);
             Console.Write("Program end");
-
-            //MiningGame mine = new MiningGame();
-            //mine.Mining('a', 'x');
         }
         
         static int getPlayerStatLength()
@@ -51,6 +47,8 @@ namespace Game
         public static int PrintPlayerStat(bool yellowHealth = false)
         {
             int longest = getPlayerStatLength();
+            int x = Console.CursorLeft;
+            int y = Console.CursorTop;
 
             Console.CursorLeft = Console.WindowWidth - longest - 1;
             Console.CursorTop = 0;
@@ -86,8 +84,8 @@ namespace Game
             }
 
             printLenght = Console.WindowWidth - longest - 2;
-            Console.CursorLeft = 0;
-            Console.CursorTop = 0;
+            Console.CursorLeft = x;
+            Console.CursorTop = y;
             return longest;
         }
     }
