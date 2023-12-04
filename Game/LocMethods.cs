@@ -8,11 +8,6 @@ namespace Game
     partial class Locations
     {
         #region Zalan
-        public static int hely_27(ref LocationData currentLocation)
-        {
-            Program.trader.ShopMenu(ref Program.player);
-            return 0;
-        }
         public static int hely_28(ref LocationData currentLocation)
         {
             SlowPrint("Palkó belépett a király csodaszép kacsalábon forgó palotájába.");
@@ -27,7 +22,7 @@ namespace Game
                 case 0:
                     SlowPrint("\"Ez esetben menj vissza a Kerekerdőbe és mássz fel az Égigérő paszuly tetejére.\n Ott fogod megtalálni a sárkányfészket, ahol a 3 fejű sárkány lakik.\"");
                     SlowPrint("\"Tessék itt egy Égig érő kötél, ezzel fel fogsz tudni mászni a paszuly tetejére.\"");
-                    Program.player.NewItem(new OtherItem("Égig érő kötél", 0, type:StatType.Key));
+                    Program.player.NewItem(new OtherItem("Égig érő kötél", 0, type: StatType.Key));
                     SlowPrint("\"Sok sikert, Ifjú Vitéz!!!\"");
                     return Tovabb(helyek[6]);
                 case 1:
@@ -127,7 +122,7 @@ namespace Game
                 SlowPrintLine("Markotabödöge, a falu ahol Palkó az életét élte.");
                 SlowPrintLine("Majdnem minden embert ismert, de most nem vesztegethette idejét.");
             }
-            
+
             int choice = Valasztas(ref currentLocation, "Ki a faluból", "Paphoz");
             switch (choice)
             {
@@ -163,7 +158,7 @@ namespace Game
                 SlowPrintLine("Palkó, elgondolkodott rajta, hogy lehet mégsem kéne csak úgy nekiindulni megfelelő felszerelés nélkül.");
                 SlowPrintLine("Elmehet a bányába értékek után kutatni vagy a helyi gazdához dolgozni némi pénzért dolgozni, hogy a kovácstól vegyvert vásároljon.");
             }
-            
+
 
             return Tovabb(helyek[3], helyek[4], helyek[5], helyek[6]);
         }
@@ -211,7 +206,37 @@ namespace Game
         }
         #endregion
 
+        #region Huba
+        public static int hely_5(ref LocationData currentLocation)
+        {
+            SlowPrintLine("Palkó ügyesen kilépett a bandita elől aki a földre esett, majd lassan fölkelt és kezdetét vette a harc.");
 
+            int choice;
+            do
+            {
+                choice = Valasztas(ref currentLocation, "Körbenézel a boltban", "Vásárlás", "Vissza");
+                switch (choice)
+                {
+                    case 0:
+                        SlowPrint("Ahogy Palkó körbejárta a kovács műhelyét, csodálkozva nézte a jobbnál jobb, nagyobbnál nagyobb kardokat, pajzsokat és páncélokat, ahogy azok a falon, a magasban büszkén csillogtak. ");
+                        SlowPrintLine($"Az áruk viszont túlságosan is magas volt. Palkó szegény legény, nincs pénze ilyenekre. Hátha van valami olcsóbb is. Meg kéne kérdeznem a kovácsot, mit ajánlana {Program.player.Money} krajcár keretein bellül.");
+                        break;
+                    case 1:
+                        Program.smith.ShopMenu(ref Program.player);
+                        currentLocation.ChosenOptions[1] = false;
+                        break;
+                    case 2:
+                        choice = -1;
+                        currentLocation.ChosenOptions[2] = false;
+                        break;
+                }
+            }
+            while (choice != -1);
+
+
+            return Tovabb(helyek[2]);
+        }
+        #endregion
 
         public static int hely_3(ref LocationData currentLocation)
         {
@@ -305,8 +330,10 @@ namespace Game
         {
             return 0;
         }
-       
-        
+        public static int hely_27(ref LocationData currentLocation)
+        {
 
+            return 0;
+        }
     }
 }

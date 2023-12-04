@@ -41,11 +41,11 @@ namespace Game
             Type itemType = item.GetType();
             if(itemType == typeof(Sword))
             {
-                player.sword = item as Sword;
+                player.Sword = item as Sword;
             }
             else if(itemType == typeof(Armor))
             {
-                player.armor = item as Armor;
+                player.Armor = item as Armor;
             }
             else
             {

@@ -56,7 +56,7 @@ namespace Game
             int cursorPostion = Console.CursorLeft;
             for (int i = 0; i < word.Length; i++)
             {
-                if (cursorPostion >= Program.printLenght - 1)
+                if (cursorPostion >= Program.printLenght - 1 && i != word.Length -1)
                 {
                     Console.Write("-");
                     Console.WriteLine();
