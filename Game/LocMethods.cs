@@ -182,9 +182,10 @@ namespace Game
         #region Huba
         public static int hely_5(ref LocationData currentLocation)
         {
+            SlowPrintLine("Palkó belépett a műhelybe, ahol a kovács, János bácsi, éppen a forró lángok között dolgozott. Az üllőn egy csomó kovácsolt vas darab hevert, mintha valami izgalmas projektbe fogott volna.");
             if (currentLocation.FirstTime)
             {
-                SlowPrintLine("Palkó belépett a műhelybe, ahol a kovács, János bácsi, éppen a forró lángok között dolgozott. Az üllőn egy csomó kovácsolt vas darab hevert, mintha valami izgalmas projektbe fogott volna.");
+                currentLocation.ChosenOptions[2] = true;
             }
 
             int choice;
@@ -200,6 +201,7 @@ namespace Game
                     case 1:
                         Program.smith.ShopMenu(ref Program.player);
                         currentLocation.ChosenOptions[1] = false;
+                        currentLocation.ChosenOptions[2] = false;
                         break;
                     case 2:
                         choice = -1;
