@@ -1,5 +1,6 @@
 ﻿using System.Xml.Serialization;
 using static Game.SlowPrintSystem;
+using static Game.Program;
 
 namespace Game
 {
@@ -88,7 +89,8 @@ namespace Game
         #region Peti
         public static int hely_1(ref LocationData currentLocation)
         {
-            
+            Console.Clear();
+            PrintPlayerStat();
             if (currentLocation.FirstTime) { 
                 SlowPrintLine("A történet Palko házában veszi kezdetét, ahol egy szép napon reggel Palko elhatározta, hogy elmegy világot látni.");
             }
@@ -108,7 +110,7 @@ namespace Game
                         SlowPrintLine("Palkót megpróbálja lebeszélni az édesanyja, de az igazi hőst nem állítja meg semmi.");
                         SlowPrintLine("Megígéri, hogy vigyáz magára és visszatér még.");
                         break;
-                    case -1:
+                    case 2:
                         break;
                 }
             }
@@ -118,6 +120,7 @@ namespace Game
         public static int hely_2(ref LocationData currentLocation)
         {
             Console.Clear();
+            PrintPlayerStat(); 
             if (currentLocation.FirstTime)
             {
                 SlowPrintLine("Markotabödöge, a falu ahol Palkó az életét élte.");
@@ -167,21 +170,43 @@ namespace Game
         public static int hely_6(ref LocationData currentLocation)
         {
             Console.Clear();
+            PrintPlayerStat(); 
             if (currentLocation.FirstTime)
             {
                 SlowPrintLine("Palkó rendíthetetlen magabiztoságal lépett be a kerekerdő sötét fái közé.");
-                SlowPrintLine("Egyszercsak egy csoort bandita lép elő.");
-                SlowPrintLine("\"Üdvözlet kisfíú! Rossz iránba jöttél.\"");
+                SlowPrintLine("Egyszercsak egy csoport bandita lép elő.");
+                SlowPrintLine("\"Üdvözlet kisfíú! Rossz irányba jöttél! Most pedig átadod a vagyonod nekünk!\" - mondták nagyképűen.");
                 int choice = Valasztas(ref currentLocation, "Harcolsz velük", "Adsz pénzt");
                 switch (choice)
                 { 
                     case 0:
+                        SlowPrintLine("\"Azt majd meglátjuk ki ad át mit!\" - válaszolt Palko megabiztosan.");
+                        SlowPrintLine("\"Azért én vigyáznék ekkora szájjal!\" - mondta a banditák főnöke majd kard-ot rántott Palkóra");
+                        SlowPrintLine("Palkó ügyesen kilépett a bandita elől aki a földre esett, majd lassan fölkelt és kezdetét vette a harc.");
+                        bool w;
+                        FightSystem banditák = new FightSystem(Program.player, new Enemy(50, 5,speed: 1500, name: "Banditák vezetője"), out w);
+                        if (w)
+                        {
+                            SlowPrintLine("Szerencsére csak a szájuk volt nagy. Amint Palkó elintézte a főnököt elmenekült a többi.");
+                            SlowPrintLine("Palkó nyugodtan folytathatta útját az erdőben.");
+                        }
+                        else
+                        {
+                            return 0;
+                        }
                         break;
                     case 1:
+                        SlowPrintLine("\"Jólvan nyugalom adok pénzt.\" - mondta Palkó magabiztosnak tűnve.");
+                        SlowPrintLine("Félt, hogy a banditák rátámadnak ha gyengének tűnik.");
+                        player.Money -= 6;
+                        PrintPlayerStat();
+                        SlowPrintLine("\"Jólva fiam, most az egyszer békén hagyunk de legközelebb még az alsógatyádat is ellopjuk!\"");
+                        SlowPrintLine("Ezzel a banditák távoztak.");
                         break;
                 }
+                SlowPrintLine("Kicsivel arrébb egy elágazáshoz érsz.");
             }
-            return 0;
+            return Tovabb(helyek[7], helyek[8], helyek[11], helyek[12]);
         }
         #endregion
 
