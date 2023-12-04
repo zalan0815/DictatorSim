@@ -8,7 +8,7 @@
         static void Main(string[] args)
         {
             Locations.Generate();
-            int location = 1;
+            int location = 5;
 
             do
             {
@@ -16,9 +16,6 @@
             }
             while (Locations.helyek.Length > location && location > 0);
             Console.Write("Program end");
-
-            //MiningGame mine = new MiningGame();
-            //mine.Mining('a', 'x');
         }
         
         static int getPlayerStatLength()
