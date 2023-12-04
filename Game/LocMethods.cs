@@ -182,7 +182,6 @@ namespace Game
         #region Huba
         public static int hely_5(ref LocationData currentLocation)
         {
-            Program.PrintPlayerStat();
             if (currentLocation.FirstTime)
             {
                 SlowPrintLine("A helyi kovács műhelyéhez érkeztél.");

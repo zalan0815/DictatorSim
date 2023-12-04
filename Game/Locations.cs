@@ -28,6 +28,9 @@ namespace Game
             public bool FirstTime { get; set; }
             public int Run()
             {
+                Console.Clear();
+                Program.PrintPlayerStat();
+
                 int returnpos = myMethod.Invoke(ref this);
                 this.FirstTime = false;
                 return returnpos;
