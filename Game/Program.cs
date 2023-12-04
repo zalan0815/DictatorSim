@@ -1,4 +1,6 @@
-﻿namespace Game
+﻿using Game.Minigames;
+
+namespace Game
 {
     partial class Program
     {
@@ -7,6 +9,7 @@
 
         static void Main(string[] args)
         {
+            new TyperGame(player, "Jelenleg egy sor van tamogatva ekezetek nelkul").Run();
             Locations.Generate();
             int location = 1;
 
