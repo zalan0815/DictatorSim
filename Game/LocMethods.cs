@@ -223,18 +223,6 @@ namespace Game
         {
             return 0;
         }
-        public static int hely_6(ref LocationData currentLocation)
-        {
-            return 0;
-        }
-        public static int hely_6(ref LocationData currentLocation)
-        {
-            return 0;
-        }
-        public static int hely_6(ref LocationData currentLocation)
-        {
-            return 0;
-        }
         public static int hely_7(ref LocationData currentLocation)
         {
             return 0;
