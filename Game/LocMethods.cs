@@ -1,5 +1,6 @@
 ﻿using System.Xml.Serialization;
 using static Game.SlowPrintSystem;
+using Game.Minigames;
 using static Game.Program;
 
 namespace Game

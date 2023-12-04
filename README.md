@@ -3,8 +3,8 @@ Egy népmesébe illő paraszt gyerekként próbálhatunk szerencsét egy mítiku
 
 ## Helyszínek-Események
 1. Ház:                         Elbúcsúzni, láda kirámolása
-2. Markotabödöge:                        Megsimogatod a szomszéd kutyáját || beszélünk a pappal
-3. Bánya:                       50/50 Beomlik a bánya || Gyémánt keresés
+2. Markotabödöge:               Rátámad egy veszett kutya || beszélünk a pappal
+3. Bánya:                       3 mélységben bányászás (nehézség)
 4. Föld:                        Pénzért dolgozni, megetetjük az állatokat
 5. Kovács:                      Páncél || Fegyver
 6. Kerekerdő:                   Banditák jönnek (küzdesz, fizetsz pénzzel)
