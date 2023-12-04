@@ -184,13 +184,13 @@ namespace Game
         {
             if (currentLocation.FirstTime)
             {
-                SlowPrintLine("A helyi kovács műhelyéhez érkeztél.");
+                SlowPrintLine("Palkó belépett a műhelybe, ahol a kovács, János bácsi, éppen a forró lángok között dolgozott. Az üllőn egy csomó kovácsolt vas darab hevert, mintha valami izgalmas projektbe fogott volna.");
             }
 
             int choice;
             do
             {
-                choice = Valasztas(ref currentLocation, "Körbenézel a boltban", "Vásárlás", "Vissza");
+                choice = Valasztas(ref currentLocation, "Körbenézel a műhelyben", "Vásárlás", "Vissza");
                 switch (choice)
                 {
                     case 0:

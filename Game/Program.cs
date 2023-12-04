@@ -65,6 +65,14 @@
             Console.CursorLeft = Console.WindowWidth - longest - 1;
             Console.CursorTop += 1;
             Console.Write(player.Money);
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            Console.CursorLeft = Console.WindowWidth - longest - 1;
+            Console.CursorTop += 1;
+            Console.Write("Varázsital");
+            Console.CursorLeft = Console.WindowWidth - longest - 1;
+            Console.CursorTop += 1;
+            Console.Write(player.HealPotions);
+
 
             Console.CursorTop += 1;
 
