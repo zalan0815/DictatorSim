@@ -85,8 +85,6 @@ namespace Game
         #region Peti
         public static int hely_1(ref LocationData currentLocation)
         {
-            Console.Clear();
-            PrintPlayerStat();
             if (currentLocation.FirstTime) { 
                 SlowPrintLine("A történet Palko házában veszi kezdetét, ahol egy szép napon reggel Palko elhatározta, hogy elmegy világot látni.");
             }
@@ -115,8 +113,6 @@ namespace Game
 
         public static int hely_2(ref LocationData currentLocation)
         {
-            Console.Clear();
-            PrintPlayerStat();
             if (currentLocation.FirstTime)
             {
                 SlowPrintLine("Markotabödöge, a falu ahol Palkó az életét élte.");
@@ -167,8 +163,6 @@ namespace Game
 
         public static int hely_6(ref LocationData currentLocation)
         {
-            Console.Clear();
-            PrintPlayerStat(); 
             if (currentLocation.FirstTime)
             {
                 SlowPrintLine("Palkó rendíthetetlen magabiztoságal lépett be a kerekerdő sötét fái közé.");
@@ -206,6 +200,46 @@ namespace Game
                 SlowPrintLine("Kicsivel arrébb egy elágazáshoz érsz.");
             }
             return Tovabb(helyek[7], helyek[8], helyek[11], helyek[12]);
+        }
+
+        public static int hely_8(ref LocationData currentLocation)
+        {
+            if (currentLocation.FirstTime)
+            {
+                SlowPrintLine("Az út szélén a bokorban mozgóldást hall Palkó.");
+                SlowPrintLine("Odanéz és meglát egy kék foltot eltűnni mögötte.");
+                SlowPrintLine("Megvizsgálja mi van a bokor mögött és egy hupikék törpikét pillant meg.");
+                SlowPrintLine("- \"Ne bánts ifjú, nem akartalak megzavarni.\" - mondta félénken a törp.");
+                SlowPrintLine("- \"Ne félj, nem bántalak. Mi járatban vagy erre?\"");
+                SlowPrintLine("- \"Öhmm... a kardodból arra következtettünk társaimmal, hogy harcos vagy. A segítségedre lenne szükségünk. Meghálálnánk.\"");
+                int choice = Valasztas(ref currentLocation, "Elfogadod", "Nem fogadod el");
+                switch (choice)
+                {
+                    case 0:
+                        SlowPrintLine("- \"Miben kéne segíteni?\" - mondta Palkó kíváncsian.");
+                        SlowPrintLine("- \"A gonosz Hókuszpók mostanában egyre többször rabol el törpöket, hogy fagyit készítsen a város lakóinak. Arra szeretnénk kérni, hogy menj el a házához és szabadítsd ki a törpöket.\"");
+                        SlowPrintLine("- \"Rendben. Mutassátok az utat.\"");
+                        return Tovabb(helyek[9]);
+                    case 1:
+                        SlowPrintLine("- \"Sajnálom, de én egy igazi kalandra vágyok nem holmi öregembert bántani\" - mondta Palkó öntelten, majd folytatta útját.");
+                        return Tovabb(helyek[6]);
+                }
+            }
+            else
+            {
+                SlowPrintLine("Palkó benéz a bokor mögé.");
+                SlowPrintLine("Nem lát semmi érdekeset, ezért folytatja útját.");
+                return Tovabb(helyek[6]);
+            }   
+            return 0;
+        }
+        public static int hely_9(ref LocationData currentLocation)
+        {
+            return 0;
+        }
+        public static int hely_10(ref LocationData currentLocation)
+        {
+            return 0;
         }
         #endregion
 
@@ -248,18 +282,6 @@ namespace Game
             return 0;
         }
         public static int hely_7(ref LocationData currentLocation)
-        {
-            return 0;
-        }
-        public static int hely_8(ref LocationData currentLocation)
-        {
-            return 0;
-        }
-        public static int hely_9(ref LocationData currentLocation)
-        {
-            return 0;
-        }
-        public static int hely_10(ref LocationData currentLocation)
         {
             return 0;
         }
