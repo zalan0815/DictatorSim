@@ -9,7 +9,6 @@ namespace Game
 
         static void Main(string[] args)
         {
-            new TyperGame(player, "Jelenleg egy sor van tamogatva ekezetek nelkul").Run();
             Locations.Generate();
             int location = 6;
 
