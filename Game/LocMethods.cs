@@ -185,7 +185,7 @@ namespace Game
                         SlowPrintLine("\"Azért én vigyáznék ekkora szájjal!\" - mondta a banditák főnöke majd kard-ot rántott Palkóra");
                         SlowPrintLine("Palkó ügyesen kilépett a bandita elől aki a földre esett, majd lassan fölkelt és kezdetét vette a harc.");
                         bool w;
-                        FightSystem banditák = new FightSystem(Program.player, new Enemy(50, 5,speed: 1500, name: "Banditák vezetője"), out w);
+                        FightSystem banditák = new FightSystem(player, new Enemy(50, 5,speed: 1500, name: "Banditák vezetője"), out w);
                         if (w)
                         {
                             SlowPrintLine("Szerencsére csak a szájuk volt nagy. Amint Palkó elintézte a főnököt elmenekült a többi.");
