@@ -8,7 +8,7 @@
         static void Main(string[] args)
         {
             Locations.Generate();
-            int location = 1;
+            int location = 6;
 
             do
             {
