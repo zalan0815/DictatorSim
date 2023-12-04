@@ -1,4 +1,6 @@
-﻿namespace Game
+﻿using Game.Minigames;
+
+namespace Game
 {
     partial class Program
     {
