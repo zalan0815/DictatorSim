@@ -23,7 +23,7 @@ namespace Game
             switch (choice)
             {
                 case 0:
-                    SlowPrint("\"Ez esetben menj vissza a Kerekerdőbe és mássz fel az Égigérő paszuly tetejére.\n Ott fogo megtalálni a sárkányfészket, ahol a 3 fejű sárkány lakik.\"");
+                    SlowPrint("\"Ez esetben menj vissza a Kerekerdőbe és mássz fel az Égigérő paszuly tetejére.\n Ott fogod megtalálni a sárkányfészket, ahol a 3 fejű sárkány lakik.\"");
                     SlowPrint("\"Tessék itt egy Égig érő kötél, ezzel fel fogsz tudni mászni a paszuly tetejére.\"");
                     Program.player.NewItem(new OtherItem("Égig érő kötél", 0, type:StatType.Key));
                     SlowPrint("\"Sok sikert, Ifjú Vitéz!!!\"");

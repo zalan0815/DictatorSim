@@ -12,7 +12,7 @@ namespace Game
             new TyperGame(player, "Jelenleg egy sor van tamogatva ekezetek nelkul").Run();
             Locations.Generate();
             int location = 1;
-          
+
             do
             {
                 location = Locations.helyek[location].Run();
@@ -20,7 +20,8 @@ namespace Game
             while (Locations.helyek.Length > location && location > 0);
             Console.Write("Program end");
 
-            //SlowPrint("123456789abcdefghijklmnopqrestwvxyz");
+            //MiningGame mine = new MiningGame();
+            //mine.Mining('a', 'x');
         }
         
         static int getPlayerStatLength()
