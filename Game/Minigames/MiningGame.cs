@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Game
+namespace Game.Minigames
 {
     internal class MiningGame
     {
@@ -15,7 +15,7 @@ namespace Game
 
         private int diaPosx;
         private int diaPosy;
-      
+
         public void Mining(char ko, char dia, bool easyMode = false)
         {
             printMiningMapBase();
@@ -23,7 +23,7 @@ namespace Game
 
             Console.WriteLine($"\nBánya - NYILAK-kal keresd meg és ENTER-el bányászd ki a gyémántot! Kilépéshez nyomd meg a 0-t. (kövek: {ko}, gyémánt: {dia})");
 
-            SearchForDiamond(easyMode);
+            SearchForDiamond(ko, dia, easyMode);
         }
 
         private void printMiningMapBase()
@@ -81,8 +81,8 @@ namespace Game
 
             Console.CursorTop = yMax;
         }
-      
-        private void SearchForDiamond(bool easy)
+
+        private void SearchForDiamond(char ko, char dia, bool easy)
         {
             bool found = false;
             bool mining = true;
@@ -95,12 +95,12 @@ namespace Game
             Console.CursorTop = cursorPosY;
             Console.BackgroundColor = ConsoleColor.White;
             Console.ForegroundColor = ConsoleColor.Black;
-            Console.Write('a');
+            Console.Write(ko);
             Console.CursorLeft = cursorPosX;
             Console.CursorTop = cursorPosY;
 
             while (mining)
-            { 
+            {
                 input = Console.ReadKey(true).Key;
 
                 if (cursorPosX == diaPosx && cursorPosY == diaPosy)
@@ -111,14 +111,14 @@ namespace Game
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
                     }
-                    Console.Write('x');
+                    Console.Write(dia);
                     Console.ForegroundColor = ConsoleColor.White;
                 }
                 else
                 {
                     Console.BackgroundColor = ConsoleColor.Black;
                     Console.ForegroundColor = ConsoleColor.White;
-                    Console.Write('a');
+                    Console.Write(ko);
                 }
 
                 switch (input)
@@ -165,7 +165,7 @@ namespace Game
                     Console.CursorTop = cursorPosY;
                     Console.BackgroundColor = ConsoleColor.White;
                     Console.ForegroundColor = ConsoleColor.Black;
-                    Console.Write('x');
+                    Console.Write(dia);
                     Console.CursorLeft = cursorPosX;
                     Console.CursorTop = cursorPosY;
                 }
@@ -175,7 +175,7 @@ namespace Game
                     Console.CursorTop = cursorPosY;
                     Console.BackgroundColor = ConsoleColor.White;
                     Console.ForegroundColor = ConsoleColor.Black;
-                    Console.Write('a');
+                    Console.Write(ko);
                     Console.CursorLeft = cursorPosX;
                     Console.CursorTop = cursorPosY;
                 }
