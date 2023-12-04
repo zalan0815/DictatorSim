@@ -160,7 +160,6 @@ namespace Game
         #region Huba
         public static int hely_5(ref LocationData currentLocation)
         {
-            SlowPrint();
             int choice;
             do
             {

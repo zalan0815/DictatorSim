@@ -38,6 +38,10 @@ namespace Game
                 {
                     health = MaxHealth;
                 }
+                else if(value < 0)
+                {
+                    health = 0;
+                }
                 else
                 {
                     health = value;
