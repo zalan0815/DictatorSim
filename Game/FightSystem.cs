@@ -342,13 +342,20 @@ namespace Game
         }
         private async Task moveSlider(Attack[] attackMap)
         {
-            await Task.Run(() =>
+            await Task.Run(async () =>
             {
-                int travelTime = 1750/mapSize;
+                int travelTime = 1750 /mapSize;
 
                 int currentRound = attackMap[0].Round;
                 bool direction = false;
+
+                byte[][] directionPrints = generateSliderMoveActions(true, attackMap);
+                byte[][] notDirectionPrints = generateSliderMoveActions(false, attackMap);
+
                 sliderPostion = random.Next(1 + widthSize, mapSize);
+
+                Console.Write($"\x1B[{sliderPostion + widthSize + (direction ? 0 : 1)}G");
+
                 while (!sliderStopped && round == currentRound)
                 {
                     if ((sliderPostion >= mapSize - 1 - widthSize + 1 && direction) || (sliderPostion + 1 <= 1 && !direction))
@@ -358,7 +365,14 @@ namespace Game
                     }
                     sliderPostion += direction ? 1 : -1;
 
-                    printSliderMove(direction, attackMap);
+                    if (direction && sliderPostion + 1 > 1)
+                    {
+                        await printSliderMove(direction, directionPrints[sliderPostion - 1]);
+                    }
+                    else if(!direction && sliderPostion < mapSize - 1 - widthSize + 1)
+                    {
+                        await printSliderMove(direction, notDirectionPrints[sliderPostion + 1]);
+                    }
 
                     Task.Delay(travelTime).Wait();
                 }
@@ -400,6 +414,49 @@ namespace Game
                 
             });
             
+        }
+
+        private async Task printSliderMove(bool direction, byte[] printData)
+        {
+            await Task.Run(() =>
+            {
+                Console.Write($"\x1B[{yTop + 2};{sliderPostion + widthSize + (direction ? 0 : 1)}H");
+
+                using (Stream stdout = Console.OpenStandardOutput(printData.Length))
+                {
+                    for (int j = 1; j < yMax - yTop; j++)
+                    {
+                        stdout.Write(printData, 0, printData.Length);
+                    }
+                }
+
+            });
+
+        }
+
+        private byte[][] generateSliderMoveActions(bool direction, Attack[] attackMap)
+        {
+            char[] toWriteChars;
+            byte[][] toWriteBytesArray = new byte[attackMap.Length][];
+
+            if (direction)
+            {
+                for (int i = 0; i < attackMap.Length; i++)
+                {
+                    toWriteChars = (attackMap[i].Color + " " + BackgroundColors.Black + " \b\b\x1B[B").ToCharArray();
+                    toWriteBytesArray[i] = Enumerable.Range(0, toWriteChars.Length).Select(j => (byte)toWriteChars[j]).ToArray();
+                }
+            }
+            else
+            {
+                for (int i = 0; i < attackMap.Length; i++)
+                {
+                    toWriteChars = (BackgroundColors.Black + " " + attackMap[i].Color + " \b\b\x1B[B").ToCharArray();
+                    toWriteBytesArray[i] = Enumerable.Range(0, toWriteChars.Length).Select(j => (byte)toWriteChars[j]).ToArray();
+                }
+            }
+
+            return toWriteBytesArray;
         }
         #endregion
 
