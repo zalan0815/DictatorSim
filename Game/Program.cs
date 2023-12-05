@@ -9,6 +9,9 @@ namespace Game
 
         static void Main(string[] args)
         {
+            Console.WriteLine("\x1B[31m\x1b[44mHello World\x1b[39m\x1b[49m");
+            new FightSystem(player, new Enemy(100, 10), out bool won);
+            Console.ReadKey();
             Locations.Generate();
             int location = 1;
 
