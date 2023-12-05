@@ -342,7 +342,7 @@ namespace Game
         }
         private async Task moveSlider(Attack[] attackMap)
         {
-            await Task.Run(async () =>
+            await Task.Run(() =>
             {
                 int travelTime = 1750 /mapSize;
 
@@ -367,11 +367,11 @@ namespace Game
 
                     if (direction && sliderPostion + 1 > 1)
                     {
-                        await printSliderMove(direction, directionPrints[sliderPostion - 1]);
+                        printSliderMove(direction, directionPrints[sliderPostion - 1]);
                     }
                     else if(!direction && sliderPostion < mapSize - 1 - widthSize + 1)
                     {
-                        await printSliderMove(direction, notDirectionPrints[sliderPostion + 1]);
+                        printSliderMove(direction, notDirectionPrints[sliderPostion + 1]);
                     }
 
                     Task.Delay(travelTime).Wait();
