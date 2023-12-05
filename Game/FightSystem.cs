@@ -365,13 +365,12 @@ namespace Game
                     }
                     sliderPostion += direction ? 1 : -1;
 
-                    if (direction && sliderPostion + 1 > 1)
+                    
+                    if ((direction && sliderPostion + 1 > 1) || (!direction && sliderPostion < mapSize - 1 - widthSize + 1))
                     {
-                        printSliderMove(direction, directionPrints[sliderPostion - 1]);
-                    }
-                    else if(!direction && sliderPostion < mapSize - 1 - widthSize + 1)
-                    {
-                        printSliderMove(direction, notDirectionPrints[sliderPostion + 1]);
+                        Console.Write($"\x1B[{yTop + 2};{sliderPostion + widthSize + (direction ? 0 : 1)}H");
+
+                        printSliderMove(direction ? directionPrints[sliderPostion - 1] : notDirectionPrints[sliderPostion + 1]);
                     }
 
                     Task.Delay(travelTime).Wait();
@@ -416,12 +415,10 @@ namespace Game
             
         }
 
-        private async Task printSliderMove(bool direction, byte[] printData)
+        private async Task printSliderMove(byte[] printData)
         {
             await Task.Run(() =>
             {
-                Console.Write($"\x1B[{yTop + 2};{sliderPostion + widthSize + (direction ? 0 : 1)}H");
-
                 using (Stream stdout = Console.OpenStandardOutput(printData.Length))
                 {
                     for (int j = 1; j < yMax - yTop; j++)
