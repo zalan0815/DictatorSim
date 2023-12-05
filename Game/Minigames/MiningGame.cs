@@ -16,14 +16,21 @@ namespace Game.Minigames
         private int diaPosx;
         private int diaPosy;
 
-        public void Mining(char ko, char dia, bool easyMode = false)
+        public bool Mining(char ko, char dia, bool easyMode = false)
         {
+            bool diamonds;
+
+            Console.Clear();
+            
+            Console.WriteLine("\n\n");
+            Console.WriteLine($"Bánya - NYILAK-kal keresd meg és ENTER-el bányászd ki a gyémántot! Feladáshoz nyomd meg a 0-t. (kövek: {ko}, gyémánt: {dia})");
+
             printMiningMapBase();
             PrintMine(ko, dia, easyMode);
 
-            Console.WriteLine($"\nBánya - NYILAK-kal keresd meg és ENTER-el bányászd ki a gyémántot! Kilépéshez nyomd meg a 0-t. (kövek: {ko}, gyémánt: {dia})");
+            diamonds = SearchForDiamond(ko, dia, easyMode);
 
-            SearchForDiamond(ko, dia, easyMode);
+            return diamonds;
         }
 
         private void printMiningMapBase()
@@ -82,9 +89,9 @@ namespace Game.Minigames
             Console.CursorTop = yMax;
         }
 
-        private void SearchForDiamond(char ko, char dia, bool easy)
+        private bool SearchForDiamond(char ko, char dia, bool easy)
         {
-            bool found = false;
+            bool diamonds = false;
             bool mining = true;
             ConsoleKey input;
 
@@ -150,7 +157,7 @@ namespace Game.Minigames
                     case ConsoleKey.Enter:
                         if (cursorPosX == diaPosx && cursorPosY == diaPosy)
                         {
-                            found = true;
+                            diamonds = true;
                             mining = false;
                         }
                         break;
@@ -184,6 +191,7 @@ namespace Game.Minigames
             Console.BackgroundColor = ConsoleColor.Black;
             Console.ForegroundColor = ConsoleColor.White;
 
+            return diamonds;
         }
     }
 }
