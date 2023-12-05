@@ -277,6 +277,17 @@ namespace Game
 
             return Tovabb(helyek[2]);
         }
+
+        public static int hely_18(ref LocationData currentLocation)
+        {
+            if (currentLocation.FirstTime)
+            {
+                
+            }
+
+
+            return Tovabb(helyek[13], helyek[19], helyek[20]);
+        }
         #endregion
 
         public static int hely_3(ref LocationData currentLocation)
@@ -316,10 +327,6 @@ namespace Game
             return 0;
         }
         public static int hely_17(ref LocationData currentLocation)
-        {
-            return 0;
-        }
-        public static int hely_18(ref LocationData currentLocation)
         {
             return 0;
         }
