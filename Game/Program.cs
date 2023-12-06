@@ -10,7 +10,7 @@ namespace Game
         static void Main(string[] args)
         {
             Locations.Generate();
-            int location = 6;
+            int location = 8;
 
             do
             {
