@@ -1,5 +1,4 @@
-﻿using System.Xml.Serialization;
-using static Game.SlowPrintSystem;
+﻿using static Game.SlowPrintSystem;
 using Game.Minigames;
 using static Game.Program;
 
@@ -260,12 +259,31 @@ namespace Game
         }
         public static int hely_10(ref LocationData currentLocation)
         {
-            return 0;
+            SlowPrintLine("A faluban Törpapa már várta Palkót:");
+            SlowPrintLine("- \"Köszönöm a falu nevében, hogy megmentetted társainkat. Jutalmul fogadd el ezt a bájitalt. Biztos segíteni fog kalandod során\"");
+            player.HealPotions += 1;
+            SlowPrintLine("- \"Köszönöm szépen! Semmiség volt...\"");
+            SlowPrintLine("- \"Nincs kedved itt maradni megünnepelni a győzelmedet?\"");
+            int choice = Valasztas(ref currentLocation, "Elfogadod", "Nem fogadod el");
+            switch (choice)
+            {
+                case 0:
+                    SlowPrintLine("- \"Miért is ne, egy kis szórakozás nem árthat.\"");
+                    player.Health += 15;
+                    PrintPlayerStat();
+                    SlowPrintLine("Plakó az egész estét végigmulatta és következő nap indult tovább.");
+                    break;
+                case 1:
+                    SlowPrintLine("\"Köszönöm, igazán nagylelkű de sietek máshova.\"");
+                    SlowPrintLine("Palkó ezzel elhagyta a falut és folytatta útját");
+                    break;
+            }
+            return Tovabb(helyek[10]);
         }
-        #endregion
+            #endregion
 
-        #region Huba
-        public static int hely_5(ref LocationData currentLocation)
+            #region Huba
+            public static int hely_5(ref LocationData currentLocation)
         {
             int choice;
             do
