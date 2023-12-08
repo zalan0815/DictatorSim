@@ -155,7 +155,7 @@ namespace Game
             }
             int choice;
             bool error = false;
-            while (!int.TryParse(Console.ReadKey(true).KeyChar.ToString(), out choice) || (choice < 1 || choice > lehetosegek.Length || currentLocation.ChosenOptions[choice-1]))
+             while (!int.TryParse(Console.ReadKey(true).KeyChar.ToString(), out choice) || (choice < 1 || choice > lehetosegek.Length || currentLocation.ChosenOptions[choice-1]))
             {
                 if (choice - 1 == lehetosegek.Length && Program.player.Health < Program.player.MaxHealth && Program.player.HealPotions >= 1)
                 {
