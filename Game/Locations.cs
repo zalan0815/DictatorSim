@@ -28,6 +28,9 @@ namespace Game
             public bool FirstTime { get; set; }
             public int Run()
             {
+                Console.Clear();
+                Program.PrintPlayerStat();
+
                 int returnpos = myMethod.Invoke(ref this);
                 this.FirstTime = false;
                 return returnpos;
@@ -91,7 +94,7 @@ namespace Game
             int choice = 1;
             if (helyek.Length > 1)
             {
-                Console.WriteLine("Tovább mész:");
+                Console.WriteLine("\nTovább mész:");
                 for (int i = 1; i < helyek.Length + 1; i++)
                 {
                     Console.WriteLine($"{i}. - {helyek[i - 1].Name}");
@@ -135,7 +138,7 @@ namespace Game
             }
             #endregion
 
-            Console.WriteLine("Mit akarsz csinálni:");
+            Console.WriteLine("\nMit akarsz csinálni:");
             int i;
             for (i = 1; i < lehetosegek.Length + 1; i++)
             {
