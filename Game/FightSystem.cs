@@ -140,21 +140,16 @@ namespace Game
                 Attack attack = attackMap[sliderPostion];
                 Thread.Sleep(100);
 
-                Console.ForegroundColor = ConsoleColor.White;
-                Console.BackgroundColor = ConsoleColor.Black;
+                Console.BackgroundColor = ConsoleColor.White;
+                Console.ForegroundColor = ConsoleColor.Black;
                 Console.CursorLeft = 0;
                 Console.CursorTop = 5;
-                #if DEBUG
-                Console.WriteLine($"dmg {player.Damage} dmg * m{attack.DamageMarkiplier * player.Damage}");
-                Console.WriteLine($"tényleges:  {sliderPostion} (zöld: {xGreenSpot - sliderPostion}  ({xGreenSpot}))");
-                //Console.WriteLine($"megrajzolt: {displayedSliderPosition} (zöld: {xGreenSpot - displayedSliderPosition}  ({xGreenSpot}))");
-                #endif
-                Console.Write(attack.Color);
-                Console.WriteLine($"Sebzésed: {(int)Math.Ceiling(attack.DamageMarkiplier * player.Damage)}");
-                Console.Write(BackgroundColors.Black);
+                int dmg = (int)Math.Ceiling(attack.DamageMarkiplier * player.Damage);
+                Console.Write($"  Sebzésed: {dmg}");
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.BackgroundColor = ConsoleColor.Black;
 
-                
-                enemy.Health -= (int)Math.Ceiling(attack.DamageMarkiplier * player.Damage);
+                enemy.Health -= dmg;
 
                 Thread.Sleep(200);
                 writeFight();
@@ -715,6 +710,7 @@ namespace Game
             
             Console.ForegroundColor = ConsoleColor.White;
             Console.BackgroundColor = ConsoleColor.Black;
+            Console.Write(new string(' ', Console.WindowWidth - Console.CursorLeft));
             #endregion
 
             #region YOUR STATS

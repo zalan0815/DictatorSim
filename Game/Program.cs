@@ -9,9 +9,6 @@ namespace Game
 
         static void Main(string[] args)
         {
-            Console.WriteLine("\x1B[31m\x1b[44mHello World\x1b[39m\x1b[49m");
-            new FightSystem(player, new Enemy(100, 10), out bool won);
-            Console.ReadKey();
             Locations.Generate();
             int location = 1;
 
@@ -63,9 +60,11 @@ namespace Game
                 Console.CursorLeft = Console.WindowWidth - longest - 1;
                 Console.ForegroundColor = colorsToWrite[i];
                 if(yellowHealth && i == 0) { Console.ForegroundColor = ConsoleColor.Yellow; }
-                Console.WriteLine(namesToWrite[i]);
+                Console.Write(namesToWrite[i]);
+                Console.WriteLine(new string(' ', Console.WindowWidth - Console.CursorLeft));
                 Console.CursorLeft = Console.WindowWidth - longest - 1;
-                Console.WriteLine(statsToWrite[i]);
+                Console.Write(statsToWrite[i]);
+                Console.WriteLine(new string(' ', Console.WindowWidth - Console.CursorLeft));
             }
 
             Console.CursorTop += 1;
