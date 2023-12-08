@@ -8,7 +8,7 @@ Egy népmesébe illő paraszt gyerekként próbálhatunk szerencsét egy mítiku
 4. Föld:                        Pénzért dolgozni, megetetjük az állatokat
 5. Kovács:                      Páncél || Fegyver
 6. Kerekerdő:                   Banditák jönnek (küzdesz, fizetsz pénzzel)
-7. Tisztás:                     Szikla egy karddal(csúszka) || gyönyörködés a tájban
+7. Tisztás:                     Beszélgetés Istennel || gyönyörködés a tájban
 8. Bokor:                       Törp küldetése: elfogad -> bájital és pénz, nem fogad el 
 9. Hókuszpók háza:              Sziamiau őrzi az ajtót (harc), Hókuszpók bent (harc)
 10. Gombafalu:                  Jutalom (ha elfogadva), mulatás (életerőtöltés)
