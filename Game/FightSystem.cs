@@ -339,7 +339,7 @@ namespace Game
         {
             await Task.Run(() =>
             {
-                int travelTime = 1750 /mapSize;
+                int travelTime = 2000 /mapSize;
 
                 int currentRound = attackMap[0].Round;
                 bool direction = false;
@@ -379,17 +379,17 @@ namespace Game
             await Task.Run(() =>
             {
                 char[] toWriteChars;
-                Console.Write($"\x1B[{yTop + 2}H");
+                //Console.Write($"\x1B[{yTop + 2}H");
                 if (direction && sliderPostion + 1 > 1)
                 {
-                    Console.Write($"\x1B[{sliderPostion + widthSize}G");
+                    //Console.Write($"\x1B[{sliderPostion + widthSize}G");
 
                     toWriteChars = (attackMap[sliderPostion - 1].Color + " " + BackgroundColors.Black + " \b\b\x1B[B").ToCharArray();
 
                 }
                 else if (sliderPostion < mapSize - 1 - widthSize + 1)
                 {
-                    Console.Write($"\x1B[{sliderPostion + widthSize + 1}G");
+                    //Console.Write($"\x1B[{sliderPostion + widthSize + 1}G");
                     toWriteChars = (BackgroundColors.Black + " " + attackMap[sliderPostion + 1].Color + " \b\b\x1B[B").ToCharArray();
                 }
                 else
@@ -710,7 +710,7 @@ namespace Game
             
             Console.ForegroundColor = ConsoleColor.White;
             Console.BackgroundColor = ConsoleColor.Black;
-            Console.Write(new string(' ', Console.WindowWidth - Console.CursorLeft));
+            Console.Write(new string(' ', Console.WindowWidth - Console.CursorLeft - 1));
             #endregion
 
             #region YOUR STATS
