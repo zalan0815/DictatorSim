@@ -25,7 +25,7 @@ Egy népmesébe illő paraszt gyerekként próbálhatunk szerencsét egy mítiku
 21. Tündérország kék ház:          Itt kereshetjük a tündér elveszett zsebkendőjét. Szekrényt megnézzük || Padlást megnézzük
 22. Tündérország piros ház:          Itt is kereshetjük a tündér elveszett zsebkendőjét. Pincét megnézzük || Kandallóba benézünk
 23. Tündérország zöd ház:          Itt is kereshetjük a tündér elveszett zsebkendőjét. Az ott lakó tündér zsebébe belenézünk || Az ágy alá benézünk
-24. Tündérkirályság:            A tündérkirály szomorú és viccet kell mesélni Vicc1 elmesélése || Vicc2 elmesélése --> röhög\nem röhög
+24. Tündérkirály palotája:            A tündérkirály szomorú és viccet kell mesélni Vicc1 elmesélése || Vicc2 elmesélése --> röhög\nem röhög
 25. Város:                      Koldus kéreget tőlünk Adunk neki pénzt || Nem adunk neki pénzt
 26. Kocsma:                     Ihatunk(regenerál) || Szerencsejátékozás
 27. Kereskedő:                  Páncélzat vásárlása || Fegyverek vásárlása
