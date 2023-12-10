@@ -5,12 +5,24 @@ namespace Game
     partial class Program
     {
         public static Player player = new Player(10, 10, 1, 1000);
+
+        #region Enemys
+        public static Enemy csoves = new Enemy(30, 5, name: "csöves");
+        public static Enemy balfej = new Enemy(100, 50, name: "Bal fej");
+        public static Enemy kozepsofej = new Enemy(100, 50, name: "Középső fej");
+        public static Enemy jobbfej = new Enemy(100, 50, name: "Jobb fej");
+        public static Enemy asd = new Enemy(0, 0, name: "asd");
+        //public static Enemy asd = new Enemy(0, 0, name: "asd");
+        //public static Enemy asd = new Enemy(0, 0, name: "asd");
+        //public static Enemy asd = new Enemy(0, 0, name: "asd");
+        #endregion
+
         public static int printLenght = Console.WindowWidth - 30;
 
         static void Main(string[] args)
         {
             Locations.Generate();
-            int location = 20;
+            int location = 28;
 
             do
             {
