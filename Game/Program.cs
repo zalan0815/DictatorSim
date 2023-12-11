@@ -11,7 +11,7 @@ namespace Game
         static void Main(string[] args)
         {
             Locations.Generate();
-            int location = 0;
+            int location = 1;
 
             do
             {
