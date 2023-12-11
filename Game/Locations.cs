@@ -77,7 +77,7 @@ namespace Game
                 new LocationData("Tündérország kék ház", hely_21),
                 new LocationData("Tündérország piros ház", hely_22),
                 new LocationData("Tündérország zöld ház",hely_23),
-                new LocationData("Tündérkirályásg", hely_24),
+                new LocationData("Tündérkirál palotája", hely_24),
                 new LocationData("Város",hely_25),
                 new LocationData("Kocsma", hely_26),
                 new LocationData("Kereskedő",hely_27),
@@ -155,7 +155,7 @@ namespace Game
             }
             int choice;
             bool error = false;
-            while (!int.TryParse(Console.ReadKey(true).KeyChar.ToString(), out choice) || (choice < 1 || choice > lehetosegek.Length || currentLocation.ChosenOptions[choice-1]))
+             while (!int.TryParse(Console.ReadKey(true).KeyChar.ToString(), out choice) || (choice < 1 || choice > lehetosegek.Length || currentLocation.ChosenOptions[choice-1]))
             {
                 if (choice - 1 == lehetosegek.Length && Program.player.Health < Program.player.MaxHealth && Program.player.HealPotions >= 1)
                 {
