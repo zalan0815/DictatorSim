@@ -8,7 +8,7 @@ Egy népmesébe illő paraszt gyerekként próbálhatunk szerencsét egy mítiku
 4. Föld:                        Pénzért dolgozni, megetetjük az állatokat
 5. Kovács:                      Páncél || Fegyver
 6. Kerekerdő:                   Banditák jönnek (küzdesz, fizetsz pénzzel)
-7. Tisztás:                     Szikla egy karddal(csúszka) || gyönyörködés a tájban
+7. Tisztás:                     Beszélgetés Istennel || gyönyörködés a tájban
 8. Bokor:                       Törp küldetése: elfogad -> bájital és pénz, nem fogad el 
 9. Hókuszpók háza:              Sziamiau őrzi az ajtót (harc), Hókuszpók bent (harc)
 10. Gombafalu:                  Jutalom (ha elfogadva), mulatás (életerőtöltés)
@@ -25,7 +25,7 @@ Egy népmesébe illő paraszt gyerekként próbálhatunk szerencsét egy mítiku
 21. Tündérország kék ház:          Itt kereshetjük a tündér elveszett zsebkendőjét. Szekrényt megnézzük || Padlást megnézzük
 22. Tündérország piros ház:          Itt is kereshetjük a tündér elveszett zsebkendőjét. Pincét megnézzük || Kandallóba benézünk
 23. Tündérország zöd ház:          Itt is kereshetjük a tündér elveszett zsebkendőjét. Az ott lakó tündér zsebébe belenézünk || Az ágy alá benézünk
-24. Tündérkirályság:            A tündérkirály szomorú és viccet kell mesélni Vicc1 elmesélése || Vicc2 elmesélése --> röhög\nem röhög
+24. Tündérkirály palotája:            A tündérkirály szomorú és viccet kell mesélni Vicc1 elmesélése || Vicc2 elmesélése --> röhög\nem röhög
 25. Város:                      Koldus kéreget tőlünk Adunk neki pénzt || Nem adunk neki pénzt
 26. Kocsma:                     Ihatunk(regenerál) || Szerencsejátékozás
 27. Kereskedő:                  Páncélzat vásárlása || Fegyverek vásárlása

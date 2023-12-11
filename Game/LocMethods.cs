@@ -541,33 +541,73 @@ namespace Game
                     case 0:
                         SlowPrintLine("- \"Miben kéne segíteni?\" - mondta Palkó kíváncsian.");
                         SlowPrintLine("- \"A gonosz Hókuszpók mostanában egyre többször rabol el törpöket, hogy fagyit készítsen a város lakóinak. Arra szeretnénk kérni, hogy menj el a házához és szabadítsd ki a törpöket.\"");
-                        SlowPrintLine("- \"Rendben. Mutassátok az utat.\"");
+                        SlowPrintLine("- \"Rendben. Mutassátok az utat!\"");
                         return Tovabb(helyek[9]);
                     case 1:
-                        SlowPrintLine("- \"Sajnálom, de én egy igazi kalandra vágyok nem holmi öregembert bántani\" - mondta Palkó öntelten, majd folytatta útját.");
+                        SlowPrintLine("- \"Sajnálom, de én egy igazi kalandra vágyok nem holmi öregembert bántani!\" - mondta Palkó öntelten, majd folytatta útját.");
                         return Tovabb(helyek[6]);
                 }
             }
-            else
-            {
-                SlowPrintLine("Palkó benéz a bokor mögé.");
-                SlowPrintLine("Nem lát semmi érdekeset, ezért folytatja útját.");
-                return Tovabb(helyek[6]);
-            }   
-            return 0;
+            SlowPrintLine("Palkó benéz a bokor mögé.");
+            SlowPrintLine("Nem lát semmi érdekeset, ezért folytatja útját.");
+            return Tovabb(helyek[6]);   
         }
         public static int hely_9(ref LocationData currentLocation)
         {
+            SlowPrintLine("Amikor a ház közelébe értek, a törpök ezt mondták:");
+            SlowPrintLine("- \"Ott lakik abban a házban, innentől magadra leszel utalva. Vigyázz a macskájával, Sziamiauval!\"");
+            SlowPrintLine("- \"Megteszem a mi tőlem telik!\" - mondta Palkó, majd elindult a ház felé.");
+            SlowPrintLine("A ház körül érdekes érzés fogta el főhősünket, a bizonytalanság érzete.");
+            SlowPrintLine("Először benézett az ablakon. Semmi mozgást nem látott.");
+            SlowPrintLine("Gondolta belopakodik az ajtón és megnézi hol vannak a törpök.");
+            SlowPrintLine("Amint belépett az ajtón a fejére ugrott Sziamiau végig karmolva a hátát.");
+            player.Health -= 5;
+            PrintPlayerStat();
+            SlowPrintLine("Palkó nagyon erős fájdalmat érzett, de nem pocsékolhatta idejét, mert a macska már fel is keltette az alvó Hókuszpókot");
+            SlowPrintLine("Az öreg abban a pillanatban már fel is kapta a varázspálcáját, és egy varázslatot indított el Palkó felé.");
+            SlowPrintLine("Palkó szerencsére időben kitért előle és felállt harcra készen.");
+            SlowPrintLine("Hókuszpók pálcáját átváltoztatta karddá.");
+            SlowPrintLine("Palkó kapott is az alkalmon és rá is rontott ellenfelére.");
+            bool w;
+            FightSystem hókuszpók = new FightSystem(player, new Enemy(70, 10, speed: 3000, name: "Hókuszpók"), out w);
+            if (w)
+            {
+                SlowPrintLine("Palkó egy végső csapással földre küldte Hókuszpókot.");
+                SlowPrintLine("Az öregnek ennyi volt az utolsó szava:");
+                SlowPrintLine("- \"Legalább dicső módon halok meg...\"");
+                SlowPrintLine("Palkó nem gondolkozott sokat ezen, már futott is le a pincébe kiszabadítani a törpöket.");
+                SlowPrintLine("Miután mindenki elhagyta a házat visszaindultak a gombafaluba ahol a törpök laktak.");
+                return Tovabb(helyek[10]);
+            }
             return 0;
         }
         public static int hely_10(ref LocationData currentLocation)
         {
-            return 0;
+            SlowPrintLine("A faluban Törpapa már várta Palkót:");
+            SlowPrintLine("- \"Köszönöm a falu nevében, hogy megmentetted társainkat. Jutalmul fogadd el ezt a bájitalt. Biztos segíteni fog kalandod során\"");
+            player.HealPotions += 1;
+            SlowPrintLine("- \"Köszönöm szépen! Semmiség volt...\"");
+            SlowPrintLine("- \"Nincs kedved itt maradni megünnepelni a győzelmedet?\"");
+            int choice = Valasztas(ref currentLocation, "Elfogadod", "Nem fogadod el");
+            switch (choice)
+            {
+                case 0:
+                    SlowPrintLine("- \"Miért is ne, egy kis szórakozás nem árthat.\"");
+                    player.Health += 15;
+                    PrintPlayerStat();
+                    SlowPrintLine("Plakó az egész estét végigmulatta és következő nap indult tovább.");
+                    break;
+                case 1:
+                    SlowPrintLine("\"Köszönöm, igazán nagylelkű de sietek máshova.\"");
+                    SlowPrintLine("Palkó ezzel elhagyta a falut és folytatta útját");
+                    break;
+            }
+            return Tovabb(helyek[10]);
         }
-        #endregion
+            #endregion
 
-        #region Huba
-        public static int hely_5(ref LocationData currentLocation)
+            #region Huba
+            public static int hely_5(ref LocationData currentLocation)
         {
             SlowPrintLine("Palkó belépett a műhelybe, ahol a kovács, János bácsi, éppen a forró lángok között dolgozott. Az üllőn egy csomó kovácsolt vas darab hevert, mintha valami izgalmas projektbe fogott volna.");
             if (currentLocation.FirstTime)
