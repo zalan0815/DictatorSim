@@ -11,14 +11,15 @@ namespace Game
         static void Main(string[] args)
         {
             Locations.Generate();
-            int location = 28;
+            int location = 0;
 
             do
             {
                 location = Locations.helyek[location].Run();
             }
-            while (Locations.helyek.Length > location && location > 0);
+            while (Locations.helyek.Length > location && location >= 0);
             Console.Write("Program end");
+            Console.ForegroundColor = ConsoleColor.Black; 
         }
         
         static int getPlayerStatLength()
