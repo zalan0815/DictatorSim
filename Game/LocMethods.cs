@@ -839,13 +839,10 @@ namespace Game
             SlowPrintLine("Rögtön tudta, hogy ez a szarvas lesz, ezért elkezdet követni a hangot.");
             SlowPrintLine("Kicsivel később egy tisztásra ért ahol rálátott a szrvasra, ám néha mozgolódott.");
             SlowPrintLine("Nem tudott mást tenni mint, hogy türelmesen vár a megfelelő pillanatra.");
-            bool IsDeerKilled = true;
-            if (IsDeerKilled)
-            {
-                SlowPrintLine("Miután Palkó sikeresen lelőtte elindult vissza a törzsfőnökhöz.");
-                return Tovabb(helyek[16]);
-            }
-            return 0;
+
+            new DeerGame().Run();
+            SlowPrintLine("Miután Palkó sikeresen lelőtte elindult vissza a törzsfőnökhöz.");
+            return Tovabb(helyek[16]);
         }
         #endregion
 
