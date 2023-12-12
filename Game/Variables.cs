@@ -8,6 +8,17 @@ namespace Game
 {
     partial class Program
     {
+        #region Enemys
+        public static Enemy csoves = new Enemy(30, 5, name: "csöves");
+        public static Enemy balfej = new Enemy(100, 50, name: "Bal fej");
+        public static Enemy kozepsofej = new Enemy(100, 50, name: "Középső fej");
+        public static Enemy jobbfej = new Enemy(100, 50, name: "Jobb fej");
+        public static Enemy asd = new Enemy(0, 0, name: "asd");
+        //public static Enemy asd = new Enemy(0, 0, name: "asd");
+        //public static Enemy asd = new Enemy(0, 0, name: "asd");
+        //public static Enemy asd = new Enemy(0, 0, name: "asd");
+        #endregion
+
         public static Shop smith = new Shop(
             new Sword("Sima kard",          2,  20, StatType.SliderSpeed),
             new Sword("Hosszú kard",        25, 35, StatType.Damage),
