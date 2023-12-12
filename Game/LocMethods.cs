@@ -6,33 +6,6 @@ namespace Game
 {
     partial class Locations
     {
-        static bool fairy = true;
-        static Random rnd = new Random();
-        static int wichHouse = rnd.Next(1, 4);
-        static int where = rnd.Next(1, 3);
-
-        static bool helping = false;
-        static bool found = false;
-        static bool helped = false;
-
-        static bool drake = false;
-
-        string[] szotovek = new string[100]
-        {
-            "lovag", "kard", "vár", "kút", "mező", "erdő", "pajzs", "sisak", "íj", "nyíl",
-            "kő", "fal", "portya", "udvar", "király", "királynő", "kocsi", "szolgáló", "szolga", "ékszer",
-            "kávé", "tea", "bor", "pohár", "serleg", "papír", "könyv", "toll", "tinta", "doboz",
-            "szépség", "szerelem", "dal", "zene", "gyöngy", "gyertya", "pékség", "borbély", "kocsmáros", "kendő",
-            "csizma", "ruha", "cipő", "kalap", "kabát", "szoknya", "ing", "nadrág", "kesztyű", "köpeny",
-            "tükör", "óra", "gyűrű", "ékszer", "szűr", "ló", "szekér", "patkó", "bogár", "madár",
-            "kemence", "kenyér", "tészta", "hús", "hal", "tojás", "só", "fűszer", "kandalló", "kéreg",
-            "szobor", "festmény", "templom", "kolostor", "kápolna", "oltár", "szószék", "fa", "kő", "szék",
-            "ágy", "asztal", "szekrény", "szőnyeg", "lámpa", "ablak", "ajtó", "kulcs", "kőrisfa", "gyertyatartó",
-            "korona", "trón", "címertábla", "láthatatlan toll", "szent grál", "lovagi turné", "gyóntatószék", "bíró", "királyi pecsét", "kódex",
-            "írástudó", "prédikátor", "apát", "térkép", "iránytű", "bot", "szekérkép", "kátrány", "tej", "sajt",
-            "baromfi", "gyümölcs", "zöldség", "borjú", "juh", "birka", "kecske", "macska", "kutya", "madár"
-        };
-
         #region Zalan
         public static int hely_3(ref LocationData currentLocation)
         {
@@ -710,9 +683,17 @@ namespace Game
                         currentLocation.ChosenOptions[0] = false;
                         SlowPrintLine("Palkó elmormolt egy imát, amelyben arra kérte Istent, vezesse a jó irányba.");
                         SlowPrintLine("Miután végzett az imádsággal, azt érezte, valaki szól hozzá.");
-                        SlowPrintLine("Ezt hallotta Palkó: ");
-                        SlowPrintLine("Az Oppenheimer akkor is jobb volt.");
-                        //SpeakToGod(7);
+                        SlowPrintLine("Ezt hallotta Palkó:");
+
+                        Random r = new Random();
+
+                        string generatedText = "\n\"";
+                        int words = r.Next(6,12);
+                        for (int i = 0; i < words; i++)
+                        {
+                            generatedText += randomWords[r.Next(0, randomWords.Length)] + (i < words-1 ? " " : "\"");
+                        }
+                        SlowPrintLine(generatedText);
                         break;
                     case 1:
                         SlowPrintLine("A tisztás szépségét a lágy fűszőnyeg, mely finoman simogatja a lábakat, teszi teljessé. A tavaszi virágok színpompája öleli körbe, miközben a madarak dallama életre kel a csendes környezetben. Az ég tiszta kékje felett szelíd szelek ringatják az ágakat, és a nap sugarai játszanak a fák lombjain. Ez a természeti oázis nyugalmat és szépséget áraszt.");
