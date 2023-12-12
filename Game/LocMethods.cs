@@ -6,17 +6,6 @@ namespace Game
 {
     partial class Locations
     {
-        static bool fairy = true;
-        static Random rnd = new Random();
-        static int wichHouse = rnd.Next(1, 4);
-        static int where = rnd.Next(1, 3);
-
-        static bool helping = false;
-        static bool found = false;
-        static bool helped = false;
-
-        static bool drake = false;
-
         #region Zalan
         public static int hely_3(ref LocationData currentLocation)
         {
@@ -699,10 +688,11 @@ namespace Game
                 {
                     case 0:
                         SlowPrint("Ahogy Palkó körbejárta a kovács műhelyét, csodálkozva nézte a jobbnál jobb, nagyobbnál nagyobb kardokat, pajzsokat és páncélokat, ahogy azok a falon, a magasban büszkén csillogtak. ");
-                        SlowPrintLine($"Az áruk viszont túlságosan is magas volt. Palkó szegény legény, nincs pénze ilyenekre. Hátha van valami olcsóbb is. Meg kéne kérdeznem a kovácsot, mit ajánlana {Program.player.Money} krajcár keretein bellül.");
+                        SlowPrintLine("Az áruk viszont túlságosan is magas volt. Palkó szegény legény, nincs pénze ilyenekre. Hátha van valami olcsóbb is.");
+                        SlowPrintLine($"Meg kéne kérdeznem a kovácsot, mit ajánlana {player.Money} krajcár keretein bellül.");
                         break;
                     case 1:
-                        Program.smith.ShopMenu(ref Program.player);
+                        smith.ShopMenu(ref player);
                         currentLocation.ChosenOptions[1] = false;
                         currentLocation.ChosenOptions[2] = false;
                         break;
@@ -717,9 +707,87 @@ namespace Game
 
             return Tovabb(helyek[2]);
         }
-        #endregion
+
+        public static int hely_27(ref LocationData currentLocation)
+        {
+            if (currentLocation.FirstTime)
+            {
+                currentLocation.ChosenOptions[2] = true;
+                SlowPrintLine("Palkó ezennel elérkezett a híres/hírhedt kereskedőhöz. Lajost szinte minden kalandor ismerte az Óperáciás tengeren túl'. Messze nála vannak a legegotikusabb, legjobb kardok és pajzsok a világon. Viszont vigyáznia kell, aki tőle vásárolna, hogy Lajos biztosan jól fog járni az üzlettel, de a vevő lehet nem azt kapja, amire vágyott.");
+            }
+
+            int choice;
+            do
+            {
+                choice = Valasztas(ref currentLocation, "Körbejárás a kereskedő boltjában", "Vásárlás", "Vissza");
+                switch (choice)
+                {
+                    case 0:
+                        SlowPrint("Palkó nézelődni kezdett a kereskedő boltjában, s a szebbnél szebb, de drágábbnál drágább tárgyak szinte csillogtak tágra nyílt szemeiben. Ez volt maga a mennyország számára. ");
+                        SlowPrintLine($"Az áruk viszont még mindig magas volt. Bár Palkó már annyira nem szegény, módosnak sem nevezhető. Biztos kapható valami olyan tárgy is itt, amelyet Palkó is megvehetne szerény {player.Money} krajcárjából.");
+                        break;
+                    case 1:
+                        trader.ShopMenu(ref player);
+                        currentLocation.ChosenOptions[1] = false;
+                        currentLocation.ChosenOptions[2] = false;
+                        break;
+                    case 2:
+                        choice = -1;
+                        currentLocation.ChosenOptions[2] = false;
+                        break;
+                }
+            }
+            while (choice != -1);
+
+            return Tovabb(helyek[25]);
+        }
         
         public static int hely_7(ref LocationData currentLocation)
+        {
+            if (currentLocation.FirstTime)
+            {
+                SlowPrintLine("Palkó egy gyönyörű tisztásra érkezett. Ennél tökéletesebb hely nem is lehetne, hogy egy picit lepihenjen és gyönyörködjön az őt körülvevő tájban s elmormoljon egy imát.");
+            }
+
+            int choice;
+            do
+            {
+                choice = Valasztas(ref currentLocation, "Imádkozás Istenhez", "Gyönyörködés a tájban", "Vissza");
+                switch (choice)
+                {
+                    case 0:
+                        currentLocation.ChosenOptions[0] = false;
+                        SlowPrintLine("Palkó elmormolt egy imát, amelyben arra kérte Istent, vezesse a jó irányba.");
+                        SlowPrintLine("Miután végzett az imádsággal, azt érezte, valaki szól hozzá.");
+                        SlowPrintLine("Ezt hallotta Palkó:");
+
+                        Random r = new Random();
+
+                        string generatedText = "\n\"";
+                        int words = r.Next(6,12);
+                        for (int i = 0; i < words; i++)
+                        {
+                            generatedText += randomWords[r.Next(0, randomWords.Length)] + (i < words-1 ? " " : "\"");
+                        }
+                        SlowPrintLine(generatedText);
+                        break;
+                    case 1:
+                        SlowPrintLine("A tisztás szépségét a lágy fűszőnyeg, mely finoman simogatja a lábakat, teszi teljessé. A tavaszi virágok színpompája öleli körbe, miközben a madarak dallama életre kel a csendes környezetben. Az ég tiszta kékje felett szelíd szelek ringatják az ágakat, és a nap sugarai játszanak a fák lombjain. Ez a természeti oázis nyugalmat és szépséget áraszt.");
+                        SlowPrintLine("A fű illatával vegyülve a friss levegő körülbelül, mintha varázslatos aromát varázsolna az egész területre. A patak partján színes pillangók repkednek, és a környező erdő zöldje mélyíti az összképet. Ezen a csodás tisztáson a természet minden mozzanata összefonódik, teremtve egy békés, idilli környezetet.");
+                        break;
+                    case 2:
+                        choice = -1;
+                        currentLocation.ChosenOptions[2] = false;
+                        break;
+                }
+            }
+            while (choice != -1);
+            return Tovabb(helyek[6]);
+        }
+        #endregion
+
+
+        public static int hely_4(ref LocationData currentLocation)
         {
             return 0;
         }
@@ -739,21 +807,12 @@ namespace Game
         {
             return 0;
         }
-        public static int hely_18(ref LocationData currentLocation)
-        {
-            return 0;
-        }
         public static int hely_19(ref LocationData currentLocation)
         {
             return 0;
         }
-        
-        
-        
-        
-        public static int hely_27(ref LocationData currentLocation)
+        public static int hely_18(ref LocationData currentLocation)
         {
-
             return 0;
         }
     }
