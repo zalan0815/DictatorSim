@@ -10,9 +10,10 @@ namespace Game
     {
         #region Enemys
         public static Enemy csoves = new Enemy(30, 5, name: "csöves");
-        public static Enemy balfej = new Enemy(100, 50, name: "Bal fej");
-        public static Enemy kozepsofej = new Enemy(100, 50, name: "Középső fej");
-        public static Enemy jobbfej = new Enemy(100, 50, name: "Jobb fej");
+        public static Enemy balfej = new Enemy(200, 50, name: "Bal fej");
+        public static Enemy kozepsofej = new Enemy(200, 50, name: "Középső fej");
+        public static Enemy jobbfej = new Enemy(200, 50, name: "Jobb fej");
+        public static Enemy hetszunyuKapanyanyiMonyok = new Enemy(100, 30, name: "Hétszűnyü Kapanyányi Monyók");
         public static Enemy asd = new Enemy(0, 0, name: "asd");
         //public static Enemy asd = new Enemy(0, 0, name: "asd");
         //public static Enemy asd = new Enemy(0, 0, name: "asd");

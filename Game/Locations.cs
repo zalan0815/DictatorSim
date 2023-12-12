@@ -53,7 +53,7 @@ namespace Game
         public static void Generate()
         {
             helyek = new LocationData[31] {
-                new LocationData("Ágy",basic),
+                new LocationData("Halál",hely_0),
                 new LocationData("Ház",hely_1),
                 new LocationData("Markotabödöge",hely_2),
                 new LocationData("Bánya", hely_3),

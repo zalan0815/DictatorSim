@@ -17,8 +17,9 @@ namespace Game
             {
                 location = Locations.helyek[location].Run();
             }
-            while (Locations.helyek.Length > location && location > 0);
+            while (Locations.helyek.Length > location && location >= 0);
             Console.Write("Program end");
+            Console.ForegroundColor = ConsoleColor.Black; 
         }
         
         static int getPlayerStatLength()
