@@ -12,13 +12,11 @@ namespace Game
         {
             Locations.Generate();
             int location = 1;
-
             do
             {
                 location = Locations.helyek[location].Run();
             }
             while (Locations.helyek.Length > location && location >= 0);
-            Console.Write("Program end");
             Console.ForegroundColor = ConsoleColor.Black; 
         }
         
