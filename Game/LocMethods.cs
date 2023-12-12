@@ -468,6 +468,7 @@ namespace Game
                     SlowPrintLine("- \"Atyám, elhatároztam, hog elmegyek világot látni. Tudom, hogy a világ tele van veszélyekkel, ezért szeretnék áldást kéreni!\"");
                     SlowPrintLine("- \"Fiam, csak Isten tud áldást adni én nem, de ezt az üvegcsét fogadd el. Ha megsebesülsz önts belőle kicsit a sebre majd a maradékot idd meg és jobban leszel.\"");
                     player.HealPotions += 1;
+                    PrintPlayerStat();
                     SlowPrintLine("- \"Köszönöm atyám!\"");
                     SlowPrintLine("- \"Isten áldjon, fiam\"");
 
@@ -656,6 +657,7 @@ namespace Game
                         SlowPrintLine("Palkó meglátott egy karkötőt kifele menet.");
                         SlowPrintLine("Gondolta elviszi.");
                         player.NewItem(new OtherItem("Ügyesség karkötője", 1, 0, StatType.SliderSpeed));
+                        PrintPlayerStat();
                         return Tovabb(helyek[13]);
                     }
                     else
@@ -675,10 +677,52 @@ namespace Game
                 SlowPrintLine("A heség magas helyein mászkálva palkó elfáradt.");
                 SlowPrintLine("Úgy döntött sátrat ver és alszik egyet.");
                 player.Health = player.MaxHealth;
+                PrintPlayerStat();
                 SlowPrintLine("Egy kiadós alvás után újult erővel indulhatott tovább.");
                 SlowPrintLine("Ismét egy elágazáshoz ért Palkó.");
             }
             return Tovabb(helyek[14], helyek[15], helyek[18]);
+        }
+        public static int hely_14(ref LocationData currentLocation)
+        {
+            if (currentLocation.FirstTime)
+            {
+                SlowPrintLine("A barlangba belépve Palkó megpillantott egy nagy kondér fölé kikötözött tündért.");
+                SlowPrintLine("- \"Segítség, segítség!\" - kibálta.");
+                SlowPrintLine("- \"Egyetse félj, jövök azt kikötözlek!\" - mondta plakó majd futott volna oda a tündérhez, de megjelent az óriás.");
+                SlowPrintLine("- \"Megálj betolakodó, ugye nem akarod te is a levesben végezni?\" - mondta az óriás.");
+                SlowPrintLine("Az óriás 14 méteres magasságához képest Palkó csak egy eltapsandó kavics.");
+                int choice = Valasztas(ref currentLocation, "Elfutsz", "Segítesz");
+                switch (choice)
+                {
+                    case 0:
+                        SlowPrintLine("Palkó helyzetét átgondolva a menekülést választotta.");
+                        SlowPrintLine("Sajnálta szegény tündérlányt, de nem tehetett ellene semmit.");
+                        return Tovabb(helyek[13]);
+                    case 1:
+                        SlowPrintLine("Palkó, határozottan kiállt az óriás ellen.");
+                        SlowPrintLine("Az óriás elővette bunkóját és lesújtott Palkóra.");
+                        SlowPrintLine("Palkó kikerülte, majd elkezdett az óriás felé futni");
+                        bool w;
+                        FightSystem boszorkány = new FightSystem(player, new Enemy(200, 25, speed: 5000, name: "Boszorkány"), out w);
+                        if (w)
+                        {
+                            SlowPrintLine("Palkó nagy nehézségek árán legyőzte az óriást és kiszabadította a tündért.");
+                            SlowPrintLine("A tündér a következőt mondta:");
+                            SlowPrintLine("- \"Köszönöm, hogy megmentettél, tettedet\"")
+                            return Tovabb(helyek[13]);
+                        }
+                        return 0;
+
+                }
+            }
+            else
+            {
+                SlowPrintLine("Amikor palkó visszasétált a barlanghoz látta, hogy beomlott.");
+                SlowPrintLine("- \"Több óriás sem költözik ide!\" - gondolta.");
+            }
+            return Tovabb(helyek[13]);
+
         }
         #endregion
 
@@ -723,10 +767,7 @@ namespace Game
         {
             return 0;
         }
-        public static int hely_14(ref LocationData currentLocation)
-        {
-            return 0;
-        }
+
         public static int hely_15(ref LocationData currentLocation)
         {
             return 0;
