@@ -12,8 +12,7 @@ namespace Game
         {
             Locations.Generate();
             int location = 1;
-            new DeerGame();
-            Console.ReadLine();
+            new DeerGame().Run();
             do
             {
                 location = Locations.helyek[location].Run();
