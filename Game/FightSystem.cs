@@ -681,6 +681,9 @@ namespace Game
             #region ENEMY'S HEALTH
             Console.CursorTop = Console.WindowTop + Console.WindowHeight - 2;
             Console.CursorLeft = 0;
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.Write(new string(' ', Console.WindowWidth));
+            Console.CursorLeft = 0;
 
             Console.ForegroundColor = ConsoleColor.DarkRed;
             Console.Write($"{enemy.Name} ");
@@ -711,6 +714,10 @@ namespace Game
             Console.ForegroundColor = ConsoleColor.White;
             Console.BackgroundColor = ConsoleColor.Black;
             Console.Write(new string(' ', Console.WindowWidth - Console.CursorLeft - 1));
+            if(enemy.Health != enemy.MaxHealth)
+            {
+                Console.Write(" ");
+            }
             #endregion
 
             #region YOUR STATS

@@ -464,6 +464,7 @@ namespace Game
                         SlowPrintLine("Megtalálta régi gyakorló kardját fiatal korából.");
                         SlowPrintLine("Ha a pengéje nem is annyira éles még hasznát fogja venni.");
                         Sword sword = new Sword("Fakard", 2, 0, StatType.SliderSpeed);
+                        PrintPlayerStat();
                         break;
                     case 1:
                         SlowPrintLine("Palkót megpróbálja lebeszélni az édesanyja, de az igazi hőst nem állítja meg semmi.");
