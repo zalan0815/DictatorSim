@@ -118,7 +118,9 @@ namespace Game
         public void NewItem(OtherItem item)
         {
             inventory.Add(item);
+            Console.ForegroundColor = ConsoleColor.Yellow;
             SlowPrintSystem.SlowPrintLine($"Új tárgyat kaptál: {item.Name}!");
+            Console.ForegroundColor = ConsoleColor.White;
         }
 
         public void Heal()

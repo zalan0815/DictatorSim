@@ -11,13 +11,15 @@ namespace Game
         static void Main(string[] args)
         {
             Locations.Generate();
-            int location = 13;
+            int location = 1;
+
             do
             {
                 location = Locations.helyek[location].Run();
             }
-            while (Locations.helyek.Length > location && location > 0);
+            while (Locations.helyek.Length > location && location >= 0);
             Console.Write("Program end");
+            Console.ForegroundColor = ConsoleColor.Black; 
         }
         
         static int getPlayerStatLength()
@@ -60,9 +62,11 @@ namespace Game
                 Console.CursorLeft = Console.WindowWidth - longest - 1;
                 Console.ForegroundColor = colorsToWrite[i];
                 if(yellowHealth && i == 0) { Console.ForegroundColor = ConsoleColor.Yellow; }
-                Console.WriteLine(namesToWrite[i]);
+                Console.Write(namesToWrite[i]);
+                Console.WriteLine(new string(' ', Console.WindowWidth - Console.CursorLeft));
                 Console.CursorLeft = Console.WindowWidth - longest - 1;
-                Console.WriteLine(statsToWrite[i]);
+                Console.Write(statsToWrite[i]);
+                Console.WriteLine(new string(' ', Console.WindowWidth - Console.CursorLeft));
             }
 
             Console.CursorTop += 1;
