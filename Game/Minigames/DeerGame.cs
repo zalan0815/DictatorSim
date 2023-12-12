@@ -38,6 +38,8 @@ namespace Game.Minigames
                     badShot = true;
                 }
             }
+            Console.Clear();
+            Program.PrintPlayerStat();
         }
         private void Logic()
         {
