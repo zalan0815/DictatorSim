@@ -510,6 +510,7 @@ namespace Game
                     SlowPrintLine("- \"Atyám, elhatároztam, hog elmegyek világot látni. Tudom, hogy a világ tele van veszélyekkel, ezért szeretnék áldást kéreni!\"");
                     SlowPrintLine("- \"Fiam, csak Isten tud áldást adni én nem, de ezt az üvegcsét fogadd el. Ha megsebesülsz önts belőle kicsit a sebre majd a maradékot idd meg és jobban leszel.\"");
                     player.HealPotions += 1;
+                    PrintPlayerStat();
                     SlowPrintLine("- \"Köszönöm atyám!\"");
                     SlowPrintLine("- \"Isten áldjon, fiam\"");
 
@@ -657,6 +658,7 @@ namespace Game
             SlowPrintLine("A faluban Törpapa már várta Palkót:");
             SlowPrintLine("- \"Köszönöm a falu nevében, hogy megmentetted társainkat. Jutalmul fogadd el ezt a bájitalt. Biztos segíteni fog kalandod során\"");
             player.HealPotions += 1;
+            PrintPlayerStat();
             SlowPrintLine("- \"Köszönöm szépen! Semmiség volt...\"");
             SlowPrintLine("- \"Nincs kedved itt maradni megünnepelni a győzelmedet?\"");
             int choice = Valasztas(ref currentLocation, "Elfogadod", "Nem fogadod el");
@@ -677,7 +679,7 @@ namespace Game
         }
         public static int hely_12(ref LocationData currentLocation)
         {
-            SlowPrintLine("Palkó a boszorkányházhoz érve azt gondolta be kéne törni a boszorkányhoz hátha van valami hasznos bent, de kicsit tartott a boszorkánytól.");
+            SlowPrintLine("Palkó a boszorkányházhoz érve azt gondolta be kéne törni hátha van valami hasznos bent, de kicsit tartott a boszorkánytól.");
             int choice = Valasztas(ref currentLocation, "Betörsz", "Nem törsz be");
             switch (choice)
             {
@@ -691,13 +693,14 @@ namespace Game
                     SlowPrintLine("Palkó a helyzetet kihasználva lesújtott a boszorkányra.");
                     bool w;
                     FightSystem boszorkány = new FightSystem(player, new Enemy(150, 10, speed: 4000, name: "Boszorkány"), out w);
-                    SlowPrintLine("Palkó boldogan indult útjára új szerzeményével.");
                     if (w)
                     {
                         SlowPrintLine("A boszorkányt igaz nehéz volt megölni, de ereje nélkül igazából nem volt erős.");
                         SlowPrintLine("Palkó meglátott egy karkötőt kifele menet.");
                         SlowPrintLine("Gondolta elviszi.");
                         player.NewItem(new OtherItem("Ügyesség karkötője", 1, 0, StatType.SliderSpeed));
+                        PrintPlayerStat();
+                        SlowPrintLine("Palkó boldogan indult útjára új szerzeményével.");
                         return Tovabb(helyek[13]);
                     }
                     else
@@ -714,13 +717,135 @@ namespace Game
         {
             if (currentLocation.FirstTime)
             {
-                SlowPrintLine("A heség magas helyein mászkálva palkó elfáradt.");
+                SlowPrintLine("A hegység magas helyein mászkálva palkó elfáradt.");
                 SlowPrintLine("Úgy döntött sátrat ver és alszik egyet.");
                 player.Health = player.MaxHealth;
+                PrintPlayerStat();
                 SlowPrintLine("Egy kiadós alvás után újult erővel indulhatott tovább.");
                 SlowPrintLine("Ismét egy elágazáshoz ért Palkó.");
             }
             return Tovabb(helyek[14], helyek[15], helyek[18]);
+        }
+        public static int hely_14(ref LocationData currentLocation)
+        {
+            if (currentLocation.FirstTime)
+            {
+                SlowPrintLine("A barlangba belépve Palkó megpillantott egy nagy kondér fölé kikötözött tündért.");
+                SlowPrintLine("- \"Segítség, segítség!\" - kibálta.");
+                SlowPrintLine("- \"Egyetse félj, jövök azt kikötözlek!\" - mondta Palkó majd futott volna oda a tündérhez, de megjelent az óriás.");
+                SlowPrintLine("- \"Megálj betolakodó, ugye nem akarod te is a levesben végezni?\" - mondta az óriás.");
+                SlowPrintLine("Az óriás 14 méteres magasságához képest Palkó csak egy eltaposandó kavics.");
+                int choice = Valasztas(ref currentLocation, "Elfutsz", "Segítesz");
+                switch (choice)
+                {
+                    case 0:
+                        SlowPrintLine("Palkó helyzetét átgondolva a menekülést választotta.");
+                        SlowPrintLine("Sajnálta szegény tündérlányt, de nem tehetett ellene semmit.");
+                        return Tovabb(helyek[13]);
+                    case 1:
+                        SlowPrintLine("Palkó, határozottan kiállt az óriás ellen.");
+                        SlowPrintLine("Az óriás elővette bunkóját és lesújtott Palkóra.");
+                        SlowPrintLine("Palkó kikerülte, majd elkezdett az óriás felé futni");
+                        bool w;
+                        FightSystem óriás = new FightSystem(player, new Enemy(10, 25, speed: 5000, name: "Óriás"), out w);
+                        if (w)
+                        {
+                            SlowPrintLine("Palkó nagy nehézségek árán legyőzte az óriást és kiszabadította a tündért.");
+                            SlowPrintLine("A tündér a következőt mondta:");
+                            SlowPrintLine("- \"Köszönöm, hogy megmentettél, tettedet viszont nem tudom meghálálni.\"");
+                            SlowPrintLine("- \"Szívesen tettem!\" - mondta Palkó.");
+                            SlowPrintLine("- \"Most nekem haza kell mennem, további jó utat!\" - azzal a tündér errepült a felhők fölé.");
+                            SlowPrintLine("Palkó nem vesztegette tovább az idejét, tovább is állt.");
+                            return Tovabb(helyek[13]);
+                        }
+                        return 0;
+
+                }
+            }
+            else
+            {
+                SlowPrintLine("Amikor palkó visszasétált a barlanghoz látta, hogy beomlott.");
+                SlowPrintLine("- \"Több óriás sem költözik ide!\" - gondolta.");
+            }
+            return Tovabb(helyek[13]);
+
+        }
+        public static int hely_15(ref LocationData currentLocation)
+        {
+            if (currentLocation.FirstTime)
+            {
+                SlowPrintLine("Palkó alig, hogy belépett a Kutyafejű tatárok országába szembe találta magát egy csapat tatárral.");
+                SlowPrintLine("- \"Betolakodó, elkapni!\" - mondta az egyikük.");
+                SlowPrintLine("Palkó megpróbált elfutni de a tatárok lovai gyorsak voltak és elkapták.");
+                SlowPrintLine("- \"Na ide figyelj öcsi, ha jót akarsz magadnek velünk jössz a törzsfőnökhöz és nem próbálsz meg elszökni!\"");
+                SlowPrintLine("Palkó választás híján el ment velük.");
+                return Tovabb(helyek[16]);
+            }
+            else
+            {
+                SlowPrintLine("Palkó megbánta, hogy betette ide a lábát, de mint tudjuk, az ember a hibáiból tanul.");
+                SlowPrintLine("Ennek tudatában indult vissza a hegységbe.");
+                return Tovabb(helyek[13]);
+            }
+        }
+        public static int hely_16(ref LocationData currentLocation)
+        {
+            if (currentLocation.FirstTime)
+            {
+                SlowPrintLine("A városba érve Palkót börtönbe zárták.");
+                SlowPrintLine("Egy óra múlva megjelent a kutyafejő tatárok törzsfőnöke.");
+                SlowPrintLine("- \"Nos fiam, mi cél hozott ide az országomba?\"");
+                SlowPrintLine("- \"Én csak átutazóban vagyok, nem akarok semmi rosszat.\"");
+                SlowPrintLine("- \"Ha valóban nem akarsz rosszat akkor azt csak egy féle képpen deríthetjük ki. Menj el az erdőbe és vadássz le egy csodaszarvast. A csodaszarvasok csak a tiszta lelkűek előtt tűnnek fel.\"");
+                int choice = Valasztas(ref currentLocation, "Válalod", "Nem válalod");
+                switch (choice)
+                {
+                    case 0:
+                        SlowPrintLine("- \"Megteszek mindent, hogy bebizonyítsam ártatlanságomat.\"");
+                        SlowPrintLine("- \"Rendben, kiengedünk de 1 órát kapsz a feladatra. Ha sikerült hozd el a szarvas tetemét, ha nem jössz kutyaorrunk elől nem tudsz elbújni!\"");
+                        SlowPrintLine("Azzal palkó elindul megkeresni a szarvast.");
+                        return Tovabb(helyek[17]);
+                    case 1:
+                        SlowPrintLine("- \"Nem gondolom hogy bizonygatnom kéne ártatlanságomat!\"");
+                        SlowPrintLine("- \"Velem senki nem beszélhet így! Kihívlak egy párbajra, ha nyersz elmehetsz.\"");
+                        SlowPrintLine("A párbajt a börtön udvarán elő is készítették.");
+                        SlowPrintLine("Palkónak még nem volt ennyire tapasztalt ellenfele, de nem riadt vissza.");
+                        SlowPrintLine("- \"A párbaj kezdetét veszi:\"");
+                        SlowPrintLine("- \"3\"");
+                        SlowPrintLine("- \"2\"");
+                        SlowPrintLine("- \"1\"");
+                        SlowPrintLine("- \"START!!\"");
+                        bool w;
+                        FightSystem törzsfőnök = new FightSystem(player, new Enemy(10, 15, speed: 1000, name: "Törzsfőnök"), out w);
+                        if (w)
+                        {
+                            SlowPrintLine("Palkó nagy nehezen legyőzte a törzsfőnököt.");
+                            SlowPrintLine("Ez után annyira meglepődött minden kutyafejű tatár, hogy egyik sem szólt semmit csak hagyták, hogy elsétáljon.");
+                            SlowPrintLine("Így palkó nyugodtan elhagyta az országot.");
+                            return Tovabb(helyek[13]);
+                        }
+                        return 0;
+                }
+            }
+            SlowPrintLine("Palkó amikor visszahozta a szarvast a törzsfőnök elismerően szólt hozzá:");
+            SlowPrintLine("- \"Nem hittem volna, hogy sikerül. De jólvan, ha már megígértem elmehetsz.\"");
+            SlowPrintLine("Palkó egy percet sem várt mielőtt a törzsfőnök meggondolná magát, azonnal el is indult az országból kifele.");
+            return Tovabb(helyek[13]);
+        }
+        public static int hely_17(ref LocationData currentLocation)
+        {
+            SlowPrintLine("Palkó az erdőbe érve néhány óra séta megpillantott egy barnán csillogó valamit.");
+            SlowPrintLine("Amikor közelébe ért elugrott máshova, cak ahangját hallotta.");
+            SlowPrintLine("Rögtön tudta, hogy ez a szarvas lesz, ezért elkezdet követni a hangot.");
+            SlowPrintLine("Kicsivel később egy tisztásra ért ahol rálátott a szrvasra, ám néha mozgolódott.");
+            SlowPrintLine("Nem tudott mást tenni mint, hogy türelmesen vár a megfelelő pillanatra.");
+            bool IsDeerKilled = true;
+            if (IsDeerKilled)
+            {
+                SlowPrintLine("Miután Palkó sikeresen lelőtte elindult vissza a törzsfőnökhöz.");
+                return Tovabb(helyek[16]);
+            }
+            return 0;
         }
         #endregion
 
@@ -839,21 +964,5 @@ namespace Game
         }
         #endregion
 
-        public static int hely_14(ref LocationData currentLocation)
-        {
-            return 0;
-        }
-        public static int hely_15(ref LocationData currentLocation)
-        {
-            return 0;
-        }
-        public static int hely_16(ref LocationData currentLocation)
-        {
-            return 0;
-        }
-        public static int hely_17(ref LocationData currentLocation)
-        {
-            return 0;
-        }
     }
 }
