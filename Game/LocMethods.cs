@@ -92,6 +92,45 @@ namespace Game
             SlowPrintLine("Palkó sajnos nem tud felmászni az égig Érő paszulyra. Útját másfelé kell folytatnia.");
             return Tovabb(helyek[6]);
         }
+        public static int hely_18(ref LocationData currentLocation)
+        {
+            SlowPrintLine("Palkó barangolás közben egy kunyhót vett észre. A Remete kunyhója volt.");
+            SlowPrintLine("- \"Szia Palkó már vártalak. Tudtam, hogy jönni fogsz. Mindent tudok.\"");
+            SlowPrintLine("- \"Ne is beszélgessünk! Tudom mi kell neked. Képzeld el, tudom merre kell továbbmenned, hogy megtaláld, amit keresel. Menj a Városba, mert a Király el van keseredve, hiszen egy 3 Fejű Sárkány terrorizálja a királyságot. A Király a sárkány legyőzőjének jutalomként a királylányt és vagyonának nagy részét adja.\"");
+            SlowPrintLine("- \"A Városba kettő féle képpen tudsz eljutni: a Tündérországon keresztül vagy a Poklon kerseztül. A Poklon keresztül gyorsabb, de nehezebb, viszont Tündérországba nem léphet be akárki.\"");
+            SlowPrintLine("Palkó megköszönte az útbaigazítást és tovább indult.");
+
+            return Tovabb(helyek[19], helyek[20]);
+        }
+        public static int hely_19(ref LocationData currentLocation)
+        {
+            SlowPrintLine("Palkó alászállt a poklokra. A pokol olyan volt, mint egy vulkán belseje. A padló láva, majdnem minden ég, ami nem az korom feketére égett már.");
+            SlowPrintLine("Még Palkó is megégette magát egy kicsit.");
+            player.Health -= 5;
+            PrintPlayerStat();
+            SlowPrintLine("- \"Hogy kerül egy ártatlan lélek eme gonosz helyre?\" - kérdezte egyszer csak Palkót egy mögülle jövő érces hang.");
+            SlowPrintLine("Palkó nyomban sarkon fordult és meg látta a kérdés feltevőjét.");
+            SlowPrintLine("A Hétszűnyü Kapanyányi Monyókot.");
+            SlowPrintLine("- \"Mivel ártatlan vagy tovább engedlek a Város felé - igen tudom, hogy oda akarsz menni - ,de csak egy feltétellel: megválaszolod a találós kérdésem.\"");
+            SlowPrintLine("- \"7 szénarakás meg 5 szénarakás az hány szénarakás?\"");
+            SlowPrint("Megoldás: ");
+            if (Console.ReadLine() == "1")
+            {
+                SlowPrintLine("- \"Tovább mehetsz!\"");
+                return Tovabb(helyek[25]);
+            }
+            SlowPrintLine("- \"Ez nem talált! A megoldás: 1. Nem engedlek tovább! Csak a tesetemen keresztül mehetsz tovább!\"");
+            bool w = false;
+            FightSystem pokolFight = new FightSystem(player, hetszunyuKapanyanyiMonyok, out w);
+            
+            if (w)
+            {
+                SlowPrintLine("A Hétszűnyű kapanyányi monyók szurokká változott a végzetes vágás után, amit Palkó ejtett rajta és elfolyt a har helyszínéről.");
+                return Tovabb(helyek[25]);
+            }
+
+            return 0;
+        }
         public static int hely_20(ref LocationData currentLocation)
         {
 
@@ -393,7 +432,7 @@ namespace Game
                 }
                 if ((w3 && !w0) || (w4 && !w1) || (w5 && !w3))
                 {
-                    SlowPrintLine("A sárkány torkából hirtelen oly mennyiségű tűz tört elő, hogy Palkó hamuvá égett. Túl nagy falat volt neki a 3 fejű sárkány így elbukott.");
+                    SlowPrintLine("A sárkány torkából hirtelen oly mennyiségű tűz tört elő, hogy Palkó hamuvá égett.");
                     return 0;
                 }
 
@@ -691,14 +730,7 @@ namespace Game
         {
             return 0;
         }
-        public static int hely_18(ref LocationData currentLocation)
-        {
-            return 0;
-        }
-        public static int hely_19(ref LocationData currentLocation)
-        {
-            return 0;
-        }
+        
         
         
         
