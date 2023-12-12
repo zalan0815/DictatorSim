@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using System.Runtime.CompilerServices;
 using static Game.Minigames.BlackJack;
 
 namespace Game.Minigames
@@ -485,6 +484,7 @@ namespace Game.Minigames
         {
             Console.Clear();
             Program.PrintPlayerStat();
+            //chanceToWinOnStand();
 
             if (playerInventories.Length > 1 && playerInventory == playerInventories[0])
             {
@@ -579,5 +579,60 @@ namespace Game.Minigames
                 PrintTable();
             }
         }
+
+        //private void chanceToWinOnStand()
+        //{
+        //    int won = 0;
+        //    int lost = 0;
+        //    List<Card> cards = new List<Card>(allCards);
+        //    cards.Add(this.dealerInventory.Cards[1]);
+
+        //    BlackJackInventory localDealerInventory = new BlackJackInventory(new List<Card> { this.dealerInventory.Cards[0] });
+
+        //    calculateCardThreadChance(cards, localDealerInventory, ref won, ref lost, playerInventory.CardsValue);
+
+        //    Console.WriteLine($"Stand esetén:\nNyerési esély: {(double)won/(won+lost)}");
+            
+        //}
+
+        //private void calculateCardThreadChance(List<Card> cards, BlackJackInventory parentDealerInventory, ref int playerWon, ref int playerLost, int playerValue)
+        //{
+        //    for (int i = 0;i < cards.Count;i++) // feltételezzük, hogy a lista i.-eleme dealer x. kártyájának húzza fel
+        //    {
+        //        bool cardAlreadyUsed = false;
+        //        foreach (Card card in parentDealerInventory.Cards)
+        //        {
+        //            if(card.Numeral == cards[i].Numeral && card.Color == cards[i].Color)
+        //            {
+        //                cardAlreadyUsed = true;
+        //                break;
+        //            }
+        //        }
+        //        if (cardAlreadyUsed)
+        //        {
+        //            continue;
+        //        }
+
+
+        //        BlackJackInventory localDealerInventory = new BlackJackInventory(new List<Card>(parentDealerInventory.Cards));
+        //        localDealerInventory.Cards.Add(cards[i]);
+
+        //        if(localDealerInventory.CardsValue > 17)
+        //        {
+        //            if(localDealerInventory.CardsValue > 21 || localDealerInventory.CardsValue < playerValue)
+        //            {
+        //                playerWon++;
+        //            }
+        //            else
+        //            {
+        //                playerLost++;
+        //            }
+        //        }
+        //        else
+        //        {
+        //            calculateCardThreadChance(cards, localDealerInventory, ref playerWon, ref playerLost, playerValue);
+        //        }
+        //    }
+        //}
     }
 }
