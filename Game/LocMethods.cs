@@ -786,11 +786,6 @@ namespace Game
         }
         #endregion
 
-
-        public static int hely_4(ref LocationData currentLocation)
-        {
-            return 0;
-        }
         public static int hely_14(ref LocationData currentLocation)
         {
             return 0;
