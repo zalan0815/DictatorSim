@@ -118,7 +118,7 @@ namespace Game
         public void NewItem(OtherItem item)
         {
             inventory.Add(item);
-            SlowPrintSystem.SlowPrint($"Új tárgyat kaptál: {item.Name}!");
+            SlowPrintSystem.SlowPrintLine($"Új tárgyat kaptál: {item.Name}!");
         }
 
         public void Heal()

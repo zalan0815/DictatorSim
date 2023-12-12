@@ -5,6 +5,7 @@ namespace Game
     partial class Program
     {
         public static Player player = new Player(10, 10, 1, 1000);
+
         public static int printLenght = Console.WindowWidth - 30;
 
         static void Main(string[] args)
