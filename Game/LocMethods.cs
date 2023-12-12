@@ -128,7 +128,7 @@ namespace Game
                 SlowPrintLine("Palkó Tündérország díszes kapjua előtt állt, amikor hozzászólt az egyik Kapuőr tündér.");
                 if (fairy)
                 {
-                    SlowPrintLine("-\"Üdvözöllek Tündérországban halandó! Nemes tettedért cseréb beengedlek!\"");
+                    SlowPrintLine("-\"Üdvözöllek Tündérországban halandó! Hallottam megmentetted a Tündérkirálylányt. Nemes tettedért cseréb beengedlek!\"");
                 }
                 else
                 {
@@ -356,7 +356,7 @@ namespace Game
         {
             if (!drake)
             {
-                SlowPrintLine("Palkó belépett a király csodaszép kacsalábon forgó palotájába.");
+                SlowPrintLine("Palkó belépett a Király csodaszép Kacsalábon forgó palotájába.");
                 SlowPrintLine("- \"Üdv Ifjú Vitéz!\" - Köszöntötte a király Palkót.");
                 SlowPrintLine("- \"Jöttem, hogy szerencsét próbáljak! Le akarom győzni a 3 fejű sárkányt a lányáért és birodalmáért cserébe!\" - Mondta büszkén Palkó.");
                 SlowPrintLine("- \"Tiszteletre méltó a bátorságod, de figyelmeztetnelek kell, hogy már sokan megpróbálták legyőzni a 3 fejű sárkányt de elbuktak!\" - Mondta a király aggódva.");
