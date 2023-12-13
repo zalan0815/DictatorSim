@@ -237,7 +237,7 @@ namespace Game
 
         private Attack[] generateMap()
         {
-            xGreenSpot = random.Next(mapSize + 1 - player.SliderSpeed);
+            xGreenSpot = random.Next(mapSize - player.SliderSpeed);
             int xGreenSpotRight = xGreenSpot + player.SliderSpeed - 1;
             /* MapSize (exc. GreenSpots):
              * 25% - 0%      dmg    - DarkRed
