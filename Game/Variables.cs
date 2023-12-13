@@ -17,10 +17,10 @@ namespace Game
         public static Enemy orias = new Enemy(200, 25, speed: 4000, name: "Óriás");
         public static Enemy tFonok = new Enemy(100, 15, speed: 1000, name: "Törzsfőnök");
         public static Enemy hetszunyuKapanyanyiMonyok = new Enemy(100, 20, speed: 1500, name: "Hétszűnyü Kapanyányi Monyók");
-        public static Enemy csoves = new Enemy(50, 10, speed: 2000, name: "csöves");
-        public static Enemy balfej = new Enemy(200, 50, speed: 3000, name: "Bal fej");
-        public static Enemy kozepsofej = new Enemy(200, 50, speed: 3000, name: "Középső fej");
-        public static Enemy jobbfej = new Enemy(200, 50, speed: 3000, name: "Jobb fej");
+        public static Enemy csoves = new Enemy(10, 10, speed: 2000, name: "csöves");
+        public static Enemy balfej = new Enemy(200, 40, speed: 3000, name: "Bal fej");
+        public static Enemy kozepsofej = new Enemy(200, 40, speed: 3000, name: "Középső fej");
+        public static Enemy jobbfej = new Enemy(200, 40, speed: 3000, name: "Jobb fej");
         #endregion
 
         public static Shop smith = new Shop(

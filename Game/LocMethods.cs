@@ -327,6 +327,7 @@ namespace Game
             int choice;
             do
             {
+                currentLocation.ChosenOptions[2] = false;
                 choice = Valasztas(ref currentLocation, "Black Jack", "Ivás - 100 krajcár", "Vissza a városba");
 
                 switch (choice)
@@ -601,7 +602,7 @@ namespace Game
                         SlowPrintLine("- \"Jólvan nyugalom adok pénzt.\" - mondta Palkó magabiztosnak tűnve.");
                         SlowPrintLine("Félt, hogy a banditák rátámadnak ha gyengének tűnik.");
                         SlowPrintLine("Adott 10 krajcárt bízva abban, hogy megelégednek vele.");
-                        player.Money -= 6;
+                        player.Money -= 0;
                         PrintPlayerStat();
                         SlowPrintLine("- \"Jólva fiam, most az egyszer békén hagyunk de legközelebb még az alsógatyádat is ellopjuk!\"");
                         SlowPrintLine("Ezzel a banditák távoztak.");
@@ -709,6 +710,7 @@ namespace Game
                     SlowPrintLine("Palkó a helyzetet kihasználva lesújtott a boszorkányra.");
                     bool w;
                     FightSystem boszorkány = new FightSystem(player, boszi, out w);
+                    PrintPlayerStat();
                     if (w)
                     {
                         SlowPrintLine("A boszorkányt igaz nehéz volt megölni, de ereje nélkül igazából nem volt erős.");
