@@ -4,14 +4,14 @@ namespace Game
 {
     partial class Program
     {
-        public static Player player = new Player(10, 20, 1, 1000);
+        public static Player player = new Player(10, 10, 1, 0);
 
         public static int printLenght = Console.WindowWidth - 30;
 
         static void Main(string[] args)
         {
             Locations.Generate();
-            int location = 25;
+            int location = 1;
             do
             {
                 location = Locations.helyek[location].Run();
