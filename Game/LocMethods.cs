@@ -33,7 +33,7 @@ namespace Game
                 {
                     case 0:
                         MiningGame mining1 = new();
-                        if (mining1.Mining('0', 'O', true))
+                        if (mining1.Mining('0', 'O', false))
                         {
                             player.Money += 10;
                             SlowPrintLine("\nA talált gyémántok eladásával Palkó 10 krajcárra tett szert.");
@@ -41,18 +41,18 @@ namespace Game
                         break;
                     case 1:
                         MiningGame mining2 = new();
-                        if (mining2.Mining('l', '1', true))
+                        if (mining2.Mining('l', '1', false))
                         {
-                            player.Money += 100;
+                            player.Money += 15;
                             SlowPrintLine("\nA talált gyémántok eladásával Palkó 100 krajcárra tett szert.");
 
                         }
                         break;
                     case 2:
                         MiningGame mining3 = new();
-                        if (mining3.Mining('a', 'e', true))
+                        if (mining3.Mining('a', 'e', false))
                         {
-                            player.Money += 1000;
+                            player.Money += 25;
                             SlowPrintLine("\nA talált gyémántok eladásával Palkó 1000 krajcárra tett szert.");
 
                         }
@@ -111,6 +111,7 @@ namespace Game
             SlowPrintLine("- \"Ez nem talált! A megoldás: 1. Nem engedlek tovább! Csak a tesetemen keresztül mehetsz tovább!\"");
             bool w = false;
             FightSystem pokolFight = new FightSystem(player, hetszunyuKapanyanyiMonyok, out w);
+            PrintPlayerStat();
             
             if (w)
             {
@@ -308,6 +309,7 @@ namespace Game
                     case 1:
                         SlowPrintLine("- \"Látom, hogy egy csomó pénzed van mégsem adsz? Akkor majd elveszem tőled!\"");
                         FightSystem csovesFight = new FightSystem(player, csoves, out w);
+                        PrintPlayerStat();
                         break;
                 }
                 if (w)
@@ -407,14 +409,17 @@ namespace Game
                     case 0:
                         FightSystem balfejFight = new FightSystem(player, balfej, out w0);
                         w3 = true;
+                        PrintPlayerStat();
                         break;
                     case 1:
                         FightSystem kozepsofejFight = new FightSystem(player, kozepsofej, out w0);
                         w4 = true;
+                        PrintPlayerStat();
                         break;
                     case 2:
                         FightSystem jobbfejFight = new FightSystem(player, jobbfej, out w0);
                         w5 = true;
+                        PrintPlayerStat();
                         break;
                 }
                 if (!w0)
@@ -494,6 +499,7 @@ namespace Game
                     SlowPrintLine("Megpróbálta kikerülni de hirtelen rátámadt.");
                     bool w;
                     FightSystem kutyaFight = new FightSystem(player, kutya, out w);
+                    PrintPlayerStat();
                     if (w)
                     {
                         SlowPrintLine("Palkó sajnálta, hogy a kutyát meg kellett ölnie.");
@@ -545,7 +551,7 @@ namespace Game
                         SlowPrintLine("- \"Elmegyek megetetni az állatokat!\"");
                         SlowPrintLine("- \"Rendben, én addig megyek kapálni, ha végeztél megkapod fizetésed.\"");
                         SlowPrintLine("Palkó becsületesen megetetett minden egyes állatot majd elkérte pénzét és indult is vissza a faluba.");
-                        player.Money += 5;
+                        player.Money += 10;
                         PrintPlayerStat();
                         return Tovabb(helyek[2]);
                     case 1:
@@ -553,7 +559,7 @@ namespace Game
                         SlowPrintLine("- \"Rendben, én addig az állatokat etetem, ha végeztél megkapod fizetésed.\"");
                         SlowPrintLine("A kapálás lefárasztotta Palkót, de cserébe jó testmozgás is, így erősebb lett.");
                         player.Health -= 5;
-                        player.Money += 10;
+                        player.Money += 15;
                         PrintPlayerStat();
                         SlowPrintLine("Elkérte pénzét és indult is vissza a faluba.");
                         return Tovabb(helyek[2]);
@@ -580,6 +586,7 @@ namespace Game
                         SlowPrintLine("Palkó ügyesen kilépett a bandita elől aki a földre esett, majd lassan fölkelt és kezdetét vette a harc.");
                         bool w;
                         FightSystem banditákFight = new FightSystem(player, bandita, out w);
+                        PrintPlayerStat();
                         if (w)
                         {
                             SlowPrintLine("Szerencsére csak a szájuk volt nagy. Amint Palkó elintézte a főnököt elmenekült a többi.");
@@ -649,6 +656,7 @@ namespace Game
             SlowPrintLine("Palkó kapott is az alkalmon és rá is rontott ellenfelére.");
             bool w;
             FightSystem hókuszpókFight = new FightSystem(player, hokuszpok, out w);
+            PrintPlayerStat();
             if (w)
             {
                 SlowPrintLine("Palkó egy végső csapással földre küldte Hókuszpókot.");
@@ -663,8 +671,9 @@ namespace Game
         public static int hely_10(ref LocationData currentLocation)
         {
             SlowPrintLine("A faluban Törpapa már várta Palkót:");
-            SlowPrintLine("- \"Köszönöm a falu nevében, hogy megmentetted társainkat. Jutalmul fogadd el ezt a bájitalt. Biztos segíteni fog kalandod során\"");
+            SlowPrintLine("- \"Köszönöm a falu nevében, hogy megmentetted társainkat. Jutalmul fogadd el ezt a bájitalt, és a falu félretett pénzét. Biztos segíteni fog kalandod során\"");
             player.HealPotions += 1;
+            player.Money += 50;
             PrintPlayerStat();
             SlowPrintLine("- \"Köszönöm szépen! Semmiség volt...\"");
             SlowPrintLine("- \"Nincs kedved itt maradni megünnepelni a győzelmedet?\"");
@@ -703,9 +712,10 @@ namespace Game
                     if (w)
                     {
                         SlowPrintLine("A boszorkányt igaz nehéz volt megölni, de ereje nélkül igazából nem volt erős.");
-                        SlowPrintLine("Palkó meglátott egy karkötőt kifele menet.");
+                        SlowPrintLine("Palkó meglátott egy karkötőt kifele menet, és egy kis pénzt.");
                         SlowPrintLine("Gondolta elviszi.");
                         player.NewItem(new OtherItem("Ügyesség karkötője", 1, 0, StatType.SliderSpeed));
+                        player.Money += 40;
                         PrintPlayerStat();
                         SlowPrintLine("Palkó boldogan indult útjára új szerzeményével.");
                         return Tovabb(helyek[13]);
@@ -755,6 +765,7 @@ namespace Game
                         SlowPrintLine("Palkó kikerülte, majd elkezdett az óriás felé futni");
                         bool w;
                         FightSystem óriásFight = new FightSystem(player, orias, out w);
+                        PrintPlayerStat();
                         if (w)
                         {
                             SlowPrintLine("Palkó nagy nehézségek árán legyőzte az óriást és kiszabadította a tündért.");
@@ -762,7 +773,9 @@ namespace Game
                             SlowPrintLine("- \"Köszönöm, hogy megmentettél, tettedet viszont nem tudom meghálálni.\"");
                             SlowPrintLine("- \"Szívesen tettem!\" - mondta Palkó.");
                             SlowPrintLine("- \"Most nekem haza kell mennem, további jó utat!\" - azzal a tündér errepült a felhők fölé.");
-                            SlowPrintLine("Palkó nem vesztegette tovább az idejét, tovább is állt.");
+                            SlowPrintLine("A barlangban a föld tele volt szétdobált pénzérmékkel.");
+                            player.Money += 60;
+                            SlowPrintLine("Palkó összeszedett amennyit tudott majd tovább állt.");
                             return Tovabb(helyek[13]);
                         }
                         return 0;
@@ -952,6 +965,13 @@ namespace Game
                             generatedText += randomWords[r.Next(0, randomWords.Length)] + (i < words-1 ? " " : "\"");
                         }
                         SlowPrintLine(generatedText);
+                        if (!aldas)
+                        {
+                            aldas = true;
+                            player.Inventory.Add(new OtherItem("Isten áldása", 1, 0, StatType.SliderSpeed));
+                            SlowPrintLine("Palkó érezte magán Isten áldásának erejét, úgylátszik meghallgatta kívánságát és segítséget adott neki a kalandjához.");
+                            PrintPlayerStat();
+                        }
                         break;
                     case 1:
                         SlowPrintLine("A tisztás szépségét a lágy fűszőnyeg, mely finoman simogatja a lábakat, teszi teljessé. A tavaszi virágok színpompája öleli körbe, miközben a madarak dallama életre kel a csendes környezetben. Az ég tiszta kékje felett szelíd szelek ringatják az ágakat, és a nap sugarai játszanak a fák lombjain. Ez a természeti oázis nyugalmat és szépséget áraszt.");

@@ -24,22 +24,24 @@ namespace Game
         #endregion
 
         public static Shop smith = new Shop(
-            new Sword("Sima kard",          15, 30, StatType.Damage),
-            new Sword("Hosszú kard",        18, 45, StatType.Damage),
-            new Armor("Sima páncél",        20, 35, StatType.Health),
-            new Armor("Lovagi páncél",      40, 50, StatType.Health)
+            new Sword("Sima kard",          15, 25, StatType.Damage),
+            new Sword("Hosszú kard",        18, 40, StatType.Damage),
+            new Armor("Sima páncél",        20, 30, StatType.Health),
+            new Armor("Lovagi páncél",      40, 45, StatType.Health)
             );
         public static Shop trader = new Shop(
-            new Sword("Varázskard",         25, 129, StatType.Damage),
-            new Sword("Lézerkard",          35, 179, StatType.Damage),
-            new Armor("Varázspáncél",       60, 169, StatType.Health),
-            new OtherItem("Sima sisak",     40, 200, StatType.Health)
+            new Sword("Varázskard",         25, 70, StatType.Damage),
+            new Sword("Lézerkard",          35, 90, StatType.Damage),
+            new Armor("Varázspáncél",       60, 85, StatType.Health),
+            new OtherItem("Sima sisak",     40, 60, StatType.Health)
             );
 
-        public static bool fairy = true;
+        public static bool fairy = false;
         public static Random rnd = new Random();
         public static int wichHouse = rnd.Next(1, 4);
         public static int where = rnd.Next(1, 3);
+
+        public static bool aldas = false;
 
         public static bool helping = false;
         public static bool found = false;

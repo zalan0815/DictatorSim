@@ -37,7 +37,7 @@ namespace Game
             set
             {
                 sword = value;
-                addHealthByItem(value);
+                NewItem(value);
             }
         }
         public Armor Armor
@@ -46,7 +46,7 @@ namespace Game
             set
             {
                 armor = value;
-                addHealthByItem(value);
+                NewItem(value);
             }
         }
 
@@ -122,9 +122,13 @@ namespace Game
             return stat;
         }
 
-        public void NewItem(OtherItem item)
+        public void NewItem(Item item)
         {
-            inventory.Add(item);
+            if (item.GetType() == typeof(OtherItem))
+            {
+                inventory.Add(item as OtherItem);
+            }
+            
             Console.ForegroundColor = ConsoleColor.Yellow;
             SlowPrintSystem.SlowPrintLine($"Új tárgyat kaptál: {item.Name}!");
             Console.ForegroundColor = ConsoleColor.White;
