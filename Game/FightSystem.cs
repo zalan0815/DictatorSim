@@ -237,7 +237,7 @@ namespace Game
 
         private Attack[] generateMap()
         {
-            xGreenSpot = random.Next(mapSize + 1 - player.SliderSpeed);
+            xGreenSpot = random.Next(mapSize - player.SliderSpeed);
             int xGreenSpotRight = xGreenSpot + player.SliderSpeed - 1;
             /* MapSize (exc. GreenSpots):
              * 25% - 0%      dmg    - DarkRed
@@ -353,7 +353,7 @@ namespace Game
 
                 while (!sliderStopped && round == currentRound)
                 {
-                    if ((sliderPostion >= mapSize - 1 - widthSize + 1 && direction) || (sliderPostion + 1 <= 1 && !direction))
+                    if ((sliderPostion >= mapSize - widthSize + 2 && direction) || (sliderPostion + 1 <= 1 && !direction))
                     {
                         sliderPostion += direction ? 1 : -1;
                         direction = !direction;
@@ -429,13 +429,15 @@ namespace Game
         private byte[][] generateSliderMoveActions(bool direction, Attack[] attackMap)
         {
             char[] toWriteChars;
-            byte[][] toWriteBytesArray = new byte[attackMap.Length][];
+            byte[][] toWriteBytesArray = new byte[attackMap.Length + 2][];
 
             if (direction)
             {
-                for (int i = 0; i < attackMap.Length; i++)
+                for (int i = 0; i < attackMap.Length + 2; i++)
                 {
-                    toWriteChars = (attackMap[i].Color + " " + BackgroundColors.Black + " \b\b\x1B[B").ToCharArray();
+                    string attackColor = i - 2 >= 0 ? attackMap[i - 2].Color : BackgroundColors.White;
+                    string sliderColor = i - 1 >= 0 ? BackgroundColors.Black : BackgroundColors.White;
+                    toWriteChars = ("\b\b" + attackColor + " " + sliderColor + " \x1B[B").ToCharArray();
                     toWriteBytesArray[i] = Enumerable.Range(0, toWriteChars.Length).Select(j => (byte)toWriteChars[j]).ToArray();
                 }
             }
