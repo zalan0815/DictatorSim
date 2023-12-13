@@ -464,14 +464,14 @@ namespace Game
                         SlowPrintLine("Palkó kinyitja a ládát.");
                         SlowPrintLine("Megtalálta régi gyakorló kardját fiatal korából.");
                         SlowPrintLine("Ha a pengéje nem is annyira éles még hasznát fogja venni.");
-                        Sword sword = new Sword("Fakard", 2, 0, StatType.SliderSpeed);
+                        Sword sword = new Sword("Fakard", 2, 0, StatType.Damage);
                         PrintPlayerStat();
                         break;
                     case 1:
                         SlowPrintLine("Palkót megpróbálja lebeszélni az édesanyja, de az igazi hőst nem állítja meg semmi.");
                         SlowPrintLine("Megígéri, hogy vigyáz magára és visszatér még.");
                         break;
-                    case 2:
+                    case -1:
                         break;
                 }
             }
@@ -492,7 +492,7 @@ namespace Game
                     SlowPrintLine("Palko szerette volna mi hamarabb elhagyni a falut, ám egy veszett kutya útját állta");
                     SlowPrintLine("Megpróbálta kikerülni de hirtelen rátámadt.");
                     bool w;
-                    FightSystem kutya = new FightSystem(player, new Enemy(20, 1, name: "Kutya"), out w);
+                    FightSystem kutyaFight = new FightSystem(player, kutya, out w);
                     if (w)
                     {
                         SlowPrintLine("Palkó sajnálta, hogy a kutyát meg kellett ölnie.");
@@ -509,7 +509,7 @@ namespace Game
                     SlowPrintLine("Odaérkezve üdvözölte a papot.");
                     SlowPrintLine("- \"Dícsértessék atyám!\"");
                     SlowPrintLine("- \"Dícsértessék fiam!\"");
-                    SlowPrintLine("- \"Atyám, elhatároztam, hog elmegyek világot látni. Tudom, hogy a világ tele van veszélyekkel, ezért szeretnék áldást kéreni!\"");
+                    SlowPrintLine("- \"Atyám, elhatároztam, hogy elmegyek világot látni. Tudom, hogy a világ tele van veszélyekkel, ezért szeretnék áldást kéreni!\"");
                     SlowPrintLine("- \"Fiam, csak Isten tud áldást adni én nem, de ezt az üvegcsét fogadd el. Ha megsebesülsz önts belőle kicsit a sebre majd a maradékot idd meg és jobban leszel.\"");
                     player.HealPotions += 1;
                     PrintPlayerStat();
@@ -521,7 +521,7 @@ namespace Game
             if (currentLocation.FirstTime)
             {
                 SlowPrintLine("Palkó, elgondolkodott rajta, hogy lehet mégsem kéne csak úgy nekiindulni megfelelő felszerelés nélkül.");
-                SlowPrintLine("Elmehet a bányába értékek után kutatni vagy a helyi gazdához dolgozni némi pénzért dolgozni, hogy a kovácstól vegyvert vásároljon.");
+                SlowPrintLine("Elmehet a bányába értékek után kutatni vagy a helyi gazdához dolgozni némi pénzért dolgozni, hogy a kovácstól fegyvert vásároljon.");
             }
 
 
@@ -574,7 +574,7 @@ namespace Game
                         SlowPrintLine("- \"Azért én vigyáznék ekkora szájjal!\" - mondta a banditák főnöke majd kard-ot rántott Palkóra");
                         SlowPrintLine("Palkó ügyesen kilépett a bandita elől aki a földre esett, majd lassan fölkelt és kezdetét vette a harc.");
                         bool w;
-                        FightSystem banditák = new FightSystem(player, new Enemy(50, 5,speed: 1500, name: "Banditák vezetője"), out w);
+                        FightSystem banditákFight = new FightSystem(player, bandita, out w);
                         if (w)
                         {
                             SlowPrintLine("Szerencsére csak a szájuk volt nagy. Amint Palkó elintézte a főnököt elmenekült a többi.");
@@ -643,7 +643,7 @@ namespace Game
             SlowPrintLine("Hókuszpók pálcáját átváltoztatta karddá.");
             SlowPrintLine("Palkó kapott is az alkalmon és rá is rontott ellenfelére.");
             bool w;
-            FightSystem hókuszpók = new FightSystem(player, new Enemy(70, 10, speed: 3000, name: "Hókuszpók"), out w);
+            FightSystem hókuszpókFight = new FightSystem(player, hokuszpok, out w);
             if (w)
             {
                 SlowPrintLine("Palkó egy végső csapással földre küldte Hókuszpókot.");
@@ -694,7 +694,7 @@ namespace Game
                     SlowPrintLine("Szerencsére pont olyat dobott el amely néhány percre elveszi a boszorkány varázserejét.");
                     SlowPrintLine("Palkó a helyzetet kihasználva lesújtott a boszorkányra.");
                     bool w;
-                    FightSystem boszorkány = new FightSystem(player, new Enemy(150, 10, speed: 4000, name: "Boszorkány"), out w);
+                    FightSystem boszorkány = new FightSystem(player, boszi, out w);
                     if (w)
                     {
                         SlowPrintLine("A boszorkányt igaz nehéz volt megölni, de ereje nélkül igazából nem volt erős.");
@@ -749,7 +749,7 @@ namespace Game
                         SlowPrintLine("Az óriás elővette bunkóját és lesújtott Palkóra.");
                         SlowPrintLine("Palkó kikerülte, majd elkezdett az óriás felé futni");
                         bool w;
-                        FightSystem óriás = new FightSystem(player, new Enemy(10, 25, speed: 5000, name: "Óriás"), out w);
+                        FightSystem óriásFight = new FightSystem(player, orias, out w);
                         if (w)
                         {
                             SlowPrintLine("Palkó nagy nehézségek árán legyőzte az óriást és kiszabadította a tündért.");
@@ -779,7 +779,7 @@ namespace Game
                 SlowPrintLine("Palkó alig, hogy belépett a Kutyafejű tatárok országába szembe találta magát egy csapat tatárral.");
                 SlowPrintLine("- \"Betolakodó, elkapni!\" - mondta az egyikük.");
                 SlowPrintLine("Palkó megpróbált elfutni de a tatárok lovai gyorsak voltak és elkapták.");
-                SlowPrintLine("- \"Na ide figyelj öcsi, ha jót akarsz magadnek velünk jössz a törzsfőnökhöz és nem próbálsz meg elszökni!\"");
+                SlowPrintLine("- \"Na ide figyelj öcsi, ha jót akarsz magadnak velünk jössz a törzsfőnökhöz és nem próbálsz meg elszökni!\"");
                 SlowPrintLine("Palkó választás híján el ment velük.");
                 return Tovabb(helyek[16]);
             }
@@ -799,7 +799,7 @@ namespace Game
                 SlowPrintLine("- \"Nos fiam, mi cél hozott ide az országomba?\"");
                 SlowPrintLine("- \"Én csak átutazóban vagyok, nem akarok semmi rosszat.\"");
                 SlowPrintLine("- \"Ha valóban nem akarsz rosszat akkor azt csak egy féle képpen deríthetjük ki. Menj el az erdőbe és vadássz le egy csodaszarvast. A csodaszarvasok csak a tiszta lelkűek előtt tűnnek fel.\"");
-                int choice = Valasztas(ref currentLocation, "Válalod", "Nem válalod");
+                int choice = Valasztas(ref currentLocation, "Vállalod", "Nem vállalod");
                 switch (choice)
                 {
                     case 0:
@@ -818,7 +818,7 @@ namespace Game
                         SlowPrintLine("- \"1\"");
                         SlowPrintLine("- \"START!!\"");
                         bool w;
-                        FightSystem törzsfőnök = new FightSystem(player, new Enemy(10, 15, speed: 1000, name: "Törzsfőnök"), out w);
+                        FightSystem törzsfőnökFight = new FightSystem(player, tFonok, out w);
                         if (w)
                         {
                             SlowPrintLine("Palkó nagy nehezen legyőzte a törzsfőnököt.");

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Game
 {
@@ -14,10 +15,13 @@ namespace Game
         public static Enemy kozepsofej = new Enemy(200, 50, name: "Középső fej");
         public static Enemy jobbfej = new Enemy(200, 50, name: "Jobb fej");
         public static Enemy hetszunyuKapanyanyiMonyok = new Enemy(100, 30, name: "Hétszűnyü Kapanyányi Monyók");
-        public static Enemy asd = new Enemy(0, 0, name: "asd");
-        //public static Enemy asd = new Enemy(0, 0, name: "asd");
-        //public static Enemy asd = new Enemy(0, 0, name: "asd");
-        //public static Enemy asd = new Enemy(0, 0, name: "asd");
+        public static Enemy kutya = new Enemy(20, 1, name: "Kutya");
+        public static Enemy bandita = new Enemy(50, 5, speed: 1500, name: "Banditák vezetője");
+        public static Enemy hokuszpok = new Enemy(70, 10, speed: 3000, name: "Hókuszpók");
+        public static Enemy boszi = new Enemy(150, 10, speed: 4000, name: "Boszorkány");
+        public static Enemy orias = new Enemy(10, 25, speed: 5000, name: "Óriás");
+        public static Enemy tFonok = new Enemy(10, 15, speed: 1000, name: "Törzsfőnök");
+
         #endregion
 
         public static Shop smith = new Shop(
