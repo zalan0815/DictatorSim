@@ -10,37 +10,38 @@ namespace Game
     partial class Program
     {
         #region Enemys
-        public static Enemy csoves = new Enemy(30, 5, name: "csöves");
-        public static Enemy balfej = new Enemy(200, 50, name: "Bal fej");
-        public static Enemy kozepsofej = new Enemy(200, 50, name: "Középső fej");
-        public static Enemy jobbfej = new Enemy(200, 50, name: "Jobb fej");
-        public static Enemy hetszunyuKapanyanyiMonyok = new Enemy(100, 30, name: "Hétszűnyü Kapanyányi Monyók");
         public static Enemy kutya = new Enemy(20, 1, name: "Kutya");
         public static Enemy bandita = new Enemy(50, 5, speed: 1500, name: "Banditák vezetője");
-        public static Enemy hokuszpok = new Enemy(70, 10, speed: 3000, name: "Hókuszpók");
-        public static Enemy boszi = new Enemy(150, 10, speed: 4000, name: "Boszorkány");
-        public static Enemy orias = new Enemy(10, 25, speed: 5000, name: "Óriás");
-        public static Enemy tFonok = new Enemy(10, 15, speed: 1000, name: "Törzsfőnök");
-
+        public static Enemy hokuszpok = new Enemy(70, 10, speed: 2500, name: "Hókuszpók");
+        public static Enemy boszi = new Enemy(150, 10, speed: 3500, name: "Boszorkány");
+        public static Enemy orias = new Enemy(200, 25, speed: 4000, name: "Óriás");
+        public static Enemy tFonok = new Enemy(100, 15, speed: 1000, name: "Törzsfőnök");
+        public static Enemy hetszunyuKapanyanyiMonyok = new Enemy(100, 20, speed: 1500, name: "Hétszűnyü Kapanyányi Monyók");
+        public static Enemy csoves = new Enemy(50, 10, speed: 2000, name: "csöves");
+        public static Enemy balfej = new Enemy(200, 50, speed: 3000, name: "Bal fej");
+        public static Enemy kozepsofej = new Enemy(200, 50, speed: 3000, name: "Középső fej");
+        public static Enemy jobbfej = new Enemy(200, 50, speed: 3000, name: "Jobb fej");
         #endregion
 
         public static Shop smith = new Shop(
-            new Sword("Sima kard",          2,  20, StatType.SliderSpeed),
-            new Sword("Hosszú kard",        25, 35, StatType.Damage),
-            new Armor("Sima páncél",        20, 25, StatType.Health),
-            new Armor("Lovagi páncél",      40, 40, StatType.Health)
+            new Sword("Sima kard",          15, 25, StatType.Damage),
+            new Sword("Hosszú kard",        18, 40, StatType.Damage),
+            new Armor("Sima páncél",        20, 30, StatType.Health),
+            new Armor("Lovagi páncél",      40, 45, StatType.Health)
             );
         public static Shop trader = new Shop(
-            new Sword("Varázskard",         55, 129, StatType.Damage),
-            new Sword("Lézerkard",          5,  179, StatType.SliderSpeed),
-            new Armor("Varázspáncél",       100,169, StatType.Health),
-            new OtherItem("Sima sisak",     40, 200, StatType.Health)
+            new Sword("Varázskard",         25, 70, StatType.Damage),
+            new Sword("Lézerkard",          35, 90, StatType.Damage),
+            new Armor("Varázspáncél",       60, 85, StatType.Health),
+            new OtherItem("Sima sisak",     40, 60, StatType.Health)
             );
 
-        public static bool fairy = true;
+        public static bool fairy = false;
         public static Random rnd = new Random();
         public static int wichHouse = rnd.Next(1, 4);
         public static int where = rnd.Next(1, 3);
+
+        public static bool aldas = false;
 
         public static bool helping = false;
         public static bool found = false;
