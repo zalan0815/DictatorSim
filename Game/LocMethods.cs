@@ -390,13 +390,11 @@ namespace Game
         public static int hely_29(ref LocationData currentLocation)
         {
             SlowPrintLine("Miután Palkó felérkezett az Égigérő paszuly tetejére végre megérkezett végső céljához, a SÁRKÁNYFÉSZEKHEZ.");
-            SlowPrintLine("A sárkányfészekben ült a 3 FEJŰ SÁRKÁNY.");
+            SlowPrintLine("A sárkányfészekben ült a 3 FEJŰ SÁRKÁNY.");// itt jártam
             SlowPrintLine("- \"Már vártalak téged, Ifjú lovag\" - Dörmögte a 3 fejű sárkány.");
             SlowPrintLine("A sárkány legyőzéséhez Palkónak mind a 3 fejet le kell győznie!");
 
-            bool w0 = false;
-            bool w1 = false;
-            bool w2 = false;
+            bool w0 = true;
             bool w3 = false;
             bool w4 = false;
             bool w5 = false;
@@ -411,22 +409,22 @@ namespace Game
                         w3 = true;
                         break;
                     case 1:
-                        FightSystem kozepsofejFight = new FightSystem(player, kozepsofej, out w1);
+                        FightSystem kozepsofejFight = new FightSystem(player, kozepsofej, out w0);
                         w4 = true;
                         break;
                     case 2:
-                        FightSystem jobbfejFight = new FightSystem(player, jobbfej, out w2);
+                        FightSystem jobbfejFight = new FightSystem(player, jobbfej, out w0);
                         w5 = true;
                         break;
                 }
-                if ((w3 && !w0) || (w4 && !w1) || (w5 && !w3))
+                if (!w0)
                 {
-                    SlowPrintLine("A sárkány torkából hirtelen oly mennyiségű tűz tört elő, hogy Palkó hamuvá égett.");
+                    SlowPrintLine("a sárkány torkából hirtelen oly mennyiségű tűz tört elő, hogy palkó hamuvá égett.");
                     return 0;
                 }
 
             }
-            while (!(w0 && w1 && w2));
+            while (!(w3 && w4 && w5));
             SlowPrintLine("A sárkány utolsó fejét is levágta Palkó.\nA mostmár 3 nyakú, de 0 fejű sárkány kiterült.\nPalkó győzött! Legyőzte a Sárkányt! Már csak vissza kell mennie a Kacsalábon forgó palotába, hogy megkapja jól kiérdemelt jutalmát.");
             drake = true;
             return Tovabb(helyek[28]);
@@ -679,7 +677,7 @@ namespace Game
                     SlowPrintLine("Palkó ezzel elhagyta a falut és folytatta útját");
                     break;
             }
-            return Tovabb(helyek[10]);
+            return Tovabb(helyek[6]);
         }
         public static int hely_12(ref LocationData currentLocation)
         {

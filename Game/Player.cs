@@ -112,6 +112,13 @@ namespace Game
                     stat += item.Stat;
                 }
             }
+            foreach (Item item in this.Inventory)
+            {
+                if (item.Type == type)
+                {
+                    stat += item.Stat;
+                }
+            }
             return stat;
         }
 
@@ -121,6 +128,10 @@ namespace Game
             Console.ForegroundColor = ConsoleColor.Yellow;
             SlowPrintSystem.SlowPrintLine($"Új tárgyat kaptál: {item.Name}!");
             Console.ForegroundColor = ConsoleColor.White;
+            if(item.Type == StatType.Health)
+            {
+                addHealthByItem(item);
+            }
         }
 
         public void Heal()

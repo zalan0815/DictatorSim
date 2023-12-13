@@ -57,7 +57,7 @@ namespace Game
 
         public void printShop(ref Player player, string txt1, string txt2)
         {
-            Console.Clear();
+            Console.Clear(); //goto
             Console.ForegroundColor = ConsoleColor.White;
             Console.BackgroundColor = ConsoleColor.Black;
 
