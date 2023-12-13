@@ -16,7 +16,7 @@ namespace Game
         private int defaultStrength;
         private int defaultSliderSpeed;
 
-        private Sword sword = new Sword("Kés",10);
+        private Sword sword = new Sword("Kéz",1);
         private Armor armor = new Armor("Szakadt ruha",10);
 
         private int healPotions;
@@ -37,7 +37,7 @@ namespace Game
             set
             {
                 sword = value;
-                addHealthByItem(value);
+                NewItem(value);
             }
         }
         public Armor Armor
@@ -46,7 +46,7 @@ namespace Game
             set
             {
                 armor = value;
-                addHealthByItem(value);
+                NewItem(value);
             }
         }
 
@@ -112,15 +112,30 @@ namespace Game
                     stat += item.Stat;
                 }
             }
+            foreach (Item item in this.Inventory)
+            {
+                if (item.Type == type)
+                {
+                    stat += item.Stat;
+                }
+            }
             return stat;
         }
 
-        public void NewItem(OtherItem item)
+        public void NewItem(Item item)
         {
-            inventory.Add(item);
+            if (item.GetType() == typeof(OtherItem))
+            {
+                inventory.Add(item as OtherItem);
+            }
+            
             Console.ForegroundColor = ConsoleColor.Yellow;
             SlowPrintSystem.SlowPrintLine($"Új tárgyat kaptál: {item.Name}!");
             Console.ForegroundColor = ConsoleColor.White;
+            if(item.Type == StatType.Health)
+            {
+                addHealthByItem(item);
+            }
         }
 
         public void Heal()

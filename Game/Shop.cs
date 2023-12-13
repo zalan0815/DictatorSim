@@ -49,7 +49,7 @@ namespace Game
             }
             else
             {
-                player.Inventory.Add(item as OtherItem);
+                player.NewItem(item);
             }
             player.Money -= item.Price;
             item.Sold = true;
@@ -57,12 +57,12 @@ namespace Game
 
         public void printShop(ref Player player, string txt1, string txt2)
         {
-            Console.Clear();
+            Console.Clear(); //goto
             Console.ForegroundColor = ConsoleColor.White;
             Console.BackgroundColor = ConsoleColor.Black;
 
-            SlowPrint($"{txt1}\n");
-            SlowPrint($"{txt2}\n");
+            Console.Write($"{txt1}\n");
+            Console.Write($"{txt2}\n");
 
             for (int i = 0; i < items.Count; i++)
             {
