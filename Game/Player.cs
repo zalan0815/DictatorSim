@@ -16,7 +16,7 @@ namespace Game
         private int defaultStrength;
         private int defaultSliderSpeed;
 
-        private Sword sword = new Sword("Kés",10);
+        private Sword sword = new Sword("Kéz",1);
         private Armor armor = new Armor("Szakadt ruha",10);
 
         private int healPotions;

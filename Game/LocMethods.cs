@@ -462,9 +462,10 @@ namespace Game
                 {
                     case 0:
                         SlowPrintLine("Palkó kinyitja a ládát.");
-                        SlowPrintLine("Megtalálta régi gyakorló kardját fiatal korából.");
+                        SlowPrintLine("Megtalálta régi gyakorló kardját fiatal korából, és egy kis maradék pénzt.");
                         SlowPrintLine("Ha a pengéje nem is annyira éles még hasznát fogja venni.");
-                        Sword sword = new Sword("Fakard", 2, 0, StatType.Damage);
+                        player.Money += 5;
+                        player.Sword = new Sword("Fakard", 10, 0, StatType.Damage);
                         PrintPlayerStat();
                         break;
                     case 1:
@@ -544,12 +545,16 @@ namespace Game
                         SlowPrintLine("- \"Elmegyek megetetni az állatokat!\"");
                         SlowPrintLine("- \"Rendben, én addig megyek kapálni, ha végeztél megkapod fizetésed.\"");
                         SlowPrintLine("Palkó becsületesen megetetett minden egyes állatot majd elkérte pénzét és indult is vissza a faluba.");
+                        player.Money += 5;
+                        PrintPlayerStat();
                         return Tovabb(helyek[2]);
                     case 1:
                         SlowPrintLine("- \"Megkapálom a földeket.\"");
                         SlowPrintLine("- \"Rendben, én addig az állatokat etetem, ha végeztél megkapod fizetésed.\"");
                         SlowPrintLine("A kapálás lefárasztotta Palkót, de cserébe jó testmozgás is, így erősebb lett.");
                         player.Health -= 5;
+                        player.Money += 10;
+                        PrintPlayerStat();
                         SlowPrintLine("Elkérte pénzét és indult is vissza a faluba.");
                         return Tovabb(helyek[2]);
                 }
