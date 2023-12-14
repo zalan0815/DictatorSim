@@ -10,7 +10,7 @@ namespace Game
     partial class Program
     {
         #region Enemys
-        public static Enemy kutya = new Enemy(20, 1, name: "Kutya");
+        public static Enemy kutya = new Enemy(20, 1, speed: 30000, name: "Kutya");
         public static Enemy bandita = new Enemy(50, 5, speed: 1500, name: "Banditák vezetője");
         public static Enemy hokuszpok = new Enemy(70, 10, speed: 2500, name: "Hókuszpók");
         public static Enemy boszi = new Enemy(150, 10, speed: 3500, name: "Boszorkány");
@@ -66,6 +66,83 @@ namespace Game
             "korona", "trón", "címertábla", "láthatatlan toll", "szent grál", "lovagi turné", "gyóntatószék", "bíró", "királyi pecsét", "kódex",
             "írástudó", "prédikátor", "apát", "térkép", "iránytű", "bot", "szekérkép", "kátrány", "tej", "sajt",
             "baromfi", "gyümölcs", "zöldség", "borjú", "juh", "birka", "kecske", "macska", "kutya", "madár"
+        };
+
+        public static string[] sorok =
+        {
+            "A JÁTÉKOT KITALÁLTA:",
+            "Bende Huba",
+            "Kovács Péter",
+            "Tófalvi Zalán",
+            "",
+            "A JÁTÉKOT KÉSZÍTETTE:",
+            "Bende Huba",
+            "Kovács Péter",
+            "Tófalvi Zalán",
+            "",
+            "A JÁTÉKOT TESZTELTE:",
+            "Bende Huba",
+            "Kovács Péter",
+            "Tófalvi Zalán",
+            "Süke Benedek",
+            "",
+            "A KÉSZÍTÉST TERRORIZÁLTA:",
+            "Csöngető Csongor",
+            "Roncz Olivér",
+            "Süke Benedek",
+            "Pintér Bálint",
+            "Reinhardt Benjámin",
+            "",
+            "KÜLÖN KÖSZÖNET:",
+            "Bognár Pál tanárúrnak a felkészítésért",
+            "Sándor László tanárúrnak, hogy dolgozhattunk az óráján",
+            "Süke Bendeknek a középre igazításért",
+            "Az internetnek a segítségért",
+            "",
+            "",
+            "Köszönjük szépen, hogy játszottál a játékunkkal!"
+        };
+
+        public static string[] palko =
+        {
+           "PPPPPPPPPPPPPPPPP                   lllllll kkkkkkkk                   oooo   ",
+           "P::::::::::::::::P                  l:::::l k::::::k                  o::o    ",
+           "P::::::PPPPPP:::::P                 l:::::l k::::::k                 o::o     ",
+           "PP:::::P     P:::::P                l:::::l k::::::k                oooo      ",
+           "  P::::P     P:::::Paaaaaaaaaaaaa    l::::l  k:::::k    kkkkkkk ooooooooooo   ",
+           "  P::::P     P:::::Pa::::::::::::a   l::::l  k:::::k   k:::::koo:::::::::::oo ",
+           "  P::::PPPPPP:::::P aaaaaaaaa:::::a  l::::l  k:::::k  k:::::ko:::::::::::::::o",
+           "  P:::::::::::::PP           a::::a  l::::l  k:::::k k:::::k o:::::ooooo:::::o",
+           "  P::::PPPPPPPPP      aaaaaaa:::::a  l::::l  k::::::k:::::k  o::::o     o::::o",
+           "  P::::P            aa::::::::::::a  l::::l  k:::::::::::k   o::::o     o::::o",
+           "  P::::P           a::::aaaa::::::a  l::::l  k:::::::::::k   o::::o     o::::o",
+           "  P::::P          a::::a    a:::::a  l::::l  k::::::k:::::k  o::::o     o::::o",
+           "PP::::::PP        a::::a    a:::::a l::::::lk::::::k k:::::k o:::::ooooo:::::o",
+           "P::::::::P        a:::::aaaa::::::a l::::::lk::::::k  k:::::ko:::::::::::::::o",
+           "P::::::::P         a::::::::::aa:::al::::::lk::::::k   k:::::koo:::::::::::oo ",
+           "PPPPPPPPPP          aaaaaaaaaa  aaaallllllllkkkkkkkk    kkkkkkk ooooooooooo   ",
+        };
+        public static string[] vege =
+        {
+            "                                     EEEE                                                  ",
+            "                                    E::E                                                   ",
+            "                                   EEEE                                                    ",
+            "VVVVVVVV           VVVVVVVVEEEEEEEEEEEEEEEEEEEEEE       GGGGGGGGGGGGGEEEEEEEEEEEEEEEEEEEEEE",
+            "V::::::V           V::::::VE::::::::::::::::::::E    GGG::::::::::::GE::::::::::::::::::::E",
+            "V::::::V           V::::::VE::::::::::::::::::::E  GG:::::::::::::::GE::::::::::::::::::::E",
+            "V::::::V           V::::::VEE::::::EEEEEEEEE::::E G:::::GGGGGGGG::::GEE::::::EEEEEEEEE::::E",
+            " V:::::V           V:::::V   E:::::E       EEEEEEG:::::G       GGGGGG  E:::::E       EEEEEE",
+            "  V:::::V         V:::::V    E:::::E            G:::::G                E:::::E             ",
+            "   V:::::V       V:::::V     E::::::EEEEEEEEEE  G:::::G                E::::::EEEEEEEEEE   ",
+            "    V:::::V     V:::::V      E:::::::::::::::E  G:::::G    GGGGGGGGGG  E:::::::::::::::E   ",
+            "     V:::::V   V:::::V       E:::::::::::::::E  G:::::G    G::::::::G  E:::::::::::::::E   ",
+            "      V:::::V V:::::V        E::::::EEEEEEEEEE  G:::::G    GGGGG::::G  E::::::EEEEEEEEEE   ",
+            "       V:::::V:::::V         E:::::E            G:::::G        G::::G  E:::::E             ",
+            "        V:::::::::V          E:::::E       EEEEEEG:::::G       G::::G  E:::::E       EEEEEE",
+            "         V:::::::V         EE::::::EEEEEEEE:::::E G:::::GGGGGGGG::::GEE::::::EEEEEEEE:::::E",
+            "          V:::::V          E::::::::::::::::::::E  GG:::::::::::::::GE::::::::::::::::::::E",
+            "           V:::V           E::::::::::::::::::::E    GGG::::::GGG:::GE::::::::::::::::::::E",
+            "            VVV            EEEEEEEEEEEEEEEEEEEEEE       GGGGGG   GGGGEEEEEEEEEEEEEEEEEEEEEE"
         };
     }
 }

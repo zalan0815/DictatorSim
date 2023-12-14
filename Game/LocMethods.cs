@@ -7,14 +7,19 @@ namespace Game
     partial class Locations
     {
         #region Zalan
-        public static int hely_0(ref LocationData currentLocation) 
+        public static int hely_0(ref LocationData currentLocation)
         {
+            Console.Clear();
             Console.ForegroundColor = ConsoleColor.Red;
             SlowPrintLine("Palkó sajnos túl nagy fába vágta fejszéjét és MEGHALT.\n");
-            Console.WriteLine("                                      EEEE                                                     \r\n                                     E::E         \r\n                                    E::E\r\n                                   EEEE                                              \r\nVVVVVVVV           VVVVVVVVEEEEEEEEEEEEEEEEEEEEEE       GGGGGGGGGGGGGEEEEEEEEEEEEEEEEEEEEEE\r\nV::::::V           V::::::VE::::::::::::::::::::E    GGG::::::::::::GE::::::::::::::::::::E\r\nV::::::V           V::::::VE::::::::::::::::::::E  GG:::::::::::::::GE::::::::::::::::::::E\r\nV::::::V           V::::::VEE::::::EEEEEEEEE::::E G:::::GGGGGGGG::::GEE::::::EEEEEEEEE::::E\r\n V:::::V           V:::::V   E:::::E       EEEEEEG:::::G       GGGGGG  E:::::E       EEEEEE\r\n  V:::::V         V:::::V    E:::::E            G:::::G                E:::::E             \r\n   V:::::V       V:::::V     E::::::EEEEEEEEEE  G:::::G                E::::::EEEEEEEEEE   \r\n    V:::::V     V:::::V      E:::::::::::::::E  G:::::G    GGGGGGGGGG  E:::::::::::::::E   \r\n     V:::::V   V:::::V       E:::::::::::::::E  G:::::G    G::::::::G  E:::::::::::::::E   \r\n      V:::::V V:::::V        E::::::EEEEEEEEEE  G:::::G    GGGGG::::G  E::::::EEEEEEEEEE   \r\n       V:::::V:::::V         E:::::E            G:::::G        G::::G  E:::::E             \r\n        V:::::::::V          E:::::E       EEEEEEG:::::G       G::::G  E:::::E       EEEEEE\r\n         V:::::::V         EE::::::EEEEEEEE:::::E G:::::GGGGGGGG::::GEE::::::EEEEEEEE:::::E\r\n          V:::::V          E::::::::::::::::::::E  GG:::::::::::::::GE::::::::::::::::::::E\r\n           V:::V           E::::::::::::::::::::E    GGG::::::GGG:::GE::::::::::::::::::::E\r\n            VVV            EEEEEEEEEEEEEEEEEEEEEE       GGGGGG   GGGGEEEEEEEEEEEEEEEEEEEEEE");
+            for (int i = 0; i < vege.Length; i++)
+            {
+                Console.WriteLine(new string(' ', (Console.WindowWidth - vege[i].Length) / 2) + vege[i]);
+            }
             Console.ForegroundColor = ConsoleColor.White;
+            Console.ReadKey(true);
 
-            return -1; 
+            return Credits.CreditScreen(500); 
         }
         public static int hely_3(ref LocationData currentLocation)
         {
@@ -44,7 +49,7 @@ namespace Game
                         if (mining2.Mining('l', '1'))
                         {
                             player.Money += 15;
-                            SlowPrintLine("\nA talált gyémántok eladásával Palkó 100 krajcárra tett szert.");
+                            SlowPrintLine("\nA talált gyémántok eladásával Palkó 20 krajcárra tett szert.");
 
                         }
                         break;
@@ -53,7 +58,7 @@ namespace Game
                         if (mining3.Mining('a', 'e'))
                         {
                             player.Money += 25;
-                            SlowPrintLine("\nA talált gyémántok eladásával Palkó 1000 krajcárra tett szert.");
+                            SlowPrintLine("\nA talált gyémántok eladásával Palkó 30 krajcárra tett szert.");
 
                         }
                         break;
@@ -115,7 +120,7 @@ namespace Game
             
             if (w)
             {
-                SlowPrintLine("A Hétszűnyű kapanyányi monyók szurokká változott a végzetes vágás után, amit Palkó ejtett rajta és elfolyt a har helyszínéről.");
+                SlowPrintLine("A Hétszűnyű kapanyányi monyók szurokká változott a végzetes vágás után, amit Palkó ejtett rajta és elfolyt a harc helyszínéről.");
                 return Tovabb(helyek[25]);
             }
 
@@ -421,17 +426,17 @@ namespace Game
                 switch (choice)
                 {
                     case 0:
-                        FightSystem balfejFight = new FightSystem(player, balfej, out w0);
+                        FightSystem balfejFight = new FightSystem(player, balfej, out w0, true);
                         w3 = true;
                         PrintPlayerStat();
                         break;
                     case 1:
-                        FightSystem kozepsofejFight = new FightSystem(player, kozepsofej, out w0);
+                        FightSystem kozepsofejFight = new FightSystem(player, kozepsofej, out w0, true);
                         w4 = true;
                         PrintPlayerStat();
                         break;
                     case 2:
-                        FightSystem jobbfejFight = new FightSystem(player, jobbfej, out w0);
+                        FightSystem jobbfejFight = new FightSystem(player, jobbfej, out w0, true);
                         w5 = true;
                         PrintPlayerStat();
                         break;
@@ -452,11 +457,15 @@ namespace Game
         {
             if (!won)
             {
+                Console.Clear();
                 SlowPrintLine("Elérkeztünk hát mesés történetünk végéhez. Palkó a Kacsalábon forgó kacsalábon forgó palotájában boldogan élt a királylánnyal és családjával míg meg nem halt.");
                 won = true;
             }
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("                                      EEEE                                                     \r\n                                     E::E         \r\n                                    E::E\r\n                                   EEEE                                              \r\nVVVVVVVV           VVVVVVVVEEEEEEEEEEEEEEEEEEEEEE       GGGGGGGGGGGGGEEEEEEEEEEEEEEEEEEEEEE\r\nV::::::V           V::::::VE::::::::::::::::::::E    GGG::::::::::::GE::::::::::::::::::::E\r\nV::::::V           V::::::VE::::::::::::::::::::E  GG:::::::::::::::GE::::::::::::::::::::E\r\nV::::::V           V::::::VEE::::::EEEEEEEEE::::E G:::::GGGGGGGG::::GEE::::::EEEEEEEEE::::E\r\n V:::::V           V:::::V   E:::::E       EEEEEEG:::::G       GGGGGG  E:::::E       EEEEEE\r\n  V:::::V         V:::::V    E:::::E            G:::::G                E:::::E             \r\n   V:::::V       V:::::V     E::::::EEEEEEEEEE  G:::::G                E::::::EEEEEEEEEE   \r\n    V:::::V     V:::::V      E:::::::::::::::E  G:::::G    GGGGGGGGGG  E:::::::::::::::E   \r\n     V:::::V   V:::::V       E:::::::::::::::E  G:::::G    G::::::::G  E:::::::::::::::E   \r\n      V:::::V V:::::V        E::::::EEEEEEEEEE  G:::::G    GGGGG::::G  E::::::EEEEEEEEEE   \r\n       V:::::V:::::V         E:::::E            G:::::G        G::::G  E:::::E             \r\n        V:::::::::V          E:::::E       EEEEEEG:::::G       G::::G  E:::::E       EEEEEE\r\n         V:::::::V         EE::::::EEEEEEEE:::::E G:::::GGGGGGGG::::GEE::::::EEEEEEEE:::::E\r\n          V:::::V          E::::::::::::::::::::E  GG:::::::::::::::GE::::::::::::::::::::E\r\n           V:::V           E::::::::::::::::::::E    GGG::::::GGG:::GE::::::::::::::::::::E\r\n            VVV            EEEEEEEEEEEEEEEEEEEEEE       GGGGGG   GGGGEEEEEEEEEEEEEEEEEEEEEE");
+            for (int i = 0; i < vege.Length; i++)
+            {
+                Console.WriteLine(new string(' ', (Console.WindowWidth - vege[i].Length) / 2) + vege[i]);
+            }
             Console.ForegroundColor = ConsoleColor.White;
             SlowPrintLine("Szeretnél-e vissza menni a kocsmába még szórakozni?");
             int choice = Valasztas(ref currentLocation, "igen", "nem");
@@ -466,7 +475,7 @@ namespace Game
                 case 0:
                     return 26;
                 case 1:
-                    return Credits.CreditScreen(50);
+                    return Credits.CreditScreen(500);
             }
             return 0;
         }   
@@ -516,6 +525,12 @@ namespace Game
                 case 0:
                     SlowPrintLine("Palko szerette volna mi hamarabb elhagyni a falut, ám egy veszett kutya útját állta");
                     SlowPrintLine("Megpróbálta kikerülni de hirtelen rátámadt.");
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    SlowPrintLine("TUTORIAL:");
+                    SlowPrintLine("Csata során amikor:");
+                    SlowPrintLine("- Te támadsz: egy csúszka fog megjelenni, bármely billentyű lenyomásával lehet megállítani. A sebzésed mértékét ez dönti el. Utánna egy billentyű megnyomásával lehet tovább menni!");
+                    SlowPrintLine("- Az ellenfél támad: betűk jelennek meg a képernyőn amiket egy meghatározott idő alatt meg kell nyomni(sorrend nem számít). Félreütés vagy lassú reakció esetnén az elrontott betűk száma határozza meg az ellenfél sebzését.");
+                    Console.ForegroundColor = ConsoleColor.White;
                     bool w;
                     FightSystem kutyaFight = new FightSystem(player, kutya, out w);
                     PrintPlayerStat();
@@ -875,9 +890,9 @@ namespace Game
         public static int hely_17(ref LocationData currentLocation)
         {
             SlowPrintLine("Palkó az erdőbe érve néhány óra séta megpillantott egy barnán csillogó valamit.");
-            SlowPrintLine("Amikor közelébe ért elugrott máshova, cak ahangját hallotta.");
+            SlowPrintLine("Amikor közelébe ért elugrott máshova, csak ahangját hallotta.");
             SlowPrintLine("Rögtön tudta, hogy ez a szarvas lesz, ezért elkezdet követni a hangot.");
-            SlowPrintLine("Kicsivel később egy tisztásra ért ahol rálátott a szrvasra, ám néha mozgolódott.");
+            SlowPrintLine("Kicsivel később egy tisztásra ért ahol rálátott a szarvasra, ám néha mozgolódott.");
             SlowPrintLine("Nem tudott mást tenni mint, hogy türelmesen vár a megfelelő pillanatra.");
 
             new DeerGame().Run();
