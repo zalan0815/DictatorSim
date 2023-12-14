@@ -466,7 +466,7 @@ namespace Game
                 case 0:
                     return 26;
                 case 1:
-                    return Credits.CreditScreen();
+                    return Credits.CreditScreen(50);
             }
             return 0;
         }   

@@ -13,6 +13,11 @@ namespace Game
 
         static string[] sorok =
         {
+            "A JÁTÉKOT KITALÁLTA:",
+            "Bende Huba",
+            "Kovács Péter",
+            "Tófalvi Zalán",
+            "",
             "A JÁTÉKOT KÉSZÍTETTE:",
             "Bende Huba",
             "Kovács Péter",
@@ -34,10 +39,13 @@ namespace Game
             "KÜLÖN KÖSZÖNET:",
             "Az internetnek a segítségért",
             "Bognár Pál tanár úrnak a felkészítésért",
-            "Süke Bendeknek a középre igazításért"
+            "Süke Bendeknek a középre igazításért",
+            "",
+            "",
+            "Köszönjük szépen, hogy játszottál a játékunkkal!"
         };
 
-        public static int CreditScreen(int speed = 150)
+        public static int CreditScreen(int speed)
         {
             Console.Clear();
             Console.CursorTop = h;
@@ -49,7 +57,7 @@ namespace Game
                 Console.WriteLine(new string(' ', (Console.WindowWidth - sorok[i].Length) / 2) + sorok[i]);
                 Thread.Sleep(speed);
             }
-            for (int i = 0; i < sorok.Length + 10; i++)
+            for (int i = 0; i < sorok.Length - 7; i++)
             {
                 Console.WriteLine();
                 Thread.Sleep(speed);
