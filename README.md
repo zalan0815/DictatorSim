@@ -10,15 +10,15 @@ Egy népmesébe illő paraszt gyerekként próbálhatunk szerencsét egy mítiku
 6. Kerekerdő:                   Banditák jönnek (küzdesz, fizetsz pénzzel)
 7. Tisztás:                     Beszélgetés Istennel || gyönyörködés a tájban
 8. Bokor:                       Törp küldetése: elfogad -> bájital és pénz, nem fogad el 
-9. Hókuszpók háza:              Sziamiau őrzi az ajtót (harc), Hókuszpók bent (harc)
+9. Hókuszpók háza:              Sziamiau őrzi az ajtót, Hókuszpók bent (harc)
 10. Gombafalu:                  Jutalom (ha elfogadva), mulatás (életerőtöltés)
 11. Égig érő paszuly:           KELL: kötél, ha van: felmászhatsz, ha nincs: szomorú vagy
 12. Boszorkányház:              Boszorkány (küzdesz, fizetsz bájitallal) 
 13. Hegység:                    Sátrat versz (alszol, gyógyulsz)
 14. Óriások barlangja:          Óriás (küzdesz, fizetsz -> nem lehet) -> Tündér segít (ha igen: beenged Tündérországba, ha nem: nem)
-15. Kutyafejű tatárok országa:  1. Elvisznek a városba 2. Meglátjuk a csodaszarvast(befut az erdőbe)
-16. Kutyafejű tatárok városa:   Börtön (választás: csodaszarvas (varázserővel) elejtése, hogy elengedjenek || halál)
-17. Kutyafejű tatárok erdeje:   Egy bokor mögött kereshetjük a szarvast || egy fa mögött kereshetjük a szarvast -> megtaláljuk le tudjuk vadászni
+15. Kutyafejű tatárok országa:  Elvisznek a városba
+16. Kutyafejű tatárok városa:   Börtön (választás: csodaszarvas (varázserővel) elejtése, hogy elengedjenek || párbaj a törzsfőnökkel)
+17. Kutyafejű tatárok erdeje:   szarvas vadászat
 18. Remete:                     Megtudjuk hogy a királyságot egy gonosz sárkány fenyegeti és a legyőzője megkapja a királylányt és a királyság felét. ÉS Elmondja hogy a királyhoz 2 úton lehet eljutni
 19. Pokol:                      Találkozunk a Hétszűnyü Kapanyányi Monyókkal. Megfejtjük a találós kérdését || Megküzdünk vele
 20. Tündérország:               (Csak ha megemntettük a tündérkirálylányt) A továbbjutáshoz segítenünk kell egy tündernek || Viccet kell mesélni a tündérkirálynak(nem sikerül -> segíteni kell)
@@ -41,23 +41,22 @@ Egy csúszkával tudunk ütni. Ettől függ az ütés sebzése és hogy talált-
 Védekezésnél egy megadott billentyűt kell lenyomnunk egy rövid időn belül hogy kivédjük vagy tompítsuk az ellenfél támadását.
 
 ## Szerencsejáték
-Klasszikus kocka játék || Black jack(ha sok az időnk)
+Black jack(ha sok az időnk)
 
 ## Tárgyak
 ### Fegyverek
-1. Kés(otthon találjuk)
+1. Fakard(otthon találjuk)
 2. Sima kard
 3. Hosszú(kétkezes) kard
 4. Varázskard
-5. Pokolian jó kard
-6. Lézerkard
+5. Lézerkard
 ### Páncélok
-1. Bőr páncél
+1. Szakadt ruha
 2. Sima páncél
 3. Lovagi páncél
 4. Varázspáncél
 5. Sima sisak(hozzáad a páncélzathoz a páncél lecserélése nélkül)
-### Bájitalok
+### Bájital: 
 1. Gyógyító bájital
-2. Sebzésnövelő bájital
-3. Alkohol(gyógyít)
+
+
