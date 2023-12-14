@@ -20,7 +20,7 @@ namespace Game
             Console.Clear();
 
             Locations.Generate();
-            int location = 29;
+            int location = 1;
             do
             {
                 location = Locations.helyek[location].Run();

@@ -48,8 +48,8 @@ namespace Game
                         MiningGame mining2 = new();
                         if (mining2.Mining('l', '1'))
                         {
-                            player.Money += 15;
-                            SlowPrintLine("\nA talált gyémántok eladásával Palkó 20 krajcárra tett szert.");
+                            player.Money += 25;
+                            SlowPrintLine("\nA talált gyémántok eladásával Palkó 25 krajcárra tett szert.");
 
                         }
                         break;
@@ -57,8 +57,8 @@ namespace Game
                         MiningGame mining3 = new();
                         if (mining3.Mining('a', 'e'))
                         {
-                            player.Money += 25;
-                            SlowPrintLine("\nA talált gyémántok eladásával Palkó 30 krajcárra tett szert.");
+                            player.Money += 50;
+                            SlowPrintLine("\nA talált gyémántok eladásával Palkó 50 krajcárra tett szert.");
 
                         }
                         break;
