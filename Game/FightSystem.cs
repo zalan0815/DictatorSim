@@ -37,10 +37,13 @@ namespace Game
         private int mapSize { get { return xMax - 1; } }
         private int xGreenSpot;
 
-        public FightSystem(Player player, Enemy enemy, out bool Victory)
+        private bool hardMode;
+
+        public FightSystem(Player player, Enemy enemy, out bool Victory, bool hardMode = false)
         {
             this.player = player;
             this.enemy = enemy;
+            this.hardMode = hardMode;
             int r = random.Next(0, 2);
             int r2 = r == 0 ? 1 : 0; 
 
@@ -458,7 +461,14 @@ namespace Game
         private void enemyAttack(out int enemyAttacks, out int defeated)
         {
             int maxEnemyAttacks = 15;
-            enemyAttacks = 2 + round / 2;
+            if (!hardMode)
+            {
+                enemyAttacks = 2 + round / 2;
+            }
+            else
+            {
+                enemyAttacks = 5 + round;
+            }
 
             spawnedEnemyId = 0;
             lostDeffence = false;

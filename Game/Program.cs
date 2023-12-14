@@ -10,6 +10,15 @@ namespace Game
 
         static void Main(string[] args)
         {
+            Console.ForegroundColor = ConsoleColor.Blue;
+            for (int i = 0; i < palko.Length; i++)
+            {
+                Console.WriteLine(new string(' ', (Console.WindowWidth - palko[i].Length) / 2) + palko[i]);
+            }
+            Console.ForegroundColor = ConsoleColor.White;
+            SlowPrintSystem.SlowPrint("Nyomj meg egy gombot a folytatáshoz");
+            Console.Clear();
+
             Locations.Generate();
             int location = 1;
             do
