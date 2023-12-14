@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Reflection;
 using System.Windows.Input;
 
 namespace Game
@@ -38,6 +39,7 @@ namespace Game
         private int xGreenSpot;
 
         private bool hardMode;
+        private bool direction = false;
 
         public FightSystem(Player player, Enemy enemy, out bool Victory, bool hardMode = false)
         {
@@ -140,7 +142,16 @@ namespace Game
                 #endregion
                 playerAttack(out Attack[] attackMap);
 
-                Attack attack = attackMap[sliderPostion];
+                if (direction)
+                {
+                    sliderPostion -= 2;
+                }
+                if(sliderPostion < 0)
+                {
+                    sliderPostion = 0;
+                }
+                Attack attack = attackMap[(sliderPostion < attackMap.Length -1 ? sliderPostion : attackMap.Length - 1)];
+                
                 Thread.Sleep(100);
 
                 Console.BackgroundColor = ConsoleColor.White;
@@ -240,7 +251,7 @@ namespace Game
 
         private Attack[] generateMap()
         {
-            xGreenSpot = random.Next(mapSize - player.SliderSpeed);
+            xGreenSpot = random.Next(3,mapSize - player.SliderSpeed);
             int xGreenSpotRight = xGreenSpot + player.SliderSpeed - 1;
             /* MapSize (exc. GreenSpots):
              * 25% - 0%      dmg    - DarkRed
@@ -345,7 +356,7 @@ namespace Game
                 int travelTime = 2000 /mapSize;
 
                 int currentRound = attackMap[0].Round;
-                bool direction = false;
+                direction = false;
 
                 byte[][] directionPrints = generateSliderMoveActions(true, attackMap);
                 byte[][] notDirectionPrints = generateSliderMoveActions(false, attackMap);
@@ -424,7 +435,7 @@ namespace Game
                         stdout.Write(printData, 0, printData.Length);
                     }
                 }
-
+                displayedSliderPosition = sliderPostion;
             });
 
         }
@@ -458,8 +469,10 @@ namespace Game
         #endregion
 
         #region ENEMY_ATTACK
-        private void enemyAttack(out int enemyAttacks, out int defeated)
+        private void enemyAttack(out int realLen, out int defeated)
         {
+            int enemyAttacks;
+            realLen = 0;
             int maxEnemyAttacks = 15;
             if (!hardMode)
             {
@@ -487,22 +500,29 @@ namespace Game
                 }
 
                 int rX, rY;
+                int attempts = 0;
                 do
                 {
                     rX = random.Next(4, xMax - 4);
                     rY = random.Next(9, yMax - 4);
+                    attempts++;
                 }
-                while (isEnemyCloseToSpawn(spawnList, rX, rY));
+                while (isEnemyCloseToSpawn(spawnList, rX, rY) && attempts < 5);
+                if(attempts >= 5)
+                {
+                    break;
+                }
                 
                 spawnList[i] = new EnemyAttack() { X = rX, Y = rY, Char = charsToSpawn[random.Next(0,charsToSpawn.Length)], Round = round, Defeated = false, ID=i};
-                
+                realLen = i+1;
             }
             int howLongTillSpawn = 0;
+            EnemyAttack[] currentSpawnList = new List<EnemyAttack>(spawnList).ToArray();
             for (int i = 0; i < spawnList.Length; i++)
             {
                 spawnList[i].howLongTillSpawn = howLongTillSpawn;
                 spawnList[i].coordinates = generatePatternForEnemyAttack(spawnList[i].X, spawnList[i].Y);
-                spawnEnemyAttacks(i, waitMin, waitMax);
+                spawnEnemyAttacks(currentSpawnList, i, waitMin, waitMax);
 
 
                 howLongTillSpawn += random.Next(waitMin, waitMax);
@@ -510,7 +530,7 @@ namespace Game
             #endregion
 
             defeated = 0;
-            while (spawnedEnemyId < spawnList.Length || defeated < spawnList.Length)
+            while (spawnedEnemyId < realLen || defeated < realLen)
             {
                 while (!Console.KeyAvailable)
                 {
@@ -567,12 +587,12 @@ namespace Game
             return false;
         }
 
-        private async Task spawnEnemyAttacks(int id, int waitMin, int waitMax)
+        private async Task spawnEnemyAttacks(EnemyAttack[] currentSpawnList,int id, int waitMin, int waitMax)
         {
             await Task.Run(() =>
             {
                 Task.Delay(spawnList[id].howLongTillSpawn).Wait();
-                if (lostDeffence || spawnList[id].Round != round)
+                if (lostDeffence || currentSpawnList[id].Round != round)
                 {
                     return;
                 }
@@ -586,7 +606,7 @@ namespace Game
                 for (int i = 1; i < maxParts + 1; i++)
                 {
                     Task.Delay(enemy.Speed / maxParts).Wait();
-                    if (lostDeffence || spawnList[id].Round != round || spawnList[id].Defeated)
+                    if (lostDeffence || currentSpawnList[id].Round != round || spawnList[id].Defeated)
                     {
                         return;
                     }
