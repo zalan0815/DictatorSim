@@ -33,7 +33,7 @@ namespace Game
                 {
                     case 0:
                         MiningGame mining1 = new();
-                        if (mining1.Mining('0', 'O', false))
+                        if (mining1.Mining('0', 'O'))
                         {
                             player.Money += 10;
                             SlowPrintLine("\nA talált gyémántok eladásával Palkó 10 krajcárra tett szert.");
@@ -41,7 +41,7 @@ namespace Game
                         break;
                     case 1:
                         MiningGame mining2 = new();
-                        if (mining2.Mining('l', '1', false))
+                        if (mining2.Mining('l', '1'))
                         {
                             player.Money += 15;
                             SlowPrintLine("\nA talált gyémántok eladásával Palkó 100 krajcárra tett szert.");
@@ -50,7 +50,7 @@ namespace Game
                         break;
                     case 2:
                         MiningGame mining3 = new();
-                        if (mining3.Mining('a', 'e', false))
+                        if (mining3.Mining('a', 'e'))
                         {
                             player.Money += 25;
                             SlowPrintLine("\nA talált gyémántok eladásával Palkó 1000 krajcárra tett szert.");
@@ -195,6 +195,9 @@ namespace Game
                         }
                         SlowPrintLine("Palkó itt nem találta meg a zsebkendőt.");
                         break;
+                    default:
+                        SlowPrintLine("Itt már nézted!");
+                        return Tovabb(helyek[20]);
                 }
                 choice = Valasztas(ref currentLocation, "Szekrény megnézése", "Padlás megnézése", "Vissza");
             }
@@ -226,6 +229,9 @@ namespace Game
                         }
                         SlowPrintLine("Palkó itt nem találta meg a zsebkendőt.");
                         break;
+                    default:
+                        SlowPrintLine("Itt már nézted!");
+                        return Tovabb(helyek[20]);
                 }
                 choice = Valasztas(ref currentLocation, "Pince megnézése", "Kandalló megnézése", "Vissza");
             }
@@ -257,6 +263,9 @@ namespace Game
                         }
                         SlowPrintLine("Palkó itt nem találta meg a zsebkendőt.");
                         break;
+                    default:
+                        SlowPrintLine("Itt már nézted!");
+                        return Tovabb(helyek[20]);
                 }
                 choice = Valasztas(ref currentLocation, "Az ott lakó tündér zsebének mengnézése", "Benézés az ágy alá", "Vissza");
             }
@@ -328,7 +337,7 @@ namespace Game
             do
             {
                 currentLocation.ChosenOptions[2] = false;
-                choice = Valasztas(ref currentLocation, "Black Jack", "Ivás - 100 krajcár", "Vissza a városba");
+                choice = Valasztas(ref currentLocation, "Black Jack", "Ivás - 100 krajcár", "Vissza");
 
                 switch (choice)
                 {
@@ -353,6 +362,10 @@ namespace Game
                 }
 
             } while (choice != 2);
+            if (won)
+            {
+                return Tovabb(helyek[30]);
+            }
             return Tovabb(helyek[25]);
         }
         public static int hely_28(ref LocationData currentLocation)
@@ -437,18 +450,23 @@ namespace Game
         }
         public static int hely_30(ref LocationData currentLocation)
         {
-            SlowPrintLine("Elérkeztünk hát mesés történetünk végéhez. Palkó a Kacsalábon forgó kacsalábon forgó palotájában boldogan élt a királylánnyal és családjával míg meg nem halt.");
+            if (!won)
+            {
+                SlowPrintLine("Elérkeztünk hát mesés történetünk végéhez. Palkó a Kacsalábon forgó kacsalábon forgó palotájában boldogan élt a királylánnyal és családjával míg meg nem halt.");
+                won = true;
+            }
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("                                      EEEE                                                     \r\n                                     E::E         \r\n                                    E::E\r\n                                   EEEE                                              \r\nVVVVVVVV           VVVVVVVVEEEEEEEEEEEEEEEEEEEEEE       GGGGGGGGGGGGGEEEEEEEEEEEEEEEEEEEEEE\r\nV::::::V           V::::::VE::::::::::::::::::::E    GGG::::::::::::GE::::::::::::::::::::E\r\nV::::::V           V::::::VE::::::::::::::::::::E  GG:::::::::::::::GE::::::::::::::::::::E\r\nV::::::V           V::::::VEE::::::EEEEEEEEE::::E G:::::GGGGGGGG::::GEE::::::EEEEEEEEE::::E\r\n V:::::V           V:::::V   E:::::E       EEEEEEG:::::G       GGGGGG  E:::::E       EEEEEE\r\n  V:::::V         V:::::V    E:::::E            G:::::G                E:::::E             \r\n   V:::::V       V:::::V     E::::::EEEEEEEEEE  G:::::G                E::::::EEEEEEEEEE   \r\n    V:::::V     V:::::V      E:::::::::::::::E  G:::::G    GGGGGGGGGG  E:::::::::::::::E   \r\n     V:::::V   V:::::V       E:::::::::::::::E  G:::::G    G::::::::G  E:::::::::::::::E   \r\n      V:::::V V:::::V        E::::::EEEEEEEEEE  G:::::G    GGGGG::::G  E::::::EEEEEEEEEE   \r\n       V:::::V:::::V         E:::::E            G:::::G        G::::G  E:::::E             \r\n        V:::::::::V          E:::::E       EEEEEEG:::::G       G::::G  E:::::E       EEEEEE\r\n         V:::::::V         EE::::::EEEEEEEE:::::E G:::::GGGGGGGG::::GEE::::::EEEEEEEE:::::E\r\n          V:::::V          E::::::::::::::::::::E  GG:::::::::::::::GE::::::::::::::::::::E\r\n           V:::V           E::::::::::::::::::::E    GGG::::::GGG:::GE::::::::::::::::::::E\r\n            VVV            EEEEEEEEEEEEEEEEEEEEEE       GGGGGG   GGGGEEEEEEEEEEEEEEEEEEEEEE");
             Console.ForegroundColor = ConsoleColor.White;
             SlowPrintLine("Szeretnél-e vissza menni a kocsmába még szórakozni?");
             int choice = Valasztas(ref currentLocation, "igen", "nem");
+            currentLocation.ChosenOptions[0] = false;
             switch (choice)
             {
                 case 0:
                     return 26;
                 case 1:
-                    return 0;
+                    return Credits.CreditScreen();
             }
             return 0;
         }   

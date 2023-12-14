@@ -142,6 +142,7 @@ namespace Game
         {
             HealPotions--;
             Health = MaxHealth;
+            Program.PrintPlayerStat();
         }
 
         private void addHealthByItem(Item item)

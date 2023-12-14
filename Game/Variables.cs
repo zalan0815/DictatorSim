@@ -43,6 +43,8 @@ namespace Game
 
         public static bool aldas = false;
 
+        public static bool won = false;
+
         public static bool helping = false;
         public static bool found = false;
         public static bool helped = false;
