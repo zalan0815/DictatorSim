@@ -908,6 +908,7 @@ namespace Game
                         SlowPrintLine("- \"START!!\"");
                         bool w;
                         FightSystem törzsfőnökFight = new FightSystem(player, tFonok, out w);
+                        PrintPlayerStat();
                         if (w)
                         {
                             SlowPrintLine("Palkó nagy nehezen legyőzte a törzsfőnököt.");
