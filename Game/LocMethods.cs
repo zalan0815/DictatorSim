@@ -280,7 +280,14 @@ namespace Game
         {
             SlowPrintLine("Az Udvari bolond tündér a Tündérkirály palotájába vezette Palkót.");
             SlowPrintLine("- \"A király szomorú és szeretne hallani egy jó viccet, de én nem tudok jó viccet. Légyszíves mesélj neki egy jó viccet.\"");
-            int choice = Valasztas(ref currentLocation, "vicc1", "vicc2");
+            SlowPrintLine("Palkó sajnos szörnyű vicceket ismer csak, de azért megpróbálja.");
+            string vicc1 = viccek[rnd.Next(0, viccek.Length)];
+            string vicc2 = viccek[rnd.Next(0, viccek.Length)];
+            while (vicc1 == vicc2) 
+            {
+                vicc2 = viccek[rnd.Next(0, viccek.Length)];
+            } 
+            int choice = Valasztas(ref currentLocation, vicc1, vicc2);
             switch (choice)
             {
                 case 0:
