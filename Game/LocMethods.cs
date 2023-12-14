@@ -702,7 +702,14 @@ namespace Game
             SlowPrintLine("Először benézett az ablakon. Semmi mozgást nem látott.");
             SlowPrintLine("Gondolta belopakodik az ajtón és megnézi hol vannak a törpök.");
             SlowPrintLine("Amint belépett az ajtón a fejére ugrott Sziamiau végig karmolva a hátát.");
-            player.Health -= 5;
+            if (player.Health <= 5)
+            {
+                player.Health = 1;
+            }
+            else
+            {
+                player.Health -= 5;
+            }
             PrintPlayerStat();
             SlowPrintLine("Palkó nagyon erős fájdalmat érzett, de nem pocsékolhatta idejét, mert a macska már fel is keltette az alvó Hókuszpókot.");
             SlowPrintLine("Az öreg abban a pillanatban már fel is kapta a varázspálcáját, és egy varázslatot indított el Palkó felé.");
