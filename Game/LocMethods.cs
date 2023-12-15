@@ -347,7 +347,7 @@ namespace Game
             do
             {
                 currentLocation.ChosenOptions[2] = false;
-                choice = Valasztas(ref currentLocation, "Black Jack", "Ivás - 100 krajcár", "Vissza");
+                choice = Valasztas(ref currentLocation, "Black Jack", "Ivás - 10 krajcár", "Varázsital - 20 krajcár", "Hupikék törpikés fagyi - 5 krajcár", "Vissza");
 
                 switch (choice)
                 {
@@ -356,10 +356,10 @@ namespace Game
                         currentLocation.ChosenOptions[0] = false;
                         break;
                     case 1:
-                        if (player.Money >= 100)
+                        if (player.Money >= 10)
                         {
                             SlowPrintLine("Palkó a pulthoz ment, kért egy korsó sört, majd lehúzta.");
-                            player.Money -= 100;
+                            player.Money -= 10;
                             player.Health += 10;
                             PrintPlayerStat();
                             currentLocation.ChosenOptions[1] = false;
@@ -368,6 +368,30 @@ namespace Game
                         SlowPrintLine("Palkó szegény, mint a templom egere! Nem engedheti meg magának a sört.");
                         break;
                     case 2:
+                        if (player.Money >= 20)
+                        {
+                            SlowPrintLine("Palkó a megvásárolt varázsitalt zsebre rakta.");
+                            player.Money -= 20;
+                            player.HealPotions += 1;
+                            PrintPlayerStat();
+                            currentLocation.ChosenOptions[2] = false;
+                            break;
+                        }
+                        SlowPrintLine("Palkó szegény, mint a templom egere! Nem engedheti meg magának a varázsitalt.");
+                        break;
+                    case 3:
+                        if (player.Money >= 5)
+                        {
+                            SlowPrintLine("Palkónak nagyon ízlett a fagyi. Remléjük nem igazi törpből volt.");
+                            player.Money -= 5;
+                            player.Health += 5;
+                            PrintPlayerStat();
+                            currentLocation.ChosenOptions[3] = false;
+                            break;
+                        }
+                        SlowPrintLine("Palkó szegény, mint a templom egere! Nem engedheti meg magának a fagyit.");
+                        break;
+                    case 4:
                         break;
                 }
 
