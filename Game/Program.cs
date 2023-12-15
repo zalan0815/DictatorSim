@@ -26,6 +26,7 @@ namespace Game
                 location = Locations.helyek[location].Run();
             }
             while (Locations.helyek.Length > location && location >= 0);
+            Console.ReadKey(true);
         }
         
         static int getPlayerStatLength()

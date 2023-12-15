@@ -23,7 +23,7 @@ namespace Game
                 Console.WriteLine(new string(' ', (Console.WindowWidth - sorok[i].Length) / 2) + sorok[i]);
                 Thread.Sleep(speed);
             }
-            for (int i = 0; i < sorok.Length - 7; i++)
+            for (int i = 0; i < sorok.Length - 8; i++)
             {
                 Console.WriteLine();
                 Thread.Sleep(speed);
