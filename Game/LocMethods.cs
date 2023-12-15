@@ -395,7 +395,7 @@ namespace Game
                         break;
                 }
 
-            } while (choice != 2);
+            } while (choice != 4);
             if (won)
             {
                 return Tovabb(helyek[30]);
